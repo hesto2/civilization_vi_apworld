@@ -4,6 +4,9 @@ This guide is meant to help you get up and running with Civlization VI in your A
 
 Windows is the only OS this has been tested on but feel free to let me know if it works on macOS as well. The setup steps should be the same with the exception of where files are located.
 
+## How does this work with Archipelago? What is different?
+Take a look at [this doc](https://github.com/hesto2/civilization_vi_apworld/blob/main/docs/en_Civilization%20VI.md) to get more information regarding what to expect here!
+
 ## Requirements
 
 The following are required in order to play Civ VI in Archipelago
@@ -86,3 +89,6 @@ When configuring your game, make sure to start the game in the Ancient Era and l
 
 - If you do not see the client in the launcher, ensure you have placed the `civ6.apworld` in the correct folder (the
   `lib/worlds` folder of your Archipelago installation).
+
+## Feedback
+In the offical [Archipelago Discord](https://discord.com/invite/8Z65BR2) under the `future-game-design` channel there is a `civilization-vi` thread. Feel free to ping `@hesto2` with any bugs/thoughts/complaints/wishes/jokes you may have!
