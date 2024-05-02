@@ -1,5 +1,6 @@
 import json
 import os
+import pkgutil
 from typing import Dict, List
 
 
@@ -20,8 +21,8 @@ def get_progressive_items() -> Dict[str, List[str]]:
      item names as the value"""
     file_path = os.path.join(os.path.dirname(
         __file__), 'data/progressive_districts.json')
-    with open(file_path) as file:
-        progressive_districts = json.load(file)
+    progressive_districts = json.loads(
+        pkgutil.get_data(__name__, file_path).decode())
     return progressive_districts
 
 

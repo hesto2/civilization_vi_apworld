@@ -1,8 +1,8 @@
 from logging import Logger
 from typing import List
 
-from worlds.civ_6.Items import CivVIItemData
-from worlds.civ_6.TunerClient import TunerClient, TunerConnectionException, TunerTimeoutException
+from .Items import CivVIItemData
+from .TunerClient import TunerClient, TunerConnectionException, TunerTimeoutException
 
 
 class CivVIInterface:

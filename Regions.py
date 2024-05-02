@@ -1,9 +1,10 @@
+import pkgutil
 import typing
 from BaseClasses import CollectionState, Region
 from worlds.AutoWorld import World
-from worlds.civ_6.Enum import EraType
-from worlds.civ_6.Locations import CivVILocation
-from worlds.civ_6.ProgressiveItems import get_flat_progressive_items
+from .Enum import EraType
+from .Locations import CivVILocation
+from .ProgressiveItems import get_flat_progressive_items
 from .Options import CivVIOptions
 import json
 import os
@@ -14,8 +15,8 @@ def get_required_items_for_era(era: EraType):
     era_required_items = {}
     file_path = os.path.join(os.path.dirname(
         __file__), 'data/era_required_items.json')
-    with open(file_path) as file:
-        era_required_items = json.load(file)
+    era_required_items = json.loads(
+        pkgutil.get_data(__name__, file_path).decode())
     return era_required_items[era.value]
 
 
@@ -25,8 +26,8 @@ def get_cumulative_prereqs_for_era(end_era: EraType, exclude_progressive_items: 
     era_required_items = {}
     file_path = os.path.join(os.path.dirname(
         __file__), 'data/era_required_items.json')
-    with open(file_path) as file:
-        era_required_items = json.load(file)
+    era_required_items = json.loads(
+        pkgutil.get_data(__name__, file_path).decode())
 
     for era in EraType:
         cumulative_prereqs += era_required_items[era.value]
@@ -51,37 +52,37 @@ def has_required_items(state: CollectionState, era: EraType, player: int, has_pr
     if has_progressive_items:
         file_path = os.path.join(os.path.dirname(
             __file__), 'data/progressive_districts.json')
-        with open(file_path) as file:
-            progressive_districts = json.load(file)
+        progressive_districts = json.loads(
+            pkgutil.get_data(__name__, file_path).decode())
 
-            # Verify we can still reach non progressive items
-            all_previous_items_no_progression = get_cumulative_prereqs_for_era(
-                era, True)
-            if not state.has_all(all_previous_items_no_progression, player):
+        # Verify we can still reach non progressive items
+        all_previous_items_no_progression = get_cumulative_prereqs_for_era(
+            era, True)
+        if not state.has_all(all_previous_items_no_progression, player):
+            return False
+
+        # Verify we have the correct amount of progressive items
+        all_previous_items = get_cumulative_prereqs_for_era(
+            era, False)
+        required_counts: typing.Dict[str, int] = {}
+
+        for key, value in progressive_districts.items():
+            required_counts[key] = 0
+            for item in all_previous_items:
+                if item in value:
+                    required_counts[key] += 1
+
+        for key, value in required_counts.items():
+            has_amount = state.has(key, player, required_counts[key])
+            if not has_amount:
                 return False
-
-            # Verify we have the correct amount of progressive items
-            all_previous_items = get_cumulative_prereqs_for_era(
-                era, False)
-            required_counts: typing.Dict[str, int] = {}
-
-            for key, value in progressive_districts.items():
-                required_counts[key] = 0
-                for item in all_previous_items:
-                    if item in value:
-                        required_counts[key] += 1
-
-            for key, value in required_counts.items():
-                has_amount = state.has(key, player, required_counts[key])
-                if not has_amount:
-                    return False
-            return True
+        return True
     else:
         file_path = os.path.join(os.path.dirname(
             __file__), 'data/era_required_items.json')
-        with open(file_path) as file:
-            era_required_items = json.load(file)
-            return state.has_all(era_required_items[era.value], player)
+        era_required_items = json.loads(
+            pkgutil.get_data(__name__, file_path).decode())
+        return state.has_all(era_required_items[era.value], player)
 
 
 def create_regions(world: World, options: CivVIOptions, player: int):

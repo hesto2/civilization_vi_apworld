@@ -1,121 +1,107 @@
-import weakref
-from enum import Enum, auto
-from typing import Optional, Callable, List, Iterable
+import os
+from typing import Dict
 
-from Utils import local_path
+import Utils
+from .Container import CivVIContainer, generate_new_items
+from .Enum import CivVICheckType
+from .Items import CivVIItemData, generate_item_table, CivVIItem
+from .Locations import CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table
+from .Options import CivVIOptions
+from .Regions import create_regions
+from BaseClasses import Item, MultiWorld, Tutorial
+from worlds.AutoWorld import World, WebWorld
+from worlds.LauncherComponents import Component, SuffixIdentifier, Type, components, launch_subprocess
 
-
-class Type(Enum):
-    TOOL = auto()
-    MISC = auto()
-    CLIENT = auto()
-    ADJUSTER = auto()
-    FUNC = auto()  # do not use anymore
-    HIDDEN = auto()
-
-
-class Component:
-    display_name: str
-    type: Type
-    script_name: Optional[str]
-    frozen_name: Optional[str]
-    icon: str  # just the name, no suffix
-    cli: bool
-    func: Optional[Callable]
-    file_identifier: Optional[Callable[[str], bool]]
-
-    def __init__(self, display_name: str, script_name: Optional[str] = None, frozen_name: Optional[str] = None,
-                 cli: bool = False, icon: str = 'icon', component_type: Optional[Type] = None,
-                 func: Optional[Callable] = None, file_identifier: Optional[Callable[[str], bool]] = None):
-        self.display_name = display_name
-        self.script_name = script_name
-        self.frozen_name = frozen_name or f'Archipelago{script_name}' if script_name else None
-        self.icon = icon
-        self.cli = cli
-        if component_type == Type.FUNC:
-            from Utils import deprecate
-            deprecate(f"Launcher Component {self.display_name} is using Type.FUNC Type, which is pending removal.")
-            component_type = Type.MISC
-
-        self.type = component_type or (
-            Type.CLIENT if "Client" in display_name else
-            Type.ADJUSTER if "Adjuster" in display_name else Type.MISC)
-        self.func = func
-        self.file_identifier = file_identifier
-
-    def handles_file(self, path: str):
-        return self.file_identifier(path) if self.file_identifier else False
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.display_name})"
-
-processes = weakref.WeakSet()
-
-def launch_subprocess(func: Callable, name: str = None):
-    global processes
-    import multiprocessing
-    process = multiprocessing.Process(target=func, name=name)
-    process.start()
-    processes.add(process)
-
-class SuffixIdentifier:
-    suffixes: Iterable[str]
-
-    def __init__(self, *args: str):
-        self.suffixes = args
-
-    def __call__(self, path: str):
-        if isinstance(path, str):
-            for suffix in self.suffixes:
-                if path.endswith(suffix):
-                    return True
-        return False
+def run_client():
+    print("Running Civ6 Client")
+    from Civ6Client import main  # lazy import
+    launch_subprocess(main, name="Civ6Client")
 
 
-def launch_textclient():
-    import CommonClient
-    launch_subprocess(CommonClient.run_as_textclient, name="TextClient")
+components.append(
+    Component("Civ6 Client", func=run_client, component_type=Type.CLIENT, file_identifier=SuffixIdentifier(".apcivvi"))
+)
 
 
-components: List[Component] = [
-    # Launcher
-    Component('Launcher', 'Launcher', component_type=Type.HIDDEN),
-    # Core
-    Component('Host', 'MultiServer', 'ArchipelagoServer', cli=True,
-              file_identifier=SuffixIdentifier('.archipelago', '.zip')),
-    Component('Generate', 'Generate', cli=True),
-    Component('Text Client', 'CommonClient', 'ArchipelagoTextClient', func=launch_textclient),
-    Component('Links Awakening DX Client', 'LinksAwakeningClient',
-              file_identifier=SuffixIdentifier('.apladx')),
-    Component('LttP Adjuster', 'LttPAdjuster'),
-    # Minecraft
-    Component('Minecraft Client', 'MinecraftClient', icon='mcicon', cli=True,
-              file_identifier=SuffixIdentifier('.apmc')),
-    # Ocarina of Time
-    Component('OoT Client', 'OoTClient',
-              file_identifier=SuffixIdentifier('.apz5')),
-    Component('OoT Adjuster', 'OoTAdjuster'),
-    # FF1
-    Component('FF1 Client', 'FF1Client'),
-    # TLoZ
-    Component('Zelda 1 Client', 'Zelda1Client', file_identifier=SuffixIdentifier('.aptloz')),
-    # ChecksFinder
-    Component('ChecksFinder Client', 'ChecksFinderClient'),
-    # Starcraft 2
-    Component('Starcraft 2 Client', 'Starcraft2Client'),
-    # Wargroove
-    Component('Wargroove Client', 'WargrooveClient'),
-    # Zillion
-    Component('Zillion Client', 'ZillionClient',
-              file_identifier=SuffixIdentifier('.apzl')),
-
-    #MegaMan Battle Network 3
-    Component('MMBN3 Client', 'MMBN3Client', file_identifier=SuffixIdentifier('.apbn3'))
-]
+class CivVIWeb(WebWorld):
+    tutorials = [Tutorial(
+        "Multiworld Setup Guide",
+        "A guide to setting up Civlization VI for MultiWorld.",
+        "English",
+        "setup_en.md",
+        "setup/en",
+        ["hesto2"]
+    )]
 
 
-icon_paths = {
-    'icon': local_path('data', 'icon.png'),
-    'mcicon': local_path('data', 'mcicon.png'),
-    'discord': local_path('data', 'discord-mark-blue.png'),
-}
+class CivVIWorld(World):
+    """
+    Civilization VI is a turn-based strategy video game in which one or more players compete alongside computer-controlled AI opponents to grow their individual civilization from a small tribe to control the entire planet across several periods of development.
+    """
+
+    game: str = "Civilization VI"
+    topology_present = False
+    options_dataclass = CivVIOptions
+
+    web = CivVIWeb()
+
+    item_name_to_id = {
+        item.name: item.code for item in generate_item_table().values()}
+    location_name_to_id = {
+        location.name: location.code for location in generate_flat_location_table().values()}
+
+    item_table: Dict[str, CivVIItemData] = {}
+    location_by_era: Dict[EraType, Dict[str, CivVILocationData]]
+
+    data_version = 1
+    required_client_version = (0, 4, 5)
+
+    def __init__(self, multiworld: "MultiWorld", player: int):
+        super().__init__(multiworld, player)
+        self.location_by_era = generate_era_location_table()
+
+        self.location_table = {}
+        self.item_table = generate_item_table()
+
+        for _era, locations in self.location_by_era.items():
+            for _item_name, location in locations.items():
+                self.location_table[location.name] = location
+
+    def create_regions(self):
+        create_regions(self, self.options, self.player)
+
+    def create_item(self, name: str) -> Item:
+        item: CivVIItemData = self.item_table[name]
+
+        if self.options.progressive_districts and item.progression_name != None:
+            item = self.item_table[item.progression_name]
+
+        return CivVIItem(item, self.player)
+
+    def create_items(self):
+        for item_name, data in self.item_table.items():
+          # Don't add progressive items to the itempool here, instead add the base item and have create_item convert it
+            if data.item_type == CivVICheckType.PROGRESSIVE:
+                continue
+            self.multiworld.itempool += [self.create_item(
+                item_name)]
+
+    def fill_slot_data(self):
+        return {
+            "progressive_districts": self.options.progressive_districts.value,
+            "death_link": self.options.death_link.value,
+
+        }
+
+    def generate_output(self, output_directory: str):
+      # fmt: off
+        mod_name = f"AP-{self.multiworld.get_file_safe_player_name(self.player)}"
+      # fmt: on
+        mod_dir = os.path.join(
+            output_directory, mod_name + "_" + Utils.__version__)
+        mod_files = {
+            f"NewItems.xml": generate_new_items(self),
+        }
+        mod = CivVIContainer(mod_files, mod_dir, output_directory, self.player,
+                             self.multiworld.get_file_safe_player_name(self.player))
+        mod.write()

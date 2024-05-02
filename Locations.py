@@ -1,9 +1,10 @@
 import os
+import pkgutil
 from typing import List, Optional, Dict
 from BaseClasses import Location, Region
 import json
 
-from worlds.civ_6.Enum import CivVICheckType, EraType
+from .Enum import CivVICheckType, EraType
 
 CIV_VI_AP_LOCATION_ID_BASE = 5041000
 
@@ -76,14 +77,14 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
     current_directory = os.path.dirname(current_file_path)
     new_tech_prereq_path = os.path.join(
         current_directory, 'data', 'new_tech_prereqs.json')
-    with open(new_tech_prereq_path) as f:
-        new_tech_prereqs = json.load(f)
+    new_tech_prereqs = json.loads(
+        pkgutil.get_data(__name__, new_tech_prereq_path).decode())
 
     new_tech_path = os.path.join(
         current_directory, 'data', 'new_tech.json')
 
-    with open(new_tech_path) as f:
-        new_techs = json.load(f)
+    new_techs = json.loads(pkgutil.get_data(
+        __name__, new_tech_path).decode())
 
     era_locations = {}
     id_base = 0
@@ -102,14 +103,14 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
 # Civics
     new_civic_prereq_path = os.path.join(
         current_directory, 'data', 'new_civic_prereqs.json')
-    with open(new_civic_prereq_path) as f:
-        new_civic_prereqs = json.load(f)
+    new_civic_prereqs = json.loads(
+        pkgutil.get_data(__name__, new_civic_prereq_path).decode())
 
     new_civic_path = os.path.join(
         current_directory, 'data', 'new_civics.json')
 
-    with open(new_civic_path) as f:
-        new_civics = json.load(f)
+    new_civics = json.loads(pkgutil.get_data(
+        __name__, new_civic_path).decode())
 
     for data in new_civics:
         era_type = data['EraType']

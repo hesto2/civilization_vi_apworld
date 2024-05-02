@@ -6,12 +6,12 @@ from typing import Dict, List
 from CommonClient import ClientCommandProcessor, CommonContext, get_base_parser, logger, server_loop, gui_enabled
 from NetUtils import ClientStatus, NetworkItem
 import Utils
-from worlds.civ_6.CivVIInterface import CivVIInterface
-from worlds.civ_6.Enum import CivVICheckType
-from worlds.civ_6.Items import CivVIItemData, generate_item_table
-from worlds.civ_6.Locations import generate_era_location_table
-from worlds.civ_6.ProgressiveItems import get_progressive_items
-from worlds.civ_6.TunerClient import TunerErrorException
+from .CivVIInterface import CivVIInterface
+from .Enum import CivVICheckType
+from .Items import CivVIItemData, generate_item_table
+from .Locations import generate_era_location_table
+from .ProgressiveItems import get_progressive_items
+from .TunerClient import TunerErrorException
 
 
 class CivVICommandProcessor(ClientCommandProcessor):

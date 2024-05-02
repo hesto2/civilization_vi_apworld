@@ -1,10 +1,11 @@
 from enum import Enum
 import json
 import os
+import pkgutil
 from typing import Dict, List
 from BaseClasses import Item, ItemClassification
-from worlds.civ_6.Enum import CivVICheckType
-from worlds.civ_6.ProgressiveItems import get_flat_progressive_items, get_progressive_items
+from .Enum import CivVICheckType
+from .ProgressiveItems import get_flat_progressive_items, get_progressive_items
 CIV_VI_AP_ITEM_ID_BASE = 5041000
 
 
@@ -55,16 +56,16 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     existing_tech_path = os.path.join(
         current_directory, 'data', 'existing_tech.json')
 
-    with open(existing_tech_path) as f:
-        existing_techs = json.load(f)
+    existing_techs = json.loads(pkgutil.get_data(
+        __name__, existing_tech_path).decode())
 
     file_path = os.path.join(os.path.dirname(
         __file__), 'data/era_required_items.json')
     required_items: List[str] = []
-    with open(file_path) as file:
-        era_required_items = json.load(file)
-        for key, value in era_required_items.items():
-            required_items += value
+    era_required_items = json.loads(
+        pkgutil.get_data(__name__, file_path).decode())
+    for key, value in era_required_items.items():
+        required_items += value
 
     progresive_items = get_flat_progressive_items()
 
@@ -91,8 +92,9 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
         current_directory, 'data', 'existing_civics.json')
     civic_id_base = 0
 
-    with open(existing_civics_path) as f:
-        existing_civics = json.load(f)
+    existing_civics = json.loads(
+        pkgutil.get_data(__name__, existing_civics_path).decode())
+
     for civic in existing_civics:
         name = civic["Type"]
         progression_name = None

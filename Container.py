@@ -4,9 +4,9 @@ from typing import List
 import zipfile
 from worlds.Files import APContainer
 
-from worlds.civ_6.Enum import CivVICheckType
-from worlds.civ_6.Locations import CivVILocation, CivVILocationData
-from worlds.civ_6.Options import CivVIOptions
+from .Enum import CivVICheckType
+from .Locations import CivVILocation, CivVILocationData
+from .Options import CivVIOptions
 
 
 # Python fstrings don't allow backslashes, so we use this workaround

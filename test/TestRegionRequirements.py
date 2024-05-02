@@ -1,7 +1,8 @@
 import json
 import os
-from worlds.civ_6.Enum import EraType
-from worlds.civ_6.ProgressiveItems import convert_items_to_have_progression
+import pkgutil
+from ..Enum import EraType
+from ..ProgressiveItems import convert_items_to_have_progression
 from . import CivVITestBase
 
 
@@ -13,9 +14,9 @@ class TestNonProgressiveRegionRequirements(CivVITestBase):
     def collect_items_for_era(self, era: EraType) -> None:
         file_path = os.path.join(os.path.dirname(
             __file__), '../data/era_required_items.json')
-        with open(file_path) as file:
-            era_required_items = json.load(file)
-            self.collect_by_name(era_required_items[era.value])
+        era_required_items = json.loads(
+            pkgutil.get_data(__name__, file_path).decode())
+        self.collect_by_name(era_required_items[era.value])
 
     def test_eras_are_accessible_without_progressive_districts(self) -> None:
         state = self.multiworld.state
@@ -68,11 +69,11 @@ class TestProgressiveRegionRequirements(CivVITestBase):
     def collect_items_for_era_progressive(self, era: EraType) -> None:
         file_path = os.path.join(os.path.dirname(
             __file__), '../data/era_required_items.json')
-        with open(file_path) as file:
-            era_progression_items = json.load(file)
-            progressive_items = convert_items_to_have_progression(
-                era_progression_items[era.value])
-            self.collect_by_name(progressive_items)
+        era_progression_items = json.loads(
+            pkgutil.get_data(__name__, file_path).decode())
+        progressive_items = convert_items_to_have_progression(
+            era_progression_items[era.value])
+        self.collect_by_name(progressive_items)
 
     def test_eras_are_accessible_with_progressive_districts(self) -> None:
         state = self.multiworld.state

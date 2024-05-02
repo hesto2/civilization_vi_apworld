@@ -114,7 +114,7 @@ function cp_data() {
     echo "=> Copying over the extra data"
     cp --verbose ${root}/LICENSE.md ${destdir}
     cp --verbose ${root}/README.md ${destdir}
-    cp --verbose "${root}/The Wind Waker.yaml" ${destdir}
+    cp --verbose "${root}/Civilization VI.yaml" ${destdir}
 }
 
 ##
@@ -160,9 +160,10 @@ function main() {
         local bundle="${bundle_base}-${tag}"
         local destdir="${target_path}/${bundle}"
 
-        for platform in "${SUPPORTED_PLATFORMS[@]}"; do
-            get_deps "${platform}" "${project}/requirements.txt" "${destdir}/lib"
-        done
+        # Commented out since we don't have any dependencies for now.
+        # for platform in "${SUPPORTED_PLATFORMS[@]}"; do
+        #     get_deps "${platform}" "${project}/requirements.txt" "${destdir}/lib"
+        # done
         mk_apworld "${project}" "${destdir}"
         cp_data "${project}" "${destdir}"
         bundle "${destdir}" "${target_path}/${bundle}.zip"
