@@ -1,0 +1,382 @@
+[
+  {
+    "Technology": "TECH_ARCHERY",
+    "PrereqTech": "TECH_ANIMAL_HUSBANDRY"
+  },
+  {
+    "Technology": "TECH_WRITING",
+    "PrereqTech": "TECH_POTTERY"
+  },
+  {
+    "Technology": "TECH_IRRIGATION",
+    "PrereqTech": "TECH_POTTERY"
+  },
+  {
+    "Technology": "TECH_MASONRY",
+    "PrereqTech": "TECH_MINING"
+  },
+  {
+    "Technology": "TECH_BRONZE_WORKING",
+    "PrereqTech": "TECH_MINING"
+  },
+  {
+    "Technology": "TECH_THE_WHEEL",
+    "PrereqTech": "TECH_MINING"
+  },
+  {
+    "Technology": "TECH_SHIPBUILDING",
+    "PrereqTech": "TECH_SAILING"
+  },
+  {
+    "Technology": "TECH_CELESTIAL_NAVIGATION",
+    "PrereqTech": "TECH_SAILING"
+  },
+  {
+    "Technology": "TECH_CELESTIAL_NAVIGATION",
+    "PrereqTech": "TECH_ASTROLOGY"
+  },
+  {
+    "Technology": "TECH_CURRENCY",
+    "PrereqTech": "TECH_WRITING"
+  },
+  {
+    "Technology": "TECH_HORSEBACK_RIDING",
+    "PrereqTech": "TECH_ARCHERY"
+  },
+  {
+    "Technology": "TECH_IRON_WORKING",
+    "PrereqTech": "TECH_BRONZE_WORKING"
+  },
+  {
+    "Technology": "TECH_MATHEMATICS",
+    "PrereqTech": "TECH_CURRENCY"
+  },
+  {
+    "Technology": "TECH_CONSTRUCTION",
+    "PrereqTech": "TECH_MASONRY"
+  },
+  {
+    "Technology": "TECH_CONSTRUCTION",
+    "PrereqTech": "TECH_HORSEBACK_RIDING"
+  },
+  {
+    "Technology": "TECH_ENGINEERING",
+    "PrereqTech": "TECH_THE_WHEEL"
+  },
+  {
+    "Technology": "TECH_MILITARY_TACTICS",
+    "PrereqTech": "TECH_MATHEMATICS"
+  },
+  {
+    "Technology": "TECH_APPRENTICESHIP",
+    "PrereqTech": "TECH_CURRENCY"
+  },
+  {
+    "Technology": "TECH_APPRENTICESHIP",
+    "PrereqTech": "TECH_HORSEBACK_RIDING"
+  },
+  {
+    "Technology": "TECH_STIRRUPS",
+    "PrereqTech": "TECH_HORSEBACK_RIDING"
+  },
+  {
+    "Technology": "TECH_MACHINERY",
+    "PrereqTech": "TECH_IRON_WORKING"
+  },
+  {
+    "Technology": "TECH_MACHINERY",
+    "PrereqTech": "TECH_ENGINEERING"
+  },
+  {
+    "Technology": "TECH_EDUCATION",
+    "PrereqTech": "TECH_MATHEMATICS"
+  },
+  {
+    "Technology": "TECH_EDUCATION",
+    "PrereqTech": "TECH_APPRENTICESHIP"
+  },
+  {
+    "Technology": "TECH_CASTLES",
+    "PrereqTech": "TECH_CONSTRUCTION"
+  },
+  {
+    "Technology": "TECH_MILITARY_ENGINEERING",
+    "PrereqTech": "TECH_CONSTRUCTION"
+  },
+  {
+    "Technology": "TECH_MASS_PRODUCTION",
+    "PrereqTech": "TECH_EDUCATION"
+  },
+  {
+    "Technology": "TECH_BANKING",
+    "PrereqTech": "TECH_EDUCATION"
+  },
+  {
+    "Technology": "TECH_BANKING",
+    "PrereqTech": "TECH_STIRRUPS"
+  },
+  {
+    "Technology": "TECH_GUNPOWDER",
+    "PrereqTech": "TECH_APPRENTICESHIP"
+  },
+  {
+    "Technology": "TECH_GUNPOWDER",
+    "PrereqTech": "TECH_STIRRUPS"
+  },
+  {
+    "Technology": "TECH_GUNPOWDER",
+    "PrereqTech": "TECH_MILITARY_ENGINEERING"
+  },
+  {
+    "Technology": "TECH_PRINTING",
+    "PrereqTech": "TECH_MACHINERY"
+  },
+  {
+    "Technology": "TECH_SQUARE_RIGGING",
+    "PrereqTech": "TECH_CARTOGRAPHY"
+  },
+  {
+    "Technology": "TECH_ASTRONOMY",
+    "PrereqTech": "TECH_EDUCATION"
+  },
+  {
+    "Technology": "TECH_METAL_CASTING",
+    "PrereqTech": "TECH_GUNPOWDER"
+  },
+  {
+    "Technology": "TECH_SIEGE_TACTICS",
+    "PrereqTech": "TECH_CASTLES"
+  },
+  {
+    "Technology": "TECH_INDUSTRIALIZATION",
+    "PrereqTech": "TECH_SQUARE_RIGGING"
+  },
+  {
+    "Technology": "TECH_INDUSTRIALIZATION",
+    "PrereqTech": "TECH_MASS_PRODUCTION"
+  },
+  {
+    "Technology": "TECH_SCIENTIFIC_THEORY",
+    "PrereqTech": "TECH_ASTRONOMY"
+  },
+  {
+    "Technology": "TECH_SCIENTIFIC_THEORY",
+    "PrereqTech": "TECH_BANKING"
+  },
+  {
+    "Technology": "TECH_ECONOMICS",
+    "PrereqTech": "TECH_SCIENTIFIC_THEORY"
+  },
+  {
+    "Technology": "TECH_ECONOMICS",
+    "PrereqTech": "TECH_METAL_CASTING"
+  },
+  {
+    "Technology": "TECH_MILITARY_SCIENCE",
+    "PrereqTech": "TECH_SIEGE_TACTICS"
+  },
+  {
+    "Technology": "TECH_MILITARY_SCIENCE",
+    "PrereqTech": "TECH_PRINTING"
+  },
+  {
+    "Technology": "TECH_STEAM_POWER",
+    "PrereqTech": "TECH_INDUSTRIALIZATION"
+  },
+  {
+    "Technology": "TECH_SANITATION",
+    "PrereqTech": "TECH_SCIENTIFIC_THEORY"
+  },
+  {
+    "Technology": "TECH_BALLISTICS",
+    "PrereqTech": "TECH_METAL_CASTING"
+  },
+  {
+    "Technology": "TECH_RIFLING",
+    "PrereqTech": "TECH_BALLISTICS"
+  },
+  {
+    "Technology": "TECH_RIFLING",
+    "PrereqTech": "TECH_MILITARY_SCIENCE"
+  },
+  {
+    "Technology": "TECH_FLIGHT",
+    "PrereqTech": "TECH_INDUSTRIALIZATION"
+  },
+  {
+    "Technology": "TECH_FLIGHT",
+    "PrereqTech": "TECH_SCIENTIFIC_THEORY"
+  },
+  {
+    "Technology": "TECH_REPLACEABLE_PARTS",
+    "PrereqTech": "TECH_ECONOMICS"
+  },
+  {
+    "Technology": "TECH_STEEL",
+    "PrereqTech": "TECH_RIFLING"
+  },
+  {
+    "Technology": "TECH_ELECTRICITY",
+    "PrereqTech": "TECH_STEAM_POWER"
+  },
+  {
+    "Technology": "TECH_RADIO",
+    "PrereqTech": "TECH_STEAM_POWER"
+  },
+  {
+    "Technology": "TECH_RADIO",
+    "PrereqTech": "TECH_FLIGHT"
+  },
+  {
+    "Technology": "TECH_CHEMISTRY",
+    "PrereqTech": "TECH_SANITATION"
+  },
+  {
+    "Technology": "TECH_COMBUSTION",
+    "PrereqTech": "TECH_STEEL"
+  },
+  {
+    "Technology": "TECH_COMPUTERS",
+    "PrereqTech": "TECH_ELECTRICITY"
+  },
+  {
+    "Technology": "TECH_COMPUTERS",
+    "PrereqTech": "TECH_RADIO"
+  },
+  {
+    "Technology": "TECH_ADVANCED_FLIGHT",
+    "PrereqTech": "TECH_RADIO"
+  },
+  {
+    "Technology": "TECH_ROCKETRY",
+    "PrereqTech": "TECH_RADIO"
+  },
+  {
+    "Technology": "TECH_ROCKETRY",
+    "PrereqTech": "TECH_CHEMISTRY"
+  },
+  {
+    "Technology": "TECH_ADVANCED_BALLISTICS",
+    "PrereqTech": "TECH_REPLACEABLE_PARTS"
+  },
+  {
+    "Technology": "TECH_ADVANCED_BALLISTICS",
+    "PrereqTech": "TECH_STEEL"
+  },
+  {
+    "Technology": "TECH_COMBINED_ARMS",
+    "PrereqTech": "TECH_STEEL"
+  },
+  {
+    "Technology": "TECH_COMBINED_ARMS",
+    "PrereqTech": "TECH_COMBUSTION"
+  },
+  {
+    "Technology": "TECH_NUCLEAR_FISSION",
+    "PrereqTech": "TECH_ADVANCED_BALLISTICS"
+  },
+  {
+    "Technology": "TECH_NUCLEAR_FISSION",
+    "PrereqTech": "TECH_COMBINED_ARMS"
+  },
+  {
+    "Technology": "TECH_PLASTICS",
+    "PrereqTech": "TECH_COMBUSTION"
+  },
+  {
+    "Technology": "TECH_SYNTHETIC_MATERIALS",
+    "PrereqTech": "TECH_PLASTICS"
+  },
+  {
+    "Technology": "TECH_TELECOMMUNICATIONS",
+    "PrereqTech": "TECH_COMPUTERS"
+  },
+  {
+    "Technology": "TECH_ROBOTICS",
+    "PrereqTech": "TECH_COMPUTERS"
+  },
+  {
+    "Technology": "TECH_SATELLITES",
+    "PrereqTech": "TECH_ADVANCED_FLIGHT"
+  },
+  {
+    "Technology": "TECH_SATELLITES",
+    "PrereqTech": "TECH_ROCKETRY"
+  },
+  {
+    "Technology": "TECH_GUIDANCE_SYSTEMS",
+    "PrereqTech": "TECH_ROCKETRY"
+  },
+  {
+    "Technology": "TECH_GUIDANCE_SYSTEMS",
+    "PrereqTech": "TECH_ADVANCED_BALLISTICS"
+  },
+  {
+    "Technology": "TECH_LASERS",
+    "PrereqTech": "TECH_NUCLEAR_FISSION"
+  },
+  {
+    "Technology": "TECH_COMPOSITES",
+    "PrereqTech": "TECH_SYNTHETIC_MATERIALS"
+  },
+  {
+    "Technology": "TECH_STEALTH_TECHNOLOGY",
+    "PrereqTech": "TECH_SYNTHETIC_MATERIALS"
+  },
+  {
+    "Technology": "TECH_NANOTECHNOLOGY",
+    "PrereqTech": "TECH_COMPOSITES"
+  },
+  {
+    "Technology": "TECH_NUCLEAR_FUSION",
+    "PrereqTech": "TECH_LASERS"
+  },
+  {
+    "Technology": "TECH_BUTTRESS",
+    "PrereqTech": "TECH_SHIPBUILDING"
+  },
+  {
+    "Technology": "TECH_BUTTRESS",
+    "PrereqTech": "TECH_MATHEMATICS"
+  },
+  {
+    "Technology": "TECH_STIRRUPS",
+    "PrereqTech": "TECH_APPRENTICESHIP"
+  },
+  {
+    "Technology": "TECH_REFINING",
+    "PrereqTech": "TECH_RIFLING"
+  },
+  {
+    "Technology": "TECH_COMBUSTION",
+    "PrereqTech": "TECH_REFINING"
+  },
+  {
+    "Technology": "TECH_CARTOGRAPHY",
+    "PrereqTech": "TECH_BUTTRESS"
+  },
+  {
+    "Technology": "TECH_MASS_PRODUCTION",
+    "PrereqTech": "TECH_BUTTRESS"
+  },
+  {
+    "Technology": "TECH_MASS_PRODUCTION",
+    "PrereqTech": "TECH_MILITARY_TACTICS"
+  },
+  {
+    "Technology": "TECH_CHEMISTRY",
+    "PrereqTech": "TECH_REPLACEABLE_PARTS"
+  },
+  {
+    "Technology": "TECH_ROBOTICS",
+    "PrereqTech": "TECH_SATELLITES"
+  },
+  {
+    "Technology": "TECH_ROBOTICS",
+    "PrereqTech": "TECH_GUIDANCE_SYSTEMS"
+  },
+  {
+    "Technology": "TECH_ROBOTICS",
+    "PrereqTech": "TECH_LASERS"
+  }
+]

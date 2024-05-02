@@ -1,0 +1,464 @@
+[
+  {
+    "Type": "TECH_POTTERY",
+    "Cost": 25,
+    "UITreeRow": 0,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_ANIMAL_HUSBANDRY",
+    "Cost": 25,
+    "UITreeRow": 1,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_MINING",
+    "Cost": 25,
+    "UITreeRow": 3,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_SAILING",
+    "Cost": 50,
+    "UITreeRow": -3,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_ASTROLOGY",
+    "Cost": 50,
+    "UITreeRow": -2,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_IRRIGATION",
+    "Cost": 50,
+    "UITreeRow": -1,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_ARCHERY",
+    "Cost": 50,
+    "UITreeRow": 1,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_WRITING",
+    "Cost": 50,
+    "UITreeRow": 0,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_MASONRY",
+    "Cost": 80,
+    "UITreeRow": 2,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_BRONZE_WORKING",
+    "Cost": 80,
+    "UITreeRow": 3,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_THE_WHEEL",
+    "Cost": 80,
+    "UITreeRow": 4,
+    "EraType": "ERA_ANCIENT"
+  },
+  {
+    "Type": "TECH_CELESTIAL_NAVIGATION",
+    "Cost": 120,
+    "UITreeRow": -2,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_CURRENCY",
+    "Cost": 120,
+    "UITreeRow": 0,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_HORSEBACK_RIDING",
+    "Cost": 120,
+    "UITreeRow": 1,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_IRON_WORKING",
+    "Cost": 120,
+    "UITreeRow": 3,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_SHIPBUILDING",
+    "Cost": 200,
+    "UITreeRow": -3,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_MATHEMATICS",
+    "Cost": 200,
+    "UITreeRow": -1,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_CONSTRUCTION",
+    "Cost": 200,
+    "UITreeRow": 2,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_ENGINEERING",
+    "Cost": 200,
+    "UITreeRow": 4,
+    "EraType": "ERA_CLASSICAL"
+  },
+  {
+    "Type": "TECH_MILITARY_TACTICS",
+    "Cost": 300,
+    "UITreeRow": -2,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_APPRENTICESHIP",
+    "Cost": 300,
+    "UITreeRow": 0,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_MACHINERY",
+    "Cost": 300,
+    "UITreeRow": 4,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_EDUCATION",
+    "Cost": 390,
+    "UITreeRow": -1,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_STIRRUPS",
+    "Cost": 390,
+    "UITreeRow": 1,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_MILITARY_ENGINEERING",
+    "Cost": 390,
+    "UITreeRow": 2,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_CASTLES",
+    "Cost": 390,
+    "UITreeRow": 3,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_CARTOGRAPHY",
+    "Cost": 600,
+    "UITreeRow": -3,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_MASS_PRODUCTION",
+    "Cost": 600,
+    "UITreeRow": -2,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_BANKING",
+    "Cost": 600,
+    "UITreeRow": 0,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_GUNPOWDER",
+    "Cost": 600,
+    "UITreeRow": 1,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_PRINTING",
+    "Cost": 600,
+    "UITreeRow": 4,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_SQUARE_RIGGING",
+    "Cost": 730,
+    "UITreeRow": -3,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_ASTRONOMY",
+    "Cost": 730,
+    "UITreeRow": -1,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_METAL_CASTING",
+    "Cost": 730,
+    "UITreeRow": 1,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_SIEGE_TACTICS",
+    "Cost": 730,
+    "UITreeRow": 3,
+    "EraType": "ERA_RENAISSANCE"
+  },
+  {
+    "Type": "TECH_INDUSTRIALIZATION",
+    "Cost": 930,
+    "UITreeRow": -2,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_SCIENTIFIC_THEORY",
+    "Cost": 930,
+    "UITreeRow": -1,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_BALLISTICS",
+    "Cost": 930,
+    "UITreeRow": 1,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_MILITARY_SCIENCE",
+    "Cost": 930,
+    "UITreeRow": 3,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_STEAM_POWER",
+    "Cost": 1070,
+    "UITreeRow": -3,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_SANITATION",
+    "Cost": 1070,
+    "UITreeRow": -1,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_ECONOMICS",
+    "Cost": 1070,
+    "UITreeRow": 0,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_RIFLING",
+    "Cost": 1070,
+    "UITreeRow": 2,
+    "EraType": "ERA_INDUSTRIAL"
+  },
+  {
+    "Type": "TECH_FLIGHT",
+    "Cost": 1250,
+    "UITreeRow": -2,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_REPLACEABLE_PARTS",
+    "Cost": 1250,
+    "UITreeRow": 0,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_STEEL",
+    "Cost": 1250,
+    "UITreeRow": 1,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_ELECTRICITY",
+    "Cost": 1370,
+    "UITreeRow": -3,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_RADIO",
+    "Cost": 1370,
+    "UITreeRow": -2,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_CHEMISTRY",
+    "Cost": 1370,
+    "UITreeRow": -1,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_COMBUSTION",
+    "Cost": 1370,
+    "UITreeRow": 2,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_ADVANCED_FLIGHT",
+    "Cost": 1480,
+    "UITreeRow": -2,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_ROCKETRY",
+    "Cost": 1480,
+    "UITreeRow": -1,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_ADVANCED_BALLISTICS",
+    "Cost": 1480,
+    "UITreeRow": 0,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_COMBINED_ARMS",
+    "Cost": 1480,
+    "UITreeRow": 1,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_PLASTICS",
+    "Cost": 1480,
+    "UITreeRow": 2,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_COMPUTERS",
+    "Cost": 1660,
+    "UITreeRow": -3,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_NUCLEAR_FISSION",
+    "Cost": 1660,
+    "UITreeRow": 1,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_SYNTHETIC_MATERIALS",
+    "Cost": 1660,
+    "UITreeRow": 2,
+    "EraType": "ERA_ATOMIC"
+  },
+  {
+    "Type": "TECH_TELECOMMUNICATIONS",
+    "Cost": 1850,
+    "UITreeRow": -3,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_SATELLITES",
+    "Cost": 1850,
+    "UITreeRow": -1,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_GUIDANCE_SYSTEMS",
+    "Cost": 1850,
+    "UITreeRow": 0,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_LASERS",
+    "Cost": 1850,
+    "UITreeRow": 1,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_COMPOSITES",
+    "Cost": 1850,
+    "UITreeRow": 2,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_STEALTH_TECHNOLOGY",
+    "Cost": 1850,
+    "UITreeRow": 3,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_ROBOTICS",
+    "Cost": 2155,
+    "UITreeRow": -2,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_NANOTECHNOLOGY",
+    "Cost": 2155,
+    "UITreeRow": 2,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_NUCLEAR_FUSION",
+    "Cost": 2155,
+    "UITreeRow": 1,
+    "EraType": "ERA_INFORMATION"
+  },
+  {
+    "Type": "TECH_BUTTRESS",
+    "Cost": 300,
+    "UITreeRow": -3,
+    "EraType": "ERA_MEDIEVAL"
+  },
+  {
+    "Type": "TECH_REFINING",
+    "Cost": 1250,
+    "UITreeRow": 3,
+    "EraType": "ERA_MODERN"
+  },
+  {
+    "Type": "TECH_SEASTEADS",
+    "Cost": 2200,
+    "UITreeRow": -3,
+    "EraType": "ERA_FUTURE"
+  },
+  {
+    "Type": "TECH_ADVANCED_AI",
+    "Cost": 2200,
+    "UITreeRow": -2,
+    "EraType": "ERA_FUTURE"
+  },
+  {
+    "Type": "TECH_ADVANCED_POWER_CELLS",
+    "Cost": 2200,
+    "UITreeRow": -1,
+    "EraType": "ERA_FUTURE"
+  },
+  {
+    "Type": "TECH_CYBERNETICS",
+    "Cost": 2200,
+    "UITreeRow": 0,
+    "EraType": "ERA_FUTURE"
+  },
+  {
+    "Type": "TECH_SMART_MATERIALS",
+    "Cost": 2200,
+    "UITreeRow": 1,
+    "EraType": "ERA_FUTURE"
+  },
+  {
+    "Type": "TECH_PREDICTIVE_SYSTEMS",
+    "Cost": 2200,
+    "UITreeRow": 2,
+    "EraType": "ERA_FUTURE"
+  },
+  {
+    "Type": "TECH_OFFWORLD_MISSION",
+    "Cost": 2500,
+    "UITreeRow": 0,
+    "EraType": "ERA_FUTURE"
+  },
+  {
+    "Type": "TECH_FUTURE_TECH",
+    "Cost": 2600,
+    "UITreeRow": 0,
+    "EraType": "ERA_FUTURE"
+  }
+]

@@ -1,0 +1,322 @@
+[
+  {
+    "Civic": "CIVIC_CRAFTSMANSHIP",
+    "PrereqCivic": "CIVIC_CODE_OF_LAWS"
+  },
+  {
+    "Civic": "CIVIC_FOREIGN_TRADE",
+    "PrereqCivic": "CIVIC_CODE_OF_LAWS"
+  },
+  {
+    "Civic": "CIVIC_MILITARY_TRADITION",
+    "PrereqCivic": "CIVIC_CRAFTSMANSHIP"
+  },
+  {
+    "Civic": "CIVIC_STATE_WORKFORCE",
+    "PrereqCivic": "CIVIC_CRAFTSMANSHIP"
+  },
+  {
+    "Civic": "CIVIC_EARLY_EMPIRE",
+    "PrereqCivic": "CIVIC_FOREIGN_TRADE"
+  },
+  {
+    "Civic": "CIVIC_MYSTICISM",
+    "PrereqCivic": "CIVIC_FOREIGN_TRADE"
+  },
+  {
+    "Civic": "CIVIC_GAMES_RECREATION",
+    "PrereqCivic": "CIVIC_STATE_WORKFORCE"
+  },
+  {
+    "Civic": "CIVIC_POLITICAL_PHILOSOPHY",
+    "PrereqCivic": "CIVIC_STATE_WORKFORCE"
+  },
+  {
+    "Civic": "CIVIC_POLITICAL_PHILOSOPHY",
+    "PrereqCivic": "CIVIC_EARLY_EMPIRE"
+  },
+  {
+    "Civic": "CIVIC_DRAMA_POETRY",
+    "PrereqCivic": "CIVIC_EARLY_EMPIRE"
+  },
+  {
+    "Civic": "CIVIC_MILITARY_TRAINING",
+    "PrereqCivic": "CIVIC_MILITARY_TRADITION"
+  },
+  {
+    "Civic": "CIVIC_MILITARY_TRAINING",
+    "PrereqCivic": "CIVIC_GAMES_RECREATION"
+  },
+  {
+    "Civic": "CIVIC_DEFENSIVE_TACTICS",
+    "PrereqCivic": "CIVIC_GAMES_RECREATION"
+  },
+  {
+    "Civic": "CIVIC_DEFENSIVE_TACTICS",
+    "PrereqCivic": "CIVIC_POLITICAL_PHILOSOPHY"
+  },
+  {
+    "Civic": "CIVIC_RECORDED_HISTORY",
+    "PrereqCivic": "CIVIC_POLITICAL_PHILOSOPHY"
+  },
+  {
+    "Civic": "CIVIC_RECORDED_HISTORY",
+    "PrereqCivic": "CIVIC_DRAMA_POETRY"
+  },
+  {
+    "Civic": "CIVIC_THEOLOGY",
+    "PrereqCivic": "CIVIC_DRAMA_POETRY"
+  },
+  {
+    "Civic": "CIVIC_THEOLOGY",
+    "PrereqCivic": "CIVIC_MYSTICISM"
+  },
+  {
+    "Civic": "CIVIC_NAVAL_TRADITION",
+    "PrereqCivic": "CIVIC_DEFENSIVE_TACTICS"
+  },
+  {
+    "Civic": "CIVIC_FEUDALISM",
+    "PrereqCivic": "CIVIC_DEFENSIVE_TACTICS"
+  },
+  {
+    "Civic": "CIVIC_CIVIL_SERVICE",
+    "PrereqCivic": "CIVIC_DEFENSIVE_TACTICS"
+  },
+  {
+    "Civic": "CIVIC_CIVIL_SERVICE",
+    "PrereqCivic": "CIVIC_RECORDED_HISTORY"
+  },
+  {
+    "Civic": "CIVIC_MERCENARIES",
+    "PrereqCivic": "CIVIC_MILITARY_TRAINING"
+  },
+  {
+    "Civic": "CIVIC_MERCENARIES",
+    "PrereqCivic": "CIVIC_FEUDALISM"
+  },
+  {
+    "Civic": "CIVIC_MEDIEVAL_FAIRES",
+    "PrereqCivic": "CIVIC_FEUDALISM"
+  },
+  {
+    "Civic": "CIVIC_GUILDS",
+    "PrereqCivic": "CIVIC_FEUDALISM"
+  },
+  {
+    "Civic": "CIVIC_GUILDS",
+    "PrereqCivic": "CIVIC_CIVIL_SERVICE"
+  },
+  {
+    "Civic": "CIVIC_DIVINE_RIGHT",
+    "PrereqCivic": "CIVIC_CIVIL_SERVICE"
+  },
+  {
+    "Civic": "CIVIC_DIVINE_RIGHT",
+    "PrereqCivic": "CIVIC_THEOLOGY"
+  },
+  {
+    "Civic": "CIVIC_EXPLORATION",
+    "PrereqCivic": "CIVIC_MERCENARIES"
+  },
+  {
+    "Civic": "CIVIC_EXPLORATION",
+    "PrereqCivic": "CIVIC_MEDIEVAL_FAIRES"
+  },
+  {
+    "Civic": "CIVIC_HUMANISM",
+    "PrereqCivic": "CIVIC_MEDIEVAL_FAIRES"
+  },
+  {
+    "Civic": "CIVIC_HUMANISM",
+    "PrereqCivic": "CIVIC_GUILDS"
+  },
+  {
+    "Civic": "CIVIC_DIPLOMATIC_SERVICE",
+    "PrereqCivic": "CIVIC_GUILDS"
+  },
+  {
+    "Civic": "CIVIC_REFORMED_CHURCH",
+    "PrereqCivic": "CIVIC_GUILDS"
+  },
+  {
+    "Civic": "CIVIC_REFORMED_CHURCH",
+    "PrereqCivic": "CIVIC_DIVINE_RIGHT"
+  },
+  {
+    "Civic": "CIVIC_MERCANTILISM",
+    "PrereqCivic": "CIVIC_HUMANISM"
+  },
+  {
+    "Civic": "CIVIC_THE_ENLIGHTENMENT",
+    "PrereqCivic": "CIVIC_HUMANISM"
+  },
+  {
+    "Civic": "CIVIC_THE_ENLIGHTENMENT",
+    "PrereqCivic": "CIVIC_DIPLOMATIC_SERVICE"
+  },
+  {
+    "Civic": "CIVIC_COLONIALISM",
+    "PrereqCivic": "CIVIC_MERCANTILISM"
+  },
+  {
+    "Civic": "CIVIC_CIVIL_ENGINEERING",
+    "PrereqCivic": "CIVIC_MERCANTILISM"
+  },
+  {
+    "Civic": "CIVIC_NATIONALISM",
+    "PrereqCivic": "CIVIC_THE_ENLIGHTENMENT"
+  },
+  {
+    "Civic": "CIVIC_OPERA_BALLET",
+    "PrereqCivic": "CIVIC_THE_ENLIGHTENMENT"
+  },
+  {
+    "Civic": "CIVIC_NATURAL_HISTORY",
+    "PrereqCivic": "CIVIC_COLONIALISM"
+  },
+  {
+    "Civic": "CIVIC_SCORCHED_EARTH",
+    "PrereqCivic": "CIVIC_NATIONALISM"
+  },
+  {
+    "Civic": "CIVIC_URBANIZATION",
+    "PrereqCivic": "CIVIC_CIVIL_ENGINEERING"
+  },
+  {
+    "Civic": "CIVIC_URBANIZATION",
+    "PrereqCivic": "CIVIC_NATIONALISM"
+  },
+  {
+    "Civic": "CIVIC_CONSERVATION",
+    "PrereqCivic": "CIVIC_NATURAL_HISTORY"
+  },
+  {
+    "Civic": "CIVIC_MASS_MEDIA",
+    "PrereqCivic": "CIVIC_NATURAL_HISTORY"
+  },
+  {
+    "Civic": "CIVIC_MASS_MEDIA",
+    "PrereqCivic": "CIVIC_URBANIZATION"
+  },
+  {
+    "Civic": "CIVIC_CAPITALISM",
+    "PrereqCivic": "CIVIC_MASS_MEDIA"
+  },
+  {
+    "Civic": "CIVIC_MOBILIZATION",
+    "PrereqCivic": "CIVIC_URBANIZATION"
+  },
+  {
+    "Civic": "CIVIC_IDEOLOGY",
+    "PrereqCivic": "CIVIC_MASS_MEDIA"
+  },
+  {
+    "Civic": "CIVIC_IDEOLOGY",
+    "PrereqCivic": "CIVIC_MOBILIZATION"
+  },
+  {
+    "Civic": "CIVIC_NUCLEAR_PROGRAM",
+    "PrereqCivic": "CIVIC_IDEOLOGY"
+  },
+  {
+    "Civic": "CIVIC_SUFFRAGE",
+    "PrereqCivic": "CIVIC_IDEOLOGY"
+  },
+  {
+    "Civic": "CIVIC_TOTALITARIANISM",
+    "PrereqCivic": "CIVIC_IDEOLOGY"
+  },
+  {
+    "Civic": "CIVIC_CLASS_STRUGGLE",
+    "PrereqCivic": "CIVIC_IDEOLOGY"
+  },
+  {
+    "Civic": "CIVIC_COLD_WAR",
+    "PrereqCivic": "CIVIC_IDEOLOGY"
+  },
+  {
+    "Civic": "CIVIC_PROFESSIONAL_SPORTS",
+    "PrereqCivic": "CIVIC_IDEOLOGY"
+  },
+  {
+    "Civic": "CIVIC_CULTURAL_HERITAGE",
+    "PrereqCivic": "CIVIC_CONSERVATION"
+  },
+  {
+    "Civic": "CIVIC_RAPID_DEPLOYMENT",
+    "PrereqCivic": "CIVIC_COLD_WAR"
+  },
+  {
+    "Civic": "CIVIC_SPACE_RACE",
+    "PrereqCivic": "CIVIC_COLD_WAR"
+  },
+  {
+    "Civic": "CIVIC_GLOBALIZATION",
+    "PrereqCivic": "CIVIC_RAPID_DEPLOYMENT"
+  },
+  {
+    "Civic": "CIVIC_GLOBALIZATION",
+    "PrereqCivic": "CIVIC_SPACE_RACE"
+  },
+  {
+    "Civic": "CIVIC_SOCIAL_MEDIA",
+    "PrereqCivic": "CIVIC_SPACE_RACE"
+  },
+  {
+    "Civic": "CIVIC_SOCIAL_MEDIA",
+    "PrereqCivic": "CIVIC_PROFESSIONAL_SPORTS"
+  },
+  {
+    "Civic": "CIVIC_FUTURE_CIVIC",
+    "PrereqCivic": "CIVIC_GLOBALIZATION"
+  },
+  {
+    "Civic": "CIVIC_FUTURE_CIVIC",
+    "PrereqCivic": "CIVIC_SOCIAL_MEDIA"
+  },
+  {
+    "Civic": "CIVIC_MOBILIZATION",
+    "PrereqCivic": "CIVIC_SCORCHED_EARTH"
+  },
+  {
+    "Civic": "CIVIC_ENVIRONMENTALISM",
+    "PrereqCivic": "CIVIC_CULTURAL_HERITAGE"
+  },
+  {
+    "Civic": "CIVIC_ENVIRONMENTALISM",
+    "PrereqCivic": "CIVIC_RAPID_DEPLOYMENT"
+  },
+  {
+    "Civic": "CIVIC_CORPORATE_LIBERTARIANISM",
+    "PrereqCivic": "CIVIC_GLOBALIZATION"
+  },
+  {
+    "Civic": "CIVIC_CORPORATE_LIBERTARIANISM",
+    "PrereqCivic": "CIVIC_SOCIAL_MEDIA"
+  },
+  {
+    "Civic": "CIVIC_DIGITAL_DEMOCRACY",
+    "PrereqCivic": "CIVIC_GLOBALIZATION"
+  },
+  {
+    "Civic": "CIVIC_DIGITAL_DEMOCRACY",
+    "PrereqCivic": "CIVIC_SOCIAL_MEDIA"
+  },
+  {
+    "Civic": "CIVIC_SYNTHETIC_TECHNOCRACY",
+    "PrereqCivic": "CIVIC_GLOBALIZATION"
+  },
+  {
+    "Civic": "CIVIC_SYNTHETIC_TECHNOCRACY",
+    "PrereqCivic": "CIVIC_SOCIAL_MEDIA"
+  },
+  {
+    "Civic": "CIVIC_NEAR_FUTURE_GOVERNANCE",
+    "PrereqCivic": "CIVIC_ENVIRONMENTALISM"
+  },
+  {
+    "Civic": "CIVIC_NEAR_FUTURE_GOVERNANCE",
+    "PrereqCivic": "CIVIC_GLOBALIZATION"
+  }
+]
