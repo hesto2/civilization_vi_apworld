@@ -14,7 +14,7 @@ from worlds.LauncherComponents import Component, SuffixIdentifier, Type, compone
 
 def run_client():
     print("Running Civ6 Client")
-    from Civ6Client import main  # lazy import
+    from .Civ6Client import main  # lazy import
     launch_subprocess(main, name="Civ6Client")
 
 
