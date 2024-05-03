@@ -141,3 +141,6 @@ def create_regions(world: World, options: CivVIOptions, player: int):
 
     world.get_region(EraType.ERA_INFORMATION.value).connect(
         world.get_region(EraType.ERA_FUTURE.value), None, lambda state:  has_required_items(state, EraType.ERA_INFORMATION, player, has_progressive_items))
+
+    world.multiworld.completion_condition[player] = lambda state: state.can_reach(
+        EraType.ERA_FUTURE.value, "Region", player)

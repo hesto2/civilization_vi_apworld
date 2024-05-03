@@ -108,7 +108,8 @@ async def tuner_sync_task(ctx: CivVIContext):
                 else:
                     await asyncio.sleep(3)
             except TunerTimeoutException:
-                logger.info("Timeout occurred while receiving data from Civ VI, this usually isn't a problem unless you see it repeatedly")
+                logger.info(
+                    "Timeout occurred while receiving data from Civ VI, this usually isn't a problem unless you see it repeatedly")
                 await asyncio.sleep(3)
             except Exception as e:
                 if isinstance(e, TunerErrorException):
