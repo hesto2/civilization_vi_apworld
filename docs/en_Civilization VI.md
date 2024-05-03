@@ -62,4 +62,5 @@ Further out, I'm toying with the following ideas:
 - Support for starting at different eras
 - Add city projects that will either deposit into or withdraw from the multiworld energy link
 - Allowing users to specify how they want progressive items to work. Have it be via districts, promotion class (progressive_melee, etc.) or some other idea.
+- Support for players that don't own one or both expansions
 

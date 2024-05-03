@@ -25,6 +25,10 @@ class CivVIInterface:
             self.logger.info(
                 "Not connected to game, waiting for connection to be available")
             return False
+        except Exception as e:
+            if "attempt to index a nil valuestack traceback" in str(e):
+                self.logger.info("Connected to game,  waiting for game to start")
+                return False
 
     async def give_item_to_player(self, item: CivVIItemData, sender: str = ""):
       # fmt: off

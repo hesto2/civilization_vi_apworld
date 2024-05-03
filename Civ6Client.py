@@ -4,7 +4,7 @@ import traceback
 from typing import Dict, List
 
 from CommonClient import ClientCommandProcessor, CommonContext, get_base_parser, logger, server_loop, gui_enabled
-from NetUtils import ClientStatus, NetworkItem
+from NetUtils import ClientStatus
 import Utils
 from .CivVIInterface import CivVIInterface
 from .Enum import CivVICheckType
@@ -95,24 +95,28 @@ class CivVIContext(CommonContext):
 async def tuner_sync_task(ctx: CivVIContext):
     logger.info("Starting CivVI connector")
     while not ctx.exit_event.is_set():
-        try:
-            if ctx.processing_multiple_items == True:
-                logger.debug("Waiting for items to finish processing")
-                await asyncio.sleep(3)
-            elif await ctx.game_interface.is_in_game():
-                await _handle_game_ready(ctx)
-            else:
-                await asyncio.sleep(3)
-        except Exception as e:
-            if isinstance(e, TunerErrorException):
-                logger.error(str(e))
-            else:
-                logger.error(traceback.format_exc())
-
-            logger.info("Attempting to reconnect to Civ VI...")
-            ctx.disconnected = True
+        if not ctx.slot:
             await asyncio.sleep(3)
             continue
+        else:
+            try:
+                if ctx.processing_multiple_items == True:
+                    logger.debug("Waiting for items to finish processing")
+                    await asyncio.sleep(3)
+                elif await ctx.game_interface.is_in_game():
+                    await _handle_game_ready(ctx)
+                else:
+                    await asyncio.sleep(3)
+            except Exception as e:
+                if isinstance(e, TunerErrorException):
+                    logger.error(str(e))
+                else:
+                    logger.error(traceback.format_exc())
+
+                logger.info("Attempting to connect to Civ VI...")
+                ctx.disconnected = True
+                await asyncio.sleep(3)
+                continue
 
 
 async def handle_checked_location(ctx: CivVIContext):
@@ -210,7 +214,7 @@ def main(connect=None, password=None, name=None):
         await asyncio.sleep(1)
 
         ctx.tuner_sync_task = asyncio.create_task(
-            tuner_sync_task(ctx), name="DolphinSync")
+            tuner_sync_task(ctx), name="TunerSync")
 
         await ctx.exit_event.wait()
         ctx.server_address = None
@@ -228,10 +232,13 @@ def main(connect=None, password=None, name=None):
     colorama.deinit()
 
 
-if __name__ == "__main__":
+def debug_main():
     parser = get_base_parser()
     parser.add_argument('--name', default=None,
                         help="Slot Name to connect as.")
+    parser.add_argument('--debug', default=None,
+                        help="debug mode, additional logging")
     args = parser.parse_args()
-    logger.setLevel(logging.DEBUG)
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
     main(args.connect, args.password, args.name)

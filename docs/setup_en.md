@@ -17,7 +17,11 @@ The following are required in order to play Civ VI in Archipelago
 - Tuner setting enabled so the archipelago client can communicate with the game
 
 ## Enabling the tuner
-To enable the tuner, navigate to`YOUR_USER/Documents/My Games/Sid Meier's Civilization VI/AppOptions.txt` then do a search for `Enable FireTuner`. Set `EnableTuner` to `1` instead of `0`. __NOTE__: While this is active, achievments will be disabled.
+Depending on how you installed Civ 6 you will have to navigate to one of the following:
+- `YOUR_USER/Documents/My Games/Sid Meier's Civilization VI/AppOptions.txt`
+- `YOUR_USER/AppData/Local/Firaxis Games/Sid Meier's Civilization VI/AppOptions.txt`
+
+Once you have located your `AppOptions.txt`, do a search for `Enable FireTuner`. Set `EnableTuner` to `1` instead of `0`. __NOTE__: While this is active, achievments will be disabled.
 
 ## Mod Installation
 
@@ -86,3 +90,8 @@ When configuring your game, make sure to start the game in the Ancient Era and l
 
 - If you do not see the client in the launcher, ensure you have placed the `civ6.apworld` in the correct folder (the
   `lib/worlds` folder of your Archipelago installation).
+
+- If you are getting an error: `The remote computer refused the network connection`, that likely indicates the tuner is not actually enabled. One simple way to verify that it is enabled is, after completing the setup steps, to go Main Menu -> Options -> Look for an option named "Tuner" and verify it is set to "Enabled"
+
+## Feedback
+In the offical [Archipelago Discord](https://discord.com/invite/8Z65BR2) under the `future-game-design` channel there is a `civilization-vi` [thread](https://discord.com/channels/731205301247803413/1235473969487024189/1235473969487024189). Feel free to ping `@hesto2` with any bugs/thoughts/complaints/wishes/jokes you may have!
