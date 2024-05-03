@@ -11,7 +11,7 @@ from .Enum import CivVICheckType
 from .Items import CivVIItemData, generate_item_table
 from .Locations import generate_era_location_table
 from .ProgressiveItems import get_progressive_items
-from .TunerClient import TunerErrorException
+from .TunerClient import TunerErrorException, TunerTimeoutException
 
 
 class CivVICommandProcessor(ClientCommandProcessor):
@@ -46,7 +46,7 @@ class CivVIContext(CommonContext):
     item_id_to_civ_item: Dict[int, CivVIItemData] = {}
     item_table: Dict[str, CivVIItemData] = {}
     processing_multiple_items = False
-    disconnected = False
+    disconnected = True
     progressive_items_by_type = get_progressive_items()
     item_name_to_id = {
         item.name: item.code for item in generate_item_table().values()}
@@ -107,6 +107,9 @@ async def tuner_sync_task(ctx: CivVIContext):
                     await _handle_game_ready(ctx)
                 else:
                     await asyncio.sleep(3)
+            except TunerTimeoutException:
+                logger.info("Timeout occurred while receiving data from Civ VI, this usually isn't a problem unless you see it repeatedly")
+                await asyncio.sleep(3)
             except Exception as e:
                 if isinstance(e, TunerErrorException):
                     logger.error(str(e))
@@ -188,7 +191,7 @@ async def _handle_game_ready(ctx: CivVIContext):
             return
         if ctx.disconnected == True:
             ctx.disconnected = False
-            logger.info("Reconnected to Civ VI")
+            logger.info("Connected to Civ VI")
         await handle_receive_items(ctx)
         await handle_checked_location(ctx)
         await handle_check_goal_complete(ctx)

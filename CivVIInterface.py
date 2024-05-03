@@ -19,15 +19,22 @@ class CivVIInterface:
             result = await self.tuner.send_game_command(command)
             return result == "true"
         except TunerTimeoutException:
-            self.logger.info("Connected to game,  waiting for game to start")
-            return False
-        except TunerConnectionException:
             self.logger.info(
                 "Not connected to game, waiting for connection to be available")
             return False
+        except TunerConnectionException as e:
+            if "The remote computer refused the network connection" in str(e):
+                self.logger.info(
+                    "Unable to connect to game. Verify that the tuner is enabled")
+            else:
+                self.logger.info(
+                    "Not connected to game, waiting for connection to be available")
+            return False
         except Exception as e:
-            if "attempt to index a nil valuestack traceback" in str(e):
-                self.logger.info("Connected to game,  waiting for game to start")
+            if "attempt to index a nil valuestack traceback" in str(e) \
+                    or ".. is not supported for string .. nilstack traceback" in str(e):
+                self.logger.info(
+                    "Connected to game,  waiting for game to start")
                 return False
 
     async def give_item_to_player(self, item: CivVIItemData, sender: str = ""):

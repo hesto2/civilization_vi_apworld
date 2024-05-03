@@ -103,6 +103,6 @@ class TunerClient:
         finally:
             sock.close()
 
-    async def async_recv(self, sock, timeout=1.0, size=4096):
+    async def async_recv(self, sock, timeout=2.0, size=4096):
         response = await asyncio.wait_for(asyncio.get_event_loop().sock_recv(sock, size), timeout)
         return response
