@@ -51,9 +51,13 @@ A short period after receiving an item, you will get a notification indicating y
 - "I switched to a government that has more slots than I have policy cards!"
   - The base game would prevent you from confirming any policy changes/government switches if you did not fill each slot. This is problematic if you receive a high level government early in the game. To combat this, requirements for having all policy slots filled have been removed. __NOTE__: This means that you won't get turn blocking notifications telling you to switch governments when you unlock a new one or when you unlock a better version of a policy you currently have equipped. You will still be able to change your policies/government any time you complete a civic.
 
+
+- "How does DeathLink work here? Am I going to have to start a new game every time one of my friends dies??"
+  - Heavens no, my fellow Archipelago appreciator. In Civilization, when a death link is sent your way, you will instead have a random unit killed! These can be any unit (great people, combat, builders, etc).
+  - In the event you lose one of your units in combat (this means captured units don't count), then you will send a death link event to the rest of your friends.
+
 ## What's Next?
 There are a couple of things on the horizon that will be implemented soon, including:
-- Death Link (When someone dies, it will destroy a random unit of yours. When a unit of yours is destroyed, it will trigger a death for everyone else)
 - Progressive Governments
 
 Further out, I'm toying with the following ideas:

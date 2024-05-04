@@ -58,6 +58,16 @@ class CivVIInterface:
         result = await self.tuner.send_game_command(command, 1024 * 4)
         return result.split(",")
 
+    async def get_deathlink(self) -> str:
+        """returns either "false" or the name of the unit that killed the player's unit"""
+        command = "ClientGetDeathLink()"
+        result = await self.tuner.send_game_command(command)
+        return result
+
+    async def kill_unit(self, message: str) -> None:
+        command = f"KillUnit(\"{message}\")"
+        await self.tuner.send_game_command(command)
+
     async def get_last_received_index(self) -> int:
         command = "ClientGetLastReceivedIndex()"
         result = await self.tuner.send_game_command(command)
