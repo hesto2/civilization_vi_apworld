@@ -53,7 +53,7 @@ A short period after receiving an item, you will get a notification indicating y
 
 
 - "How does DeathLink work here? Am I going to have to start a new game every time one of my friends dies??"
-  - Heavens no, my fellow Archipelago appreciator. In Civilization, when a death link is sent your way, you will instead have a random unit killed! These can be any unit (great people, combat, builders, etc).
+  - Heavens no, my fellow Archipelago appreciator. In Civilization, when a death link is sent your way, you will instead have a random unit killed! This can be any unit (great people, combat, builders, etc).
   - In the event you lose one of your units in combat (this means captured units don't count), then you will send a death link event to the rest of your friends.
 
 ## What's Next?
