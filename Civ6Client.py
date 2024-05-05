@@ -5,6 +5,7 @@ import traceback
 from typing import Dict, List
 
 from CommonClient import ClientCommandProcessor, CommonContext, get_base_parser, logger, server_loop, gui_enabled
+from .DeathLink import handle_check_deathlink
 from NetUtils import ClientStatus
 import Utils
 from .CivVIInterface import CivVIInterface
@@ -48,6 +49,9 @@ class CivVIContext(CommonContext):
     item_table: Dict[str, CivVIItemData] = {}
     processing_multiple_items = False
     disconnected = True
+    received_death_link = False
+    death_link_message = ""
+    logger = logger
     progressive_items_by_type = get_progressive_items()
     item_name_to_id = {
         item.name: item.code for item in generate_item_table().values()}
@@ -83,7 +87,8 @@ class CivVIContext(CommonContext):
             message = text
         else:
             message = f"Received from {data['source']}"
-        asyncio.create_task(self.game_interface.kill_unit(message), name="DeathLinkReceived")
+        self.death_link_message = message
+        self.received_death_link = True
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -93,6 +98,7 @@ class CivVIContext(CommonContext):
 
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
+            self.slot_data = args["slot_data"]
             if "death_link" in args["slot_data"]:
                 Utils.async_start(self.update_death_link(
                     bool(args["slot_data"]["death_link"])))
@@ -185,43 +191,6 @@ async def handle_check_goal_complete(ctx: CivVIContext):
         logger.info("Sending Victory to server!")
         await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
 
-
-async def handle_check_deathlink(ctx: CivVIContext):
-    result = await ctx.game_interface.get_deathlink()
-    if result != "false":
-      # fmt: off
-        messages = [f"lost a unit to a {result}",
-                    f"offered a sacrifice to the great {result}",
-                    f"was killed by a {result}",
-                    f"made a donation to the {result} fund",
-                    f"made a tactical error",
-                    f"picked a fight with a {result} and lost",
-                    f"tried to befriend an enemy {result}",
-                    f"used a {result} to reduce their military spend",
-                    f"was defeated by a {result} in combat",
-                    f"bravely struck a {result} and paid the price",
-                    f"had a lapse in judgement against a {result}",
-                    f"learned at the hands of a {result}",
-                    f"attempted to non peacefully negotiate with a {result}",
-                    f"was outsmarted by a {result}",
-                    f"received a lesson from a {result}",
-                    f"now understands the importance of not fighting a {result}",
-                    f"let a {result} get the better of them",
-                    f"allowed a {result} to show them the error of their ways",
-                    f"heard the tragedy of Darth Plageuis the Wise from a {result}",
-                    f"refused to join a {result} in their quest for power",
-                    f"was tired of sitting in BK and decided to fight a {result} instead",
-                    f"purposely lost to a {result} as a cry for help",
-                    f"is wanting to remind everyone that they are here to have fun and not to win",
-                    f"is reconisdering their pursuit of a domination victory",
-                    f"had their plans toppled by a {result}",
-                    ]
-        player = ctx.player_names[ctx.slot]
-        message = random.choice(messages)
-        await ctx.send_death(f"{player} {message}")
-      # fmt: on
-
-
 async def _handle_game_ready(ctx: CivVIContext):
     if ctx.server:
         if not ctx.slot:
@@ -230,6 +199,7 @@ async def _handle_game_ready(ctx: CivVIContext):
         if ctx.disconnected == True:
             ctx.disconnected = False
             logger.info("Connected to Civ VI")
+
         await handle_receive_items(ctx)
         await handle_checked_location(ctx)
         await handle_check_goal_complete(ctx)

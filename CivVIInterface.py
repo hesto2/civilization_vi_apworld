@@ -78,3 +78,15 @@ class CivVIInterface:
         command = f"GameCore.NotificationManager:SendNotification(GameCore.NotificationTypes.USER_DEFINED_2, \"{item.name} Received\", \"You have received {item.name} from \" .. \"{sender}\", 0, {item.civ_vi_id})"
         # fmt: on
         await self.tuner.send_command(command)
+
+    async def decrease_gold_by_percent(self, percent: int, message: str) -> None:
+        command = f"DecreaseGoldByPercent({percent}, \"{message}\")"
+        await self.tuner.send_game_command(command)
+
+    async def decrease_faith_by_percent(self, percent: int, message: str) -> None:
+        command = f"DecreaseFaithByPercent({percent}, \"{message}\")"
+        await self.tuner.send_game_command(command)
+
+    async def decrease_era_score_by_amount(self, amount: int, message: str) -> None:
+        command = f"DecreaseEraScoreByAmount({amount}, \"{message}\")"
+        await self.tuner.send_game_command(command)

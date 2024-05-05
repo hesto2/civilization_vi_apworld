@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions
+from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range
 
 
 class ProgressiveDistricts(DefaultOnToggle):
@@ -15,8 +15,31 @@ class ResearchCostMultiplier(Choice):
     option_expensive = 1.5
     default = 1
 
+
+class DeathLinkEffect(Choice):
+    """What happens when a unit dies. Default is Unit Killed.\nFaith, and Gold will be decreased by the amount specified in 'Death Link Effect Percent'. \nEra score is decrased by 1.\nAny will select any of these options any time a death link is received."""
+    display_name = "Death Link Effect"
+    option_unit_killed = "Unit Killed"
+    option_era_score = "Era Score"
+    option_gold = "Gold"
+    option_faith = "Faith"
+    option_any = "Any"
+    option_any_except_era_score = "Any Except Era Score"
+    default = "Unit Killed"
+
+
+class DeathLinkEffectPercent(Range):
+    """The percentage of the effect that will be applied. Only applicable for Gold and Faith effects. Default is 20%"""
+    display_name = "Death Link Effect Percent"
+    default = 20
+    range_start = 1
+    range_end = 100
+
+
 @dataclass
 class CivVIOptions(PerGameCommonOptions):
     progressive_districts: ProgressiveDistricts
     research_cost_multiplier: ResearchCostMultiplier
+    death_link_effect: DeathLinkEffect
+    death_link_effect_percent: DeathLinkEffectPercent
     death_link: DeathLink

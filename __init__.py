@@ -90,6 +90,9 @@ class CivVIWorld(World):
         return {
             "progressive_districts": self.options.progressive_districts.value,
             "death_link": self.options.death_link.value,
+            "research_cost_multiplier": self.options.research_cost_multiplier.value,
+            "death_link_effect": self.options.death_link_effect.value,
+            "death_link_effect_percent": self.options.death_link_effect_percent.value,
 
         }
 

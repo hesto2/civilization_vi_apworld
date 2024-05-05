@@ -53,7 +53,8 @@ A short period after receiving an item, you will get a notification indicating y
 
 
 - "How does DeathLink work here? Am I going to have to start a new game every time one of my friends dies??"
-  - Heavens no, my fellow Archipelago appreciator. In Civilization, when a death link is sent your way, you will instead have a random unit killed! This can be any unit (great people, combat, builders, etc).
+  - Heavens no, my fellow Archipelago appreciator. When configuring your Archipelago options for Civilization on the options page, there are several choices available for you to fine tune the way you'd like to be punished for the follies of your friends. These include: Having a random unit destroyed, losing a percentage of gold or faith, or even losing a point on your era score. If you can't make up your mind, you can elect to have any of them be selected every time a death link is sent your way.
+
   - In the event you lose one of your units in combat (this means captured units don't count), then you will send a death link event to the rest of your friends.
 
 ## What's Next?
