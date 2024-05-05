@@ -1,5 +1,6 @@
 import os
 from typing import Dict
+import typing
 
 import Utils
 from .Container import CivVIContainer, generate_new_items
@@ -12,6 +13,7 @@ from BaseClasses import Item, MultiWorld, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, SuffixIdentifier, Type, components, launch_subprocess
 
+
 def run_client():
     print("Running Civ6 Client")
     from .Civ6Client import main  # lazy import
@@ -19,7 +21,8 @@ def run_client():
 
 
 components.append(
-    Component("Civ6 Client", func=run_client, component_type=Type.CLIENT, file_identifier=SuffixIdentifier(".apcivvi"))
+    Component("Civ6 Client", func=run_client, component_type=Type.CLIENT,
+              file_identifier=SuffixIdentifier(".apcivvi"))
 )
 
 
@@ -86,6 +89,11 @@ class CivVIWorld(World):
             self.multiworld.itempool += [self.create_item(
                 item_name)]
 
+    def generate_basic(self) -> None:
+        start_location_hints: typing.Set[str] = self.multiworld.start_location_hints[self.player].value
+        for location_name in self.location_table.keys():
+          start_location_hints.add(location_name)
+
     def fill_slot_data(self):
         return {
             "progressive_districts": self.options.progressive_districts.value,
@@ -97,9 +105,9 @@ class CivVIWorld(World):
         }
 
     def generate_output(self, output_directory: str):
-      # fmt: off
+        # fmt: off
         mod_name = f"AP-{self.multiworld.get_file_safe_player_name(self.player)}"
-      # fmt: on
+        # fmt: on
         mod_dir = os.path.join(
             output_directory, mod_name + "_" + Utils.__version__)
         mod_files = {
