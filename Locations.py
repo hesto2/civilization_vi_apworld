@@ -1,12 +1,54 @@
 import os
 import pkgutil
 from typing import List, Optional, Dict
-from BaseClasses import Location, Region
+from BaseClasses import Location, LocationProgressType, Region
 import json
 
 from .Enum import CivVICheckType, EraType
 
 CIV_VI_AP_LOCATION_ID_BASE = 5041000
+
+# Locs that should have progression items (keypoint techs/civics, ~1 per era)
+PRIORITY_LOCATIONS = [
+    "TECH_AP9",
+    "TECH_AP15",
+    "TECH_AP20",
+    "TECH_AP33",
+    "TECH_AP35",
+    "TECH_AP47",
+    "TECH_AP51",
+    "TECH_AP59",
+
+    "CIVIC_AP4",
+    "CIVIC_AP8",
+    "CIVIC_AP19",
+    "CIVIC_AP19",
+    "CIVIC_AP26",
+    "CIVIC_AP33",
+    "CIVIC_AP39",
+    "CIVIC_AP46",
+    "CIVIC_AP48",
+]
+
+# Locs that should not have progression items (future techs/civics)
+EXCLUDED_LOCATIONS = [
+
+    "TECH_AP69",
+    "TECH_AP70",
+    "TECH_AP71",
+    "TECH_AP72",
+    "TECH_AP73",
+    "TECH_AP74",
+    "TECH_AP75",
+    "TECH_AP76",
+
+    "CIVIC_AP50",
+    "CIVIC_AP56",
+    "CIVIC_AP57",
+    "CIVIC_AP58",
+    "CIVIC_AP59",
+    "CIVIC_AP60",
+]
 
 
 class CivVILocationData():
@@ -41,6 +83,13 @@ class CivVILocation(Location):
             self.location_type = CivVICheckType.TECH
         elif name.split("_")[0] == "CIVIC":
             self.location_type = CivVICheckType.CIVIC
+
+        if self.name in PRIORITY_LOCATIONS:
+            self.progress_type = LocationProgressType.PRIORITY
+        elif self.name in EXCLUDED_LOCATIONS:
+            self.progress_type = LocationProgressType.EXCLUDED
+        else:
+            self.progress_type = LocationProgressType.DEFAULT
 
 
 def generate_flat_location_table() -> Dict[str, CivVILocationData]:
