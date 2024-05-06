@@ -105,9 +105,7 @@ class CivVIWorld(World):
         }
 
     def generate_output(self, output_directory: str):
-        # fmt: off
         mod_name = f"AP-{self.multiworld.get_file_safe_player_name(self.player)}"
-        # fmt: on
         mod_dir = os.path.join(
             output_directory, mod_name + "_" + Utils.__version__)
         mod_files = {
