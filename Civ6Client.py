@@ -96,6 +96,17 @@ class CivVIContext(CommonContext):
         await self.get_username()
         await self.send_connect()
 
+    def run_gui(self):
+        from kvui import GameManager
+        class CivVIManager(GameManager):
+            logging_pairs = [
+                ("Client", "Archipelago")
+            ]
+            base_title = "Archipelago Civlization VI Client"
+
+        self.ui = CivVIManager(self)
+        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
             self.slot_data = args["slot_data"]

@@ -40,6 +40,7 @@ class CivVIContainer(APContainer):
             opened_zipfile.writestr(filename, yml)
         super().write_contents(opened_zipfile)
 
+
 def get_cost(world, location: CivVILocationData) -> int:
     """
     Returns the cost of the item based on the game options
@@ -47,6 +48,7 @@ def get_cost(world, location: CivVILocationData) -> int:
     options: CivVIOptions = world.options
     multiplier = options.research_cost_multiplier
     return int(world.location_table[location.name].cost * multiplier)
+
 
 def generate_new_items(world) -> str:
     """
@@ -58,7 +60,6 @@ def generate_new_items(world) -> str:
              CivVICheckType.TECH]
     civics = [location for location in locations if location.location_type ==
               CivVICheckType.CIVIC]
-# fmt: off
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <GameInfo>
   <Types>
@@ -67,32 +68,31 @@ def generate_new_items(world) -> str:
   {"".join([f'{tab}<Row Type="{tech.name}" Kind="KIND_TECH" />{nl}' for
            tech in techs])}
   {"".join([f'{tab}<Row Type="{civic.name}" Kind="KIND_CIVIC" />{nl}' for
-           civic in civics])}
+            civic in civics])}
   </Types>
   <Technologies>
       <Row TechnologyType="TECH_BLOCKER" Name="TECH_BLOCKER" EraType="ERA_ANCIENT" UITreeRow="0" Cost="99999" AdvisorType="ADVISOR_GENERIC" Description="Archipelago Tech created to prevent players from researching their own tech. If you can read this, then congrats you have reached the end of your tree before beating the game!"/>
 {"".join([f'{tab}<Row TechnologyType="{location.name}" '
-               f'Name="{world.multiworld.player_name[location.item.player]}{apo}s '
-               f'{location.item.name}" '
-               f'EraType="{world.location_table[location.name].era_type}" '
-               f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
-               f'Cost="{get_cost(world, world.location_table[location.name])}" '
-               f'Description="{location.name}" '
-               f'AdvisorType="ADVISOR_GENERIC" />{nl}'
-               for location in techs])}
+                f'Name="{world.multiworld.player_name[location.item.player]}{apo}s '
+                f'{location.item.name}" '
+                f'EraType="{world.location_table[location.name].era_type}" '
+                f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
+                f'Cost="{get_cost(world, world.location_table[location.name])}" '
+                f'Description="{location.name}" '
+                f'AdvisorType="ADVISOR_GENERIC" />{nl}'
+                for location in techs])}
   </Technologies>
   <Civics>
       <Row CivicType="CIVIC_BLOCKER" Name="CIVIC_BLOCKER" EraType="ERA_ANCIENT" UITreeRow="0" Cost="99999" AdvisorType="ADVISOR_GENERIC" Description="Archipelago Civic created to prevent players from researching their own civics. If you can read this, then congrats you have reached the end of your tree before beating the game!"/>
 {"".join([f'{tab}<Row CivicType="{location.name}" '
-               f'Name="{world.multiworld.player_name[location.item.player]}{apo}s '
-               f'{location.item.name}" '
-               f'EraType="{world.location_table[location.name].era_type}" '
-               f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
-               f'Cost="{get_cost(world, world.location_table[location.name])}" '
-               f'Description="{location.name}" '
-               f'AdvisorType="ADVISOR_GENERIC" />{nl}'
-               for location in civics])}
+                    f'Name="{world.multiworld.player_name[location.item.player]}{apo}s '
+                    f'{location.item.name}" '
+                    f'EraType="{world.location_table[location.name].era_type}" '
+                    f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
+                    f'Cost="{get_cost(world, world.location_table[location.name])}" '
+                    f'Description="{location.name}" '
+                    f'AdvisorType="ADVISOR_GENERIC" />{nl}'
+                    for location in civics])}
   </Civics>
 </GameInfo>
     """
-# fmt: on

@@ -9,7 +9,7 @@ DEATH_LINK_EFFECTS = ["Gold", "Faith", "Era Score", "Unit Killed"]
 async def handle_receive_deathlink(ctx: CommonContext, message):
     """Resolves the effects of a deathlink received from the multiworld based on the options selected by the player"""
     chosen_effect = ctx.slot_data["death_link_effect"]
-    effect:str = "Gold"
+    effect: str = "Gold"
     if chosen_effect == "Any Except Era Score":
         effect = random.choice(
             [effect for effect in DEATH_LINK_EFFECTS if effect != "Era Score"])
@@ -42,7 +42,6 @@ async def handle_check_deathlink(ctx: CommonContext):
     # Check if we should send out a death link
     result = await ctx.game_interface.get_deathlink()
     if result != "false":
-          # fmt: off
         messages = [f"lost a unit to a {result}",
                     f"offered a sacrifice to the great {result}",
                     f"was killed by a {result}",
@@ -72,4 +71,3 @@ async def handle_check_deathlink(ctx: CommonContext):
         player = ctx.player_names[ctx.slot]
         message = random.choice(messages)
         await ctx.send_death(f"{player} {message}")
-          # fmt: on

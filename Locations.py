@@ -31,23 +31,24 @@ PRIORITY_LOCATIONS = [
 ]
 
 # Locs that should not have progression items (future techs/civics)
+# Disabled for now since we don't have junk/filler items to put here in single world games
 EXCLUDED_LOCATIONS = [
 
-    "TECH_AP69",
-    "TECH_AP70",
-    "TECH_AP71",
-    "TECH_AP72",
-    "TECH_AP73",
-    "TECH_AP74",
-    "TECH_AP75",
-    "TECH_AP76",
+    # "TECH_AP69",
+    # "TECH_AP70",
+    # "TECH_AP71",
+    # "TECH_AP72",
+    # "TECH_AP73",
+    # "TECH_AP74",
+    # "TECH_AP75",
+    # "TECH_AP76",
 
-    "CIVIC_AP50",
-    "CIVIC_AP56",
-    "CIVIC_AP57",
-    "CIVIC_AP58",
-    "CIVIC_AP59",
-    "CIVIC_AP60",
+    # "CIVIC_AP50",
+    # "CIVIC_AP56",
+    # "CIVIC_AP57",
+    # "CIVIC_AP58",
+    # "CIVIC_AP59",
+    # "CIVIC_AP60",
 ]
 
 

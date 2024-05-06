@@ -130,7 +130,6 @@ def generate_new_prereqs_xml(output_file):
     with open("./data/existing_civics.json", 'r') as file:
         existing_civics = json.load(file)
 
-# fmt: off
     with open(output_file, 'w') as output:
         output.write("""
   <?xml version="1.0" encoding="utf-8"?>
@@ -157,7 +156,6 @@ def generate_new_prereqs_xml(output_file):
         output.write("""</CivicPrereqs>
   </GameData>
     """)
-# fmt: on
 
 
 def find_new_item_based_on_existing_name(existing_name: str, existing_items: List[dict], new_item: List[dict]) -> str:

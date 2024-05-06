@@ -38,9 +38,7 @@ class CivVIInterface:
                 return False
 
     async def give_item_to_player(self, item: CivVIItemData, sender: str = ""):
-      # fmt: off
         command = f"HandleReceiveItem({item.civ_vi_id}, \"{item.name}\", \"{item.item_type.value}\", \"{sender}\")"
-      # fmt: on
         await self.tuner.send_game_command(command)
 
     async def resync(self) -> None:
@@ -74,9 +72,7 @@ class CivVIInterface:
         return int(result)
 
     async def send_notification(self, item: CivVIItemData, sender="someone") -> None:
-        # fmt: off
         command = f"GameCore.NotificationManager:SendNotification(GameCore.NotificationTypes.USER_DEFINED_2, \"{item.name} Received\", \"You have received {item.name} from \" .. \"{sender}\", 0, {item.civ_vi_id})"
-        # fmt: on
         await self.tuner.send_command(command)
 
     async def decrease_gold_by_percent(self, percent: int, message: str) -> None:
