@@ -36,6 +36,9 @@ A short period after receiving an item, you will get a notification indicating y
 - "Help! I can't see any of the items (techs/civics) that have been sent to me!"
   - Both trees by default will show you the researchable Archipelago locations. To view the normal tree, you can click "Toggle Archipelago Tree" on the top left corner of the tree view.
 
+- "Drats, I can't advance to the next turn because I need to pick a tech but can't, there's a notification in my way, or some other obscure issue!"
+  - Congratulations on discovering an edge case! This shouldn't happen, but if you do encounter one then hitting `shift + return` will force end your turn. Please drop a message to `@hesto2` in the Discord if you see this!
+
 - "Oh no! I received the Machinery tech and now instead of getting an Archer next turn, I have to wait an additional 10 turns to get a Crossbowman!"
   - Vanilla prevents you from building units of the same class from an earlier tech level after you have researched a later variant. For example, this could be problematic if someone unlocks Crossbowmen for you right out the gate since you won't be able to make Archers (which have a much lower production cost).
 

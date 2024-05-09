@@ -49,7 +49,7 @@
 {"Type": "CIVIC_AP47", "Cost": 2415, "UITreeRow": 1, "EraType": "ERA_ATOMIC"},
 {"Type": "CIVIC_AP48", "Cost": 2880, "UITreeRow": 0, "EraType": "ERA_INFORMATION"},
 {"Type": "CIVIC_AP49", "Cost": 2880, "UITreeRow": 2, "EraType": "ERA_INFORMATION"},
-{"Type": "CIVIC_AP50", "Cost": 3500, "UITreeRow": 1, "EraType": "ERA_FUTURE"},
+{"Type": "CIVIC_AP50", "Cost": 3200, "UITreeRow": 3, "EraType": "ERA_FUTURE"},
 {"Type": "CIVIC_AP51", "Cost": 2880, "UITreeRow": -2, "EraType": "ERA_INFORMATION"},
 {"Type": "CIVIC_AP52", "Cost": 3000, "UITreeRow": 0, "EraType": "ERA_INFORMATION"},
 {"Type": "CIVIC_AP53", "Cost": 3000, "UITreeRow": 1, "EraType": "ERA_INFORMATION"},
