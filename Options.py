@@ -35,10 +35,16 @@ class DeathLinkEffectPercent(Range):
     range_start = 1
     range_end = 100
 
+class ProgressiveEras(DefaultOnToggle):
+    """Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era"""
+    display_name = "Progressive Eras"
+
+
 
 @dataclass
 class CivVIOptions(PerGameCommonOptions):
     progressive_districts: ProgressiveDistricts
+    progressive_eras: ProgressiveEras
     research_cost_multiplier: ResearchCostMultiplier
     death_link_effect: DeathLinkEffect
     death_link_effect_percent: DeathLinkEffectPercent

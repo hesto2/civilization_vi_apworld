@@ -28,6 +28,15 @@ PRIORITY_LOCATIONS = [
     "CIVIC_AP39",
     "CIVIC_AP46",
     "CIVIC_AP48",
+
+    "ERA_CLASSICAL",
+    "ERA_MEDIEVAL",
+    "ERA_RENAISSANCE",
+    "ERA_INDUSTRIAL",
+    "ERA_MODERN",
+    "ERA_ATOMIC",
+    "ERA_INFORMATION",
+    "ERA_FUTURE"
 ]
 
 # Locs that should not have progression items (future techs/civics)
@@ -84,6 +93,8 @@ class CivVILocation(Location):
             self.location_type = CivVICheckType.TECH
         elif name.split("_")[0] == "CIVIC":
             self.location_type = CivVICheckType.CIVIC
+        elif name.split("_")[0] == "ERA":
+            self.location_type = CivVICheckType.ERA
 
         if self.name in PRIORITY_LOCATIONS:
             self.progress_type = LocationProgressType.PRIORITY
@@ -170,6 +181,14 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
             item for item in new_civic_prereqs if item['Civic'] == data['Type']]
         era_locations[era_type][data["Type"]] = CivVILocationData(
             data["Type"], data['Cost'], data['UITreeRow'], id_base, era_type, CivVICheckType.CIVIC, prereq_data)
+        id_base += 1
+
+# Eras
+    eras = list(EraType)
+    for i in range(len(EraType) - 1):
+        container_era = eras[i].name
+        era_locations[container_era][container_era] = CivVILocationData(
+            container_era, 0, 0, id_base, container_era, CivVICheckType.ERA)
         id_base += 1
 
     return era_locations
