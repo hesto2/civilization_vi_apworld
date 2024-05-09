@@ -12,7 +12,7 @@ from .CivVIInterface import CivVIInterface
 from .Enum import CivVICheckType
 from .Items import CivVIItemData, generate_item_table
 from .Locations import generate_era_location_table
-from .ProgressiveItems import get_progressive_items
+from .ProgressiveDistricts import get_progressive_districts
 from .TunerClient import TunerErrorException, TunerTimeoutException
 
 
@@ -52,7 +52,7 @@ class CivVIContext(CommonContext):
     received_death_link = False
     death_link_message = ""
     logger = logger
-    progressive_items_by_type = get_progressive_items()
+    progressive_items_by_type = get_progressive_districts()
     item_name_to_id = {
         item.name: item.code for item in generate_item_table().values()}
 
@@ -167,7 +167,7 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
 
             item: CivVIItemData = ctx.item_id_to_civ_item[network_item.item]
             if index > last_received_index:
-                if item.item_type == CivVICheckType.PROGRESSIVE:
+                if item.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                     # if the item is progressive, then check how far in that progression type we are and send the appropriate item
                     count = sum(
                         1 for count_item in progressive_items if count_item.name == item.name)
@@ -184,7 +184,7 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                 await ctx.game_interface.give_item_to_player(item, sender)
                 await asyncio.sleep(0.02)
 
-            if item.item_type == CivVICheckType.PROGRESSIVE:
+            if item.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                 progressive_items.append(item)
 
         if ctx.processing_multiple_items:

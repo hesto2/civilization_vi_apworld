@@ -4,7 +4,7 @@ from BaseClasses import CollectionState, Region
 from worlds.AutoWorld import World
 from .Enum import EraType
 from .Locations import CivVILocation
-from .ProgressiveItems import get_flat_progressive_items
+from .ProgressiveDistricts import get_flat_progressive_districts
 from .Options import CivVIOptions
 import json
 import os
@@ -35,7 +35,7 @@ def get_cumulative_prereqs_for_era(end_era: EraType, exclude_progressive_items: 
             break
     # If we are excluding progressive items, we need to remove them from the list of expected items (TECH_BRONZE_WORKING won't be here since it will be PROGRESSIVE_ENCAMPMENT)
     if exclude_progressive_items:
-        flat_progressive_items = get_flat_progressive_items()
+        flat_progressive_items = get_flat_progressive_districts()
         prereqs_without_progressive_items = []
         for item in cumulative_prereqs:
             if item in flat_progressive_items:

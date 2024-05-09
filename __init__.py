@@ -84,7 +84,7 @@ class CivVIWorld(World):
     def create_items(self):
         for item_name, data in self.item_table.items():
           # Don't add progressive items to the itempool here, instead add the base item and have create_item convert it
-            if data.item_type == CivVICheckType.PROGRESSIVE:
+            if data.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                 continue
             self.multiworld.itempool += [self.create_item(
                 item_name)]

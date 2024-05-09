@@ -2,7 +2,7 @@ import json
 import os
 import pkgutil
 from ..Enum import EraType
-from ..ProgressiveItems import convert_items_to_have_progression
+from ..ProgressiveDistricts import convert_items_to_have_progression
 from . import CivVITestBase
 
 
