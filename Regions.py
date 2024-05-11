@@ -112,20 +112,25 @@ def create_regions(world: World, options: CivVIOptions, player: int):
     menu = Region("Menu", player, world.multiworld)
     world.multiworld.regions.append(menu)
 
+    has_progressive_items = bool(options.progressive_districts.value)
+    has_progressive_eras = bool(options.progressive_eras.value)
+
     regions: typing.List[Region] = []
     for era in EraType:
         era_region = Region(era.value, player, world.multiworld)
         era_locations = {location.name: location.code for key,
                          location in world.location_by_era[era.value].items()}
+
+        # If progressive_eras is not enabled, then era check types from the era_locations
+        if not has_progressive_eras:
+            era_locations = {key: value for key, value in era_locations.items() if key.split("_")[0] != "ERA"}
+
         era_region.add_locations(era_locations, CivVILocation)
 
         regions.append(era_region)
         world.multiworld.regions.append(era_region)
 
     menu.connect(world.get_region(EraType.ERA_ANCIENT.value))
-
-    has_progressive_items = bool(options.progressive_districts.value)
-    has_progressive_eras = bool(options.progressive_eras.value)
 
     world.get_region(EraType.ERA_ANCIENT.value).connect(
         world.get_region(EraType.ERA_CLASSICAL.value), None,
