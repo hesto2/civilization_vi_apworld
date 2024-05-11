@@ -82,17 +82,30 @@ class CivVIWorld(World):
         return CivVIItem(item, self.player)
 
     def create_items(self):
+        progressive_era_item = None
         for item_name, data in self.item_table.items():
           # Don't add progressive items to the itempool here, instead add the base item and have create_item convert it
             if data.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                 continue
+            if data.item_type == CivVICheckType.ERA:
+                # Don't add era items in this way
+                progressive_era_item = data
             self.multiworld.itempool += [self.create_item(
                 item_name)]
+
+        # Era items
+        if self.options.progressive_eras:
+          # Add one less than the total number of eras (start in ancient, don't need to find it)
+            for era in EraType:
+                if era.value == "ERA_ANCIENT":
+                    continue
+                self.multiworld.itempool += [self.create_item(
+                    progressive_era_item.name)]
 
     def generate_basic(self) -> None:
         start_location_hints: typing.Set[str] = self.multiworld.start_location_hints[self.player].value
         for location_name in self.location_table.keys():
-          start_location_hints.add(location_name)
+            start_location_hints.add(location_name)
 
     def fill_slot_data(self):
         return {

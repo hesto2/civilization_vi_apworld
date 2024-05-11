@@ -185,10 +185,14 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
 
 # Eras
     eras = list(EraType)
-    for i in range(len(EraType) - 1):
-        container_era = eras[i].name
-        era_locations[container_era][container_era] = CivVILocationData(
-            container_era, 0, 0, id_base, container_era, CivVICheckType.ERA)
+    for i in range(len(EraType)):
+        location_era = eras[i].name
+
+        if location_era == "ERA_ANCIENT":
+            continue
+
+        era_locations[location_era][location_era] = CivVILocationData(
+            location_era, 0, 0, id_base, location_era, CivVICheckType.ERA)
         id_base += 1
 
     return era_locations

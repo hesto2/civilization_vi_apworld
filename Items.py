@@ -4,7 +4,7 @@ import os
 import pkgutil
 from typing import Dict, List
 from BaseClasses import Item, ItemClassification
-from .Enum import CivVICheckType
+from .Enum import CivVICheckType, EraType
 from .ProgressiveDistricts import get_flat_progressive_districts, get_progressive_districts
 CIV_VI_AP_ITEM_ID_BASE = 5041000
 
@@ -109,7 +109,7 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
 
         civic_id_base += 1
 
-    # Generate Progressive Items
+    # Generate Progressive Districts
     progressive_id_base = 0
     progresive_items = get_progressive_districts()
     for item_name in progresive_items.keys():
@@ -117,4 +117,7 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
             item_name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, civic_id_base + tech_id_base, ItemClassification.progression, None)
         progressive_id_base += 1
 
+    # Generate progressive eras
+    item_table["PROGRESSIVE_ERA"] = CivVIItemData("PROGRESSIVE_ERA", progressive_id_base, 0, CivVICheckType.ERA, civic_id_base + tech_id_base, ItemClassification.progression, None)
+    progressive_id_base += 1
     return item_table
