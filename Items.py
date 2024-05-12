@@ -8,6 +8,12 @@ from .Enum import CivVICheckType, EraType
 from .ProgressiveDistricts import get_flat_progressive_districts, get_progressive_districts
 CIV_VI_AP_ITEM_ID_BASE = 5041000
 
+FILLER_ITEMS = [
+  "TECH_CYBERNETICS",
+  "TECH_ADVANCED_AI",
+  "TECH_FUTURE_TECH",
+  "CIVIC_FUTURE_CIVIC",
+]
 
 class CivVIItemData:
     civ_vi_id: int
@@ -74,8 +80,11 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     # Used to offset the CivVIItemData code so tech's and civics don't overlap ids
     tech_id_base = 0
     for tech in existing_techs:
-        classification = ItemClassification.progression if tech[
-            "Type"] in required_items else ItemClassification.useful
+        classification = ItemClassification.useful
+        if tech["Type"] in FILLER_ITEMS:
+            classification = ItemClassification.filler
+        if tech["Type"] in required_items:
+            classification = ItemClassification.progression
         name = tech["Type"]
         progression_name = None
         check_type = CivVICheckType.TECH
