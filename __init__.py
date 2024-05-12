@@ -104,8 +104,9 @@ class CivVIWorld(World):
 
     def generate_basic(self) -> None:
         start_location_hints: typing.Set[str] = self.multiworld.start_location_hints[self.player].value
-        for location_name in self.location_table.keys():
-            start_location_hints.add(location_name)
+        for location_name, location_data in self.location_table.items():
+            if location_data.location_type != CivVICheckType.ERA:
+                start_location_hints.add(location_name)
 
     def fill_slot_data(self):
         return {
