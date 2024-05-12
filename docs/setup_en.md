@@ -56,9 +56,9 @@ generator does not yet support it. Follow these steps to generate a multiworld:
 2. Modify any local host settings for generation, as desired.
 3. Run `ArchipelagoGenerate.exe` (without `.exe` on Linux) or click `Generate` in the launcher. The generation output
    is placed in the `output` folder (usually named something like `AP_XXXXX.zip`). \* Please note that if any player in the game you want to generate plays a game that needs a ROM file to generate,
-   you will need the corresponding ROM files. A ROM file is not required for The Wind Waker at this stage.
+   you will need the corresponding ROM files.
 4. Unzip the `AP_XXXXX.zip` file. It should include a zip file for each player in the room playing Civ VI. Distribute each file to the appropriate player.
-5. Delete the distributed zip files and re-zip the remaining files. In the next section, use this archive file to
+5. **Delete the distributed zip files and re-zip the remaining files**. In the next section, use this archive file to
    host a room or provide it to the room host. \* If you plan to host the room on a local machine, skip this step and use the original zip file (`AP_XXXX.zip`) instead.
 
 ## Hosting a Room
@@ -91,7 +91,10 @@ When configuring your game, make sure to start the game in the Ancient Era and l
 - If you do not see the client in the launcher, ensure you have placed the `civ6.apworld` in the correct folder (the
   `lib/worlds` folder of your Archipelago installation).
 
-- If you are getting an error: `The remote computer refused the network connection`, that likely indicates the tuner is not actually enabled. One simple way to verify that it is enabled is, after completing the setup steps, to go Main Menu -> Options -> Look for an option named "Tuner" and verify it is set to "Enabled"
+- If you are getting an error: `The remote computer refused the network connection`, or something else related to the client (or tuner) not being able to connect, it likely indicates the tuner is not actually enabled. One simple way to verify that it is enabled is, after completing the setup steps, to go Main Menu -> Options -> Look for an option named "Tuner" and verify it is set to "Enabled"
+
+- If your game gets in a state where someone has sent you items or you have sent locations but these are not correctly replicated to the multiworld, you can run `/resync` from the Civ 6 client. This may take up to a minute depending on how many items there are.
+
 
 ## Feedback
 In the offical [Archipelago Discord](https://discord.com/invite/8Z65BR2) under the `future-game-design` channel there is a `civilization-vi` [thread](https://discord.com/channels/731205301247803413/1235473969487024189/1235473969487024189). Feel free to ping `@hesto2` with any bugs/thoughts/complaints/wishes/jokes you may have!

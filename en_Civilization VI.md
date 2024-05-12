@@ -39,6 +39,9 @@ A short period after receiving an item, you will get a notification indicating y
 - "Drats, I can't advance to the next turn because I need to pick a tech but can't, there's a notification in my way, or some other obscure issue!"
   - Congratulations on discovering an edge case! This shouldn't happen, but if you do encounter one then hitting `shift + return` will force end your turn. Please drop a message to `@hesto2` in the Discord if you see this!
 
+- "I was feeling gutsy and decided to play with 'Progressive Eras' but got myself in a situation where I can't get my next `PROGRESSIVE_ERA` item before the game era changes. Help!"
+  - Due the nature of Civilization, this is a rare possibility. If you don't feel like starting over (I wouldn't), then you can run the `/toggle_progressive_eras` to disable or re enable this feature so you can keep on trying to bring order to the world.
+
 - "Oh no! I received the Machinery tech and now instead of getting an Archer next turn, I have to wait an additional 10 turns to get a Crossbowman!"
   - Vanilla prevents you from building units of the same class from an earlier tech level after you have researched a later variant. For example, this could be problematic if someone unlocks Crossbowmen for you right out the gate since you won't be able to make Archers (which have a much lower production cost).
 

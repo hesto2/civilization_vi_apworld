@@ -35,10 +35,10 @@ class DeathLinkEffectPercent(Range):
     range_start = 1
     range_end = 100
 
-class ProgressiveEras(DefaultOnToggle):
-    """Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era"""
-    display_name = "Progressive Eras"
 
+class ProgressiveEras(DefaultOnToggle):
+    """Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era. Notifications will be shown as the end of the era approaches letting the player know if they don't have enough progressive era items. Currently unlocked eras can be seen in both the tech and civic trees."""
+    display_name = "Progressive Eras"
 
 
 @dataclass

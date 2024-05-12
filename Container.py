@@ -96,3 +96,20 @@ def generate_new_items(world) -> str:
   </Civics>
 </GameInfo>
     """
+
+
+def generate_setup_file(world) -> str:
+    """
+    Generates the Lua for the setup file. This sets initial variables and state that affect gameplay around Progressive Eras
+    """
+    if world.options.progressive_eras:
+      return f"""
+  -- Init Progressive Era Value if it hasn't been set already
+  if Game.GetProperty("MaxAllowedEra") == nil then
+    print("Setting MaxAllowedEra to 0")
+    Game.SetProperty("MaxAllowedEra", 0)
+  end
+  """
+    return f"""
+    -- No setup needed for Progressive Eras
+      """

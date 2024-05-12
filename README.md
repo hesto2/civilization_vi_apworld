@@ -56,9 +56,9 @@ generator does not yet support it. Follow these steps to generate a multiworld:
 2. Modify any local host settings for generation, as desired.
 3. Run `ArchipelagoGenerate.exe` (without `.exe` on Linux) or click `Generate` in the launcher. The generation output
    is placed in the `output` folder (usually named something like `AP_XXXXX.zip`). \* Please note that if any player in the game you want to generate plays a game that needs a ROM file to generate,
-   you will need the corresponding ROM files. A ROM file is not required for The Wind Waker at this stage.
+   you will need the corresponding ROM files.
 4. Unzip the `AP_XXXXX.zip` file. It should include a zip file for each player in the room playing Civ VI. Distribute each file to the appropriate player.
-5. Delete the distributed zip files and re-zip the remaining files. In the next section, use this archive file to
+5. **Delete the distributed zip files and re-zip the remaining files**. In the next section, use this archive file to
    host a room or provide it to the room host. \* If you plan to host the room on a local machine, skip this step and use the original zip file (`AP_XXXX.zip`) instead.
 
 ## Hosting a Room

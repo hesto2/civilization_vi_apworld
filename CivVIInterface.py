@@ -37,8 +37,8 @@ class CivVIInterface:
                     "Connected to game,  waiting for game to start")
                 return False
 
-    async def give_item_to_player(self, item: CivVIItemData, sender: str = ""):
-        command = f"HandleReceiveItem({item.civ_vi_id}, \"{item.name}\", \"{item.item_type.value}\", \"{sender}\")"
+    async def give_item_to_player(self, item: CivVIItemData, sender: str = "", amount: int = 1) -> None:
+        command = f"HandleReceiveItem({item.civ_vi_id}, \"{item.name}\", \"{item.item_type.value}\", \"{sender}\", {amount})"
         await self.tuner.send_game_command(command)
 
     async def resync(self) -> None:
@@ -86,3 +86,14 @@ class CivVIInterface:
     async def decrease_era_score_by_amount(self, amount: int, message: str) -> None:
         command = f"DecreaseEraScoreByAmount({amount}, \"{message}\")"
         await self.tuner.send_game_command(command)
+
+    async def set_max_allowed_era(self, count: int) -> None:
+        command = f"SetMaxAllowedEra(\"{count}\")"
+        await self.tuner.send_game_command(command)
+
+    async def get_max_allowed_era(self) -> int:
+        command = "ClientGetMaxAllowedEra()"
+        result = await self.tuner.send_game_command(command)
+        if result == "":
+            return -1
+        return int(result)

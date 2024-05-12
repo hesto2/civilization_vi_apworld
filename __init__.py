@@ -3,7 +3,7 @@ from typing import Dict
 import typing
 
 import Utils
-from .Container import CivVIContainer, generate_new_items
+from .Container import CivVIContainer, generate_new_items, generate_setup_file
 from .Enum import CivVICheckType
 from .Items import CivVIItemData, generate_item_table, CivVIItem
 from .Locations import CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table
@@ -123,6 +123,7 @@ class CivVIWorld(World):
             output_directory, mod_name + "_" + Utils.__version__)
         mod_files = {
             f"NewItems.xml": generate_new_items(self),
+            f"InitOptions.lua": generate_setup_file(self)
         }
         mod = CivVIContainer(mod_files, mod_dir, output_directory, self.player,
                              self.multiworld.get_file_safe_player_name(self.player))

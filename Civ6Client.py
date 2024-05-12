@@ -35,9 +35,16 @@ class CivVICommandProcessor(ClientCommandProcessor):
             logger.info("Resyncing...")
             asyncio.create_task(self.ctx.resync())
 
+    def _cmd_toggle_progressive_eras(self):
+        """If you get stuck for some reason and unable to continue your game, you can run this command to disable the defeat that comes from pushing past the max unlocked era """
+        if isinstance(self.ctx, CivVIContext):
+            print("Toggling progressive eras, stand by...")
+            self.ctx.is_pending_toggle_progressive_eras = True
+
 
 class CivVIContext(CommonContext):
     is_pending_death_link_reset = False
+    is_pending_toggle_progressive_eras = False
     command_processor = CivVICommandProcessor
     game = "Civilization VI"
     items_handling = 0b111
@@ -98,6 +105,7 @@ class CivVIContext(CommonContext):
 
     def run_gui(self):
         from kvui import GameManager
+
         class CivVIManager(GameManager):
             logging_pairs = [
                 ("Client", "Archipelago")
@@ -146,6 +154,23 @@ async def tuner_sync_task(ctx: CivVIContext):
                 continue
 
 
+async def handle_toggle_progressive_eras(ctx: CivVIContext):
+    if ctx.is_pending_toggle_progressive_eras:
+        ctx.is_pending_toggle_progressive_eras = False
+        current = await ctx.game_interface.get_max_allowed_era()
+        if current > -1:
+            await ctx.game_interface.set_max_allowed_era(-1)
+            logger.info("Disabled progressive eras")
+        else:
+            count = 0
+            for _, network_item in enumerate(ctx.items_received):
+                item: CivVIItemData = ctx.item_id_to_civ_item[network_item.item]
+                if item.item_type == CivVICheckType.ERA:
+                    count += 1
+            await ctx.game_interface.set_max_allowed_era(count)
+            logger.info(f"Enabled progressive eras, set to {count}")
+
+
 async def handle_checked_location(ctx: CivVIContext):
     checked_locations = await ctx.game_interface.get_checked_locations()
     checked_location_ids = [location.code for location_name, location in ctx.location_name_to_civ_location.items(
@@ -161,8 +186,8 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
             logger.debug("Multiple items received")
             ctx.processing_multiple_items = True
 
-        # Handle non progressive items
-        progressive_items: List[CivVIItemData] = []
+        progressive_districts: List[CivVIItemData] = []
+        progressive_eras: List[CivVIItemData] = []
         for index, network_item in enumerate(ctx.items_received):
 
             item: CivVIItemData = ctx.item_id_to_civ_item[network_item.item]
@@ -170,7 +195,7 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                 if item.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                     # if the item is progressive, then check how far in that progression type we are and send the appropriate item
                     count = sum(
-                        1 for count_item in progressive_items if count_item.name == item.name)
+                        1 for count_item in progressive_districts if count_item.name == item.name)
 
                     if count >= len(ctx.progressive_items_by_type[item.name]):
                         logger.error(
@@ -181,11 +206,17 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                     item = ctx.item_table[item_name]
 
                 sender = ctx.player_names[network_item.player]
-                await ctx.game_interface.give_item_to_player(item, sender)
+                if item.item_type == CivVICheckType.ERA:
+                    count = len(progressive_eras) + 1
+                    await ctx.game_interface.give_item_to_player(item, sender, count)
+                else:
+                    await ctx.game_interface.give_item_to_player(item, sender)
                 await asyncio.sleep(0.02)
 
             if item.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
-                progressive_items.append(item)
+                progressive_districts.append(item)
+            elif item.item_type == CivVICheckType.ERA:
+                progressive_eras.append(item)
 
         if ctx.processing_multiple_items:
             logger.debug("DONE")
@@ -202,6 +233,7 @@ async def handle_check_goal_complete(ctx: CivVIContext):
         logger.info("Sending Victory to server!")
         await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
 
+
 async def _handle_game_ready(ctx: CivVIContext):
     if ctx.server:
         if not ctx.slot:
@@ -217,6 +249,9 @@ async def _handle_game_ready(ctx: CivVIContext):
 
         if "DeathLink" in ctx.tags:
             await handle_check_deathlink(ctx)
+
+        # process pending commands
+        await handle_toggle_progressive_eras(ctx)
         await asyncio.sleep(3)
     else:
         logger.info("Waiting for player to connect to server")
