@@ -17,7 +17,10 @@ class ResearchCostMultiplier(Choice):
 
 
 class DeathLinkEffect(Choice):
-    """What happens when a unit dies. Default is Unit Killed.\nFaith, and Gold will be decreased by the amount specified in 'Death Link Effect Percent'. \nEra score is decrased by 1.\nAny will select any of these options any time a death link is received."""
+    """What happens when a unit dies. Default is Unit Killed.\n
+    Faith, and Gold will be decreased by the amount specified in 'Death Link Effect Percent'. \n
+    Era score is decrased by 1.\n
+    Any will select any of these options any time a death link is received."""
     display_name = "Death Link Effect"
     option_unit_killed = "Unit Killed"
     option_era_score = "Era Score"
@@ -37,7 +40,9 @@ class DeathLinkEffectPercent(Range):
 
 
 class ProgressiveEras(DefaultOnToggle):
-    """Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era. Notifications will be shown as the end of the era approaches letting the player know if they don't have enough progressive era items. Currently unlocked eras can be seen in both the tech and civic trees."""
+    """Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era.
+    A notification will be shown as the end of the era approaches letting the player know if they don't have enough progressive era items.
+    Unlocked eras can be seen in both the tech and civic trees."""
     display_name = "Progressive Eras"
 
 

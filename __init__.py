@@ -90,6 +90,8 @@ class CivVIWorld(World):
             if data.item_type == CivVICheckType.ERA:
                 # Don't add era items in this way
                 progressive_era_item = data
+                continue
+
             self.multiworld.itempool += [self.create_item(
                 item_name)]
 
@@ -103,7 +105,7 @@ class CivVIWorld(World):
                     progressive_era_item.name)]
 
     def generate_basic(self) -> None:
-        start_location_hints: typing.Set[str] = self.multiworld.start_location_hints[self.player].value
+        start_location_hints: typing.Set[str] = self.options.start_location_hints.value
         for location_name, location_data in self.location_table.items():
             if location_data.location_type != CivVICheckType.ERA:
                 start_location_hints.add(location_name)
