@@ -112,8 +112,8 @@ def create_regions(world: World, options: CivVIOptions, player: int):
     menu = Region("Menu", player, world.multiworld)
     world.multiworld.regions.append(menu)
 
-    has_progressive_items = bool(options.progressive_districts.value)
-    has_progressive_eras = bool(options.progressive_eras.value)
+    has_progressive_items = options.progression_style.current_key != "none"
+    has_progressive_eras = options.progression_style.current_key == "eras_and_districts"
 
     regions: typing.List[Region] = []
     for era in EraType:

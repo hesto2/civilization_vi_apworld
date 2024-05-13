@@ -76,7 +76,7 @@ class CivVIWorld(World):
     def create_item(self, name: str) -> Item:
         item: CivVIItemData = self.item_table[name]
 
-        if self.options.progressive_districts and item.progression_name != None:
+        if self.options.progression_style.current_key != "none" and item.progression_name != None:
             item = self.item_table[item.progression_name]
 
         return CivVIItem(item, self.player)
@@ -96,7 +96,7 @@ class CivVIWorld(World):
                 item_name)]
 
         # Era items
-        if self.options.progressive_eras:
+        if self.options.progression_style.current_key == "eras_and_districts":
           # Add one less than the total number of eras (start in ancient, don't need to find it)
             for era in EraType:
                 if era.value == "ERA_ANCIENT":
@@ -112,7 +112,7 @@ class CivVIWorld(World):
 
     def fill_slot_data(self):
         return {
-            "progressive_districts": self.options.progressive_districts.value,
+            "progression_style": self.options.progression_style.current_key,
             "death_link": self.options.death_link.value,
             "research_cost_multiplier": self.options.research_cost_multiplier.value,
             "death_link_effect": self.options.death_link_effect.value,

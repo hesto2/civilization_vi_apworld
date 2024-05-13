@@ -2,9 +2,19 @@ from dataclasses import dataclass
 from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range
 
 
-class ProgressiveDistricts(DefaultOnToggle):
-    """Each tech/civic that would normally unlock a district or district building now has a logical progression. Example: TECH_BRONZE_WORKING is now PROGRESSIVE_ENCAMPMENT"""
-    display_name = "Progressive Districts"
+class ProgressionStyle(Choice):
+    """Determines what progressive items (if any) should be included.\n\n
+    Districts Only: Each tech/civic that would normally unlock a district or district building now has a logical progression. Example: TECH_BRONZE_WORKING is now PROGRESSIVE_ENCAMPMENT\n\n
+    Eras and Districts: Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era.
+    A notification will be shown as the end of the era approaches letting the player know if they don't have enough progressive era items.
+    Unlocked eras can be seen in both the tech and civic trees. Includes all progressive districts.\n\n
+    None: No progressive items will be included. This means you can get district upgrades that won't be usable until the relevant district is unlocked.
+    """
+    display_name = "Progression Style"
+    option_districts_only = "Districts Only"
+    option_eras_and_districts = "Eras and Districts"
+    option_none = "None"
+    default = "Districts Only"
 
 
 class ResearchCostMultiplier(Choice):
@@ -39,17 +49,9 @@ class DeathLinkEffectPercent(Range):
     range_end = 100
 
 
-class ProgressiveEras(DefaultOnToggle):
-    """Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era.
-    A notification will be shown as the end of the era approaches letting the player know if they don't have enough progressive era items.
-    Unlocked eras can be seen in both the tech and civic trees."""
-    display_name = "Progressive Eras"
-
-
 @dataclass
 class CivVIOptions(PerGameCommonOptions):
-    progressive_districts: ProgressiveDistricts
-    progressive_eras: ProgressiveEras
+    progression_style: ProgressionStyle
     research_cost_multiplier: ResearchCostMultiplier
     death_link_effect: DeathLinkEffect
     death_link_effect_percent: DeathLinkEffectPercent

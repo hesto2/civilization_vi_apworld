@@ -1,8 +1,13 @@
 Civilization VI:
   progression_balancing: 50
   accessibility: items
-  progressive_districts: 'true' # 'true' or 'false', makes it so you unlock district related techs/civics sequentially
-  progressive_eras: 'true' # 'true' or 'false', adds a PROGRESSIVE_ERA item to the item pool and requires a given count of them to progress to each seuqntial game era. If the game era changes without the required amount then the player will be defeated and need to reload a previous save.
+
+    # Determines what progressive items (if any) should be included.
+      # districts_only: Each tech/civic that would normally unlock a district or district building now has a logical progression. Example: TECH_BRONZE_WORKING is now PROGRESSIVE_ENCAMPMENT
+      # eras_and_districts: Players will be defeated if they play until the world era advances beyond the currently unlocked maximum era. A notification will be shown as the end of the era approaches letting the player know if they don't have enough progressive era items. Unlocked eras can be seen in both the tech and civic trees. Includes all progressive districts.
+      # none: No progressive items will be included. This means you can get district upgrades that won't be usable until the relevant district is unlocked.
+  progression_style: 'districts_only'
+
   research_cost_multiplier: cheap # cheap, default, expensive.  Changes the cost of techs and civics by .5x, 1x, or 1.5x
   death_link: 'false' # 'true' or 'false'
   death_link_effect: unit_killed # gold, faith, era_score, unit_killed, any, any_except_era_score. Selects which effect is applied when a player dies
