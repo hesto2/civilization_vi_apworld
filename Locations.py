@@ -87,7 +87,7 @@ class CivVILocation(Location):
     game: str = "Civilization VI"
     location_type: CivVICheckType
 
-    def __init__(self, player: int, name: str = '', address: int | None = None, parent: Region | None = None):
+    def __init__(self, player: int, name: str = '', address: Optional[int] = None, parent: Optional[Region] = None):
         super().__init__(player, name, address, parent)
         if name.split("_")[0] == "TECH":
             self.location_type = CivVICheckType.TECH
