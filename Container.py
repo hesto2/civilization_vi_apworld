@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import os
 from typing import List
 import zipfile
+from BaseClasses import ItemClassification
 from worlds.Files import APContainer
 
 from .Enum import CivVICheckType
@@ -79,7 +80,8 @@ def generate_new_items(world) -> str:
                 f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
                 f'Cost="{get_cost(world, world.location_table[location.name])}" '
                 f'Description="{location.name}" '
-                f'AdvisorType="ADVISOR_GENERIC" />{nl}'
+                f'AdvisorType="{"ADVISOR_PROGRESSIVE" if location.item.classification == ItemClassification.progression else "ADVISOR_GENERIC"}"'
+                f'/>{nl}'
                 for location in techs])}
   </Technologies>
   <Civics>
@@ -91,7 +93,8 @@ def generate_new_items(world) -> str:
                     f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
                     f'Cost="{get_cost(world, world.location_table[location.name])}" '
                     f'Description="{location.name}" '
-                    f'AdvisorType="ADVISOR_GENERIC" />{nl}'
+                    f'AdvisorType="{"ADVISOR_PROGRESSIVE" if location.item.classification == ItemClassification.progression else "ADVISOR_GENERIC"}"'
+                    f'/>{nl}'
                     for location in civics])}
   </Civics>
 </GameInfo>

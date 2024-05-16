@@ -15,6 +15,11 @@ FILLER_ITEMS = [
   "CIVIC_FUTURE_CIVIC",
 ]
 
+NON_PROGRESSION_DISTRICTS = [
+  "PROGRESSIVE_PRESERVE",
+  "PROGRESSIVE_NEIGHBORHOOD"
+]
+
 class CivVIItemData:
     civ_vi_id: int
     classification: ItemClassification
@@ -122,8 +127,11 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     progressive_id_base = 0
     progresive_items = get_progressive_districts()
     for item_name in progresive_items.keys():
+        progression = ItemClassification.progression
+        if item_name in NON_PROGRESSION_DISTRICTS:
+          progression = ItemClassification.useful
         item_table[item_name] = CivVIItemData(
-            item_name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, civic_id_base + tech_id_base, ItemClassification.progression, None)
+            item_name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, civic_id_base + tech_id_base, progression, None)
         progressive_id_base += 1
 
     # Generate progressive eras
