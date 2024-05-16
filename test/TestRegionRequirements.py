@@ -27,6 +27,7 @@ def collect_items_for_era_progressive(test, era: EraType) -> None:
 
 class TestNonProgressiveRegionRequirements(CivVITestBase):
     options = {
+        "pre_hint_items": "all",
         "progression_style": "none",
         "death_link": "false",
         "death_link_effect": "unit_killed",
@@ -77,6 +78,7 @@ class TestNonProgressiveRegionRequirements(CivVITestBase):
 
 class TestProgressiveDistrictRequirements(CivVITestBase):
     options = {
+        "pre_hint_items": "all",
         "progression_style": "districts_only",
         "death_link": "false",
         "death_link_effect": "unit_killed",
@@ -128,6 +130,7 @@ class TestProgressiveDistrictRequirements(CivVITestBase):
 
 class TestProgressiveEraRequirements(CivVITestBase):
     options = {
+        "pre_hint_items": "all",
         "progression_style": "eras_and_districts",
         "death_link": "false",
         "death_link_effect": "unit_killed"

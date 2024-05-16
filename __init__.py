@@ -6,10 +6,10 @@ import Utils
 from .Container import CivVIContainer, generate_new_items, generate_setup_file
 from .Enum import CivVICheckType
 from .Items import CivVIItemData, generate_item_table, CivVIItem
-from .Locations import CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table
+from .Locations import CivVILocation, CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table
 from .Options import CivVIOptions
 from .Regions import create_regions
-from BaseClasses import Item, MultiWorld, Tutorial
+from BaseClasses import Item, ItemClassification, MultiWorld, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, SuffixIdentifier, Type, components, launch_subprocess
 
@@ -63,7 +63,7 @@ class CivVIWorld(World):
         super().__init__(multiworld, player)
         self.location_by_era = generate_era_location_table()
 
-        self.location_table = {}
+        self.location_table: Dict[str, CivVILocationData] = {}
         self.item_table = generate_item_table()
 
         for _era, locations in self.location_by_era.items():
@@ -108,11 +108,28 @@ class CivVIWorld(World):
                 self.multiworld.itempool += [self.create_item(
                     progressive_era_item.name)]
 
-    def generate_basic(self) -> None:
+    def post_fill(self):
+        """Handles pre hinting items based on player configuration"""
+        if self.options.pre_hint_items.current_key == "none":
+            return
+
+        show_flags = {
+            ItemClassification.progression: self.options.pre_hint_items.current_key != "none",
+            ItemClassification.useful: self.options.pre_hint_items.current_key == "no_junk" or self.options.pre_hint_items.current_key == "all",
+            ItemClassification.filler: self.options.pre_hint_items.current_key == "all",
+        }
+
         start_location_hints: typing.Set[str] = self.options.start_location_hints.value
         for location_name, location_data in self.location_table.items():
-            if location_data.location_type != CivVICheckType.ERA:
-                start_location_hints.add(location_name)
+            if location_data.location_type == CivVICheckType.ERA:
+                continue
+
+            location: CivVILocation = self.multiworld.get_location(location_name, self.player)
+
+            if not show_flags.get(location.item.classification, False):
+                continue
+
+            start_location_hints.add(location_name)
 
     def fill_slot_data(self):
         return {

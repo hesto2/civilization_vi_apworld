@@ -14,7 +14,7 @@ class ProgressionStyle(Choice):
     option_districts_only = "Districts Only"
     option_eras_and_districts = "Eras and Districts"
     option_none = "None"
-    default = "Districts Only"
+    default = "districts_only"
 
 
 class ResearchCostMultiplier(Choice):
@@ -24,6 +24,20 @@ class ResearchCostMultiplier(Choice):
     option_default = 1
     option_expensive = 1.5
     default = 1
+
+class PreHintItems(Choice):
+    """Controls if/what items in the tech/civics trees are pre hinted for the multiworld.\n
+    All : All items in the tech & civics trees are pre hinted.\n
+    Progression items: Only locations in the trees containing progression items are pre hinted.\n
+    No Junk: Pre hint the progression and useful items.\n
+    None: No items are pre hinted.
+    """
+    display_name = "Tech/Civic Tree Pre Hinted Items"
+    option_all = "All Tree Locations"
+    option_progression = "Progression Tree Locations"
+    option_no_junk = "No Junk"
+    option_none = "None"
+    default = "progression"
 
 
 class DeathLinkEffect(Choice):
@@ -38,7 +52,7 @@ class DeathLinkEffect(Choice):
     option_faith = "Faith"
     option_any = "Any"
     option_any_except_era_score = "Any Except Era Score"
-    default = "Unit Killed"
+    default = "unit_killed"
 
 
 class DeathLinkEffectPercent(Range):
@@ -53,6 +67,7 @@ class DeathLinkEffectPercent(Range):
 class CivVIOptions(PerGameCommonOptions):
     progression_style: ProgressionStyle
     research_cost_multiplier: ResearchCostMultiplier
+    pre_hint_items: PreHintItems
     death_link_effect: DeathLinkEffect
     death_link_effect_percent: DeathLinkEffectPercent
     death_link: DeathLink
