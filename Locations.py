@@ -10,24 +10,23 @@ CIV_VI_AP_LOCATION_ID_BASE = 5041000
 
 # Locs that should have progression items (keypoint techs/civics, ~1 per era)
 PRIORITY_LOCATIONS = [
-    "TECH_AP9",
-    "TECH_AP15",
-    "TECH_AP20",
-    "TECH_AP33",
-    "TECH_AP35",
-    "TECH_AP47",
-    "TECH_AP51",
-    "TECH_AP59",
+    "TECH_ANCEINT_09",
+    "TECH_CLASSICAL_15",
+    "TECH_MEDIEVAL_20",
+    "TECH_RENAISSANCE_33",
+    "TECH_INDUSTRIAL_35",
+    "TECH_MODERN_47",
+    "TECH_ATOMIC_51",
+    "TECH_INFORMATION_59",
 
-    "CIVIC_AP4",
-    "CIVIC_AP8",
-    "CIVIC_AP19",
-    "CIVIC_AP19",
-    "CIVIC_AP26",
-    "CIVIC_AP33",
-    "CIVIC_AP39",
-    "CIVIC_AP46",
-    "CIVIC_AP48",
+    "CIVIC_ANCIENT_04",
+    "CIVIC_CLASSICAL_08",
+    "CIVIC_MEDIEVAL_19",
+    "CIVIC_RENAISSANCE_26",
+    "CIVIC_INDUSTRIAL_33",
+    "CIVIC_MODERN_39",
+    "CIVIC_ATOMIC_46",
+    "CIVIC_INFORMATION_48",
 
     "ERA_CLASSICAL",
     "ERA_MEDIEVAL",
@@ -43,21 +42,21 @@ PRIORITY_LOCATIONS = [
 # Disabled for now since we don't have junk/filler items to put here in single world games
 EXCLUDED_LOCATIONS = [
 
-    # "TECH_AP69",
-    # "TECH_AP70",
-    # "TECH_AP71",
-    # "TECH_AP72",
-    # "TECH_AP73",
-    # "TECH_AP74",
-    # "TECH_AP75",
-    # "TECH_AP76",
+    # "TECH_FUTURE_69",
+    # "TECH_FUTURE_70",
+    # "TECH_FUTURE_71",
+    # "TECH_FUTURE_72",
+    # "TECH_FUTURE_73",
+    # "TECH_FUTURE_74",
+    # "TECH_FUTURE_75",
+    # "TECH_FUTURE_76",
 
-    # "CIVIC_AP50",
-    # "CIVIC_AP56",
-    # "CIVIC_AP57",
-    # "CIVIC_AP58",
-    # "CIVIC_AP59",
-    # "CIVIC_AP60",
+    # "CIVIC_FUTURE_50",
+    # "CIVIC_FUTURE_56",
+    # "CIVIC_FUTURE_57",
+    # "CIVIC_FUTURE_58",
+    # "CIVIC_FUTURE_59",
+    # "CIVIC_FUTURE_60",
 ]
 
 
@@ -108,9 +107,9 @@ def generate_flat_location_table() -> Dict[str, CivVILocationData]:
     """
     Generates a flat location table in the following format:
     {
-      "TECH_AP0": CivVILocationData,
-      "TECH_AP1": CivVILocationData,
-      "CIVIC_AP0": CivVILocationData,
+      "TECH_AP_ANCIENT_00": CivVILocationData,
+      "TECH_AP_ANCIENT_01": CivVILocationData,
+      "CIVIC_AP_ANCIENT_00": CivVILocationData,
       ...
     }
     """
@@ -127,9 +126,9 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
     Uses the data from existing_tech.json to generate a location table in the following format:
     {
       "ERA_ANCIENT": {
-        "TECH_AP0": CivVILocationData,
-        "TECH_AP1": CivVILocationData,
-        "CIVIC_AP0": CivVILocationData,
+        "TECH_AP_ANCIENT_00": CivVILocationData,
+        "TECH_AP_ANCIENT_01": CivVILocationData,
+        "CIVIC_AP_ANCIENT_00": CivVILocationData,
       },
       ...
     }

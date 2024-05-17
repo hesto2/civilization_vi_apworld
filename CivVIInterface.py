@@ -53,7 +53,7 @@ class CivVIInterface:
 
     async def get_checked_locations(self) -> List[str]:
         command = "GetUnsentCheckedLocations()"
-        result = await self.tuner.send_game_command(command, 1024 * 4)
+        result = await self.tuner.send_game_command(command, 2048 * 4)
         return result.split(",")
 
     async def get_deathlink(self) -> str:

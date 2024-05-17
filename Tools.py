@@ -23,7 +23,9 @@ def generate_new_techs(file_path, output_file):
         output.write("[\n")
         for item in data:
             # write the item contents to the output file as a json but change the name to be "TECH_AP{index}"
-            output.write(json.dumps({"Type": f"TECH_AP{i}", "Cost": item["Cost"],
+            index = f"{'0' if i < 10 else ''}{i}"
+            name = f"TECH_{item['EraType'].split('_')[1]}_{index}"
+            output.write(json.dumps({"Type": name, "Cost": item["Cost"],
                          "UITreeRow": item["UITreeRow"], "EraType": item["EraType"]}))
             if i != len(data) - 1:
                 output.write(",\n")
@@ -41,9 +43,12 @@ def generate_new_civics(file_path, output_file):
     with open(output_file, 'w') as output:
         i = 0
         output.write("[\n")
+
         for item in data:
+            index = f"{'0' if i < 10 else ''}{i}"
+            name = f"CIVIC_{item['EraType'].split('_')[1]}_{index}"
             # write the item contents to the output file as a json but change the name to be "CIVIC_AP{index}"
-            output.write(json.dumps({"Type": f"CIVIC_AP{i}", "Cost": item["Cost"],
+            output.write(json.dumps({"Type": name, "Cost": item["Cost"],
                          "UITreeRow": item["UITreeRow"], "EraType": item["EraType"]}))
             if i != len(data) - 1:
                 output.write(",\n")
@@ -177,7 +182,7 @@ if __name__ == "__main__":
     existing_civic_prereqs = "./data/existing_civic_prereqs.json"
     new_civic_prereqs = "./data/new_civic_prereqs.json"
 
-    new_prereqs_xml = "./static_mod_files/NewPrereqs.xml"
+    new_prereqs_xml = "./data/NewPrereqs.xml"
 
     if len(sys.argv) < 2:
         generate_new_techs(existing_tech, new_tech)
