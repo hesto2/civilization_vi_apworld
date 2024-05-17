@@ -2,7 +2,7 @@ from enum import Enum
 import json
 import os
 import pkgutil
-from typing import Dict, List
+from typing import Dict, List, Optional
 from BaseClasses import Item, ItemClassification
 from .Enum import CivVICheckType, EraType
 from .ProgressiveDistricts import get_flat_progressive_districts, get_progressive_districts
@@ -27,7 +27,7 @@ class CivVIItemData:
     code: int
     cost: int
     item_type: CivVICheckType
-    progression_name: str | None
+    progression_name: Optional[str]
 
     def __init__(self, name, civ_vi_id: int, cost: int,  item_type: CivVICheckType, id_offset: int, classification: ItemClassification, progression_name: str | None):
         self.classification = classification
