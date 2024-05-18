@@ -190,7 +190,9 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
         progressive_eras: List[CivVIItemData] = []
         for index, network_item in enumerate(ctx.items_received):
 
+            # Track these separately so if we replace "PROGRESSIVE_DISTRICT" with a specific tech, we can still check if need to add it to the list of districts
             item: CivVIItemData = ctx.item_id_to_civ_item[network_item.item]
+            item_to_send: CivVIItemData = ctx.item_id_to_civ_item[network_item.item]
             if index > last_received_index:
                 if item.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                     # if the item is progressive, then check how far in that progression type we are and send the appropriate item
@@ -202,15 +204,15 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                             f"Received more progressive items than expected for {item.name}")
                         continue
 
-                    item_name = ctx.progressive_items_by_type[item.name][count]
-                    item = ctx.item_table[item_name]
+                    actual_item_name = ctx.progressive_items_by_type[item.name][count]
+                    item_to_send = ctx.item_table[actual_item_name]
 
                 sender = ctx.player_names[network_item.player]
                 if item.item_type == CivVICheckType.ERA:
                     count = len(progressive_eras) + 1
-                    await ctx.game_interface.give_item_to_player(item, sender, count)
+                    await ctx.game_interface.give_item_to_player(item_to_send, sender, count)
                 else:
-                    await ctx.game_interface.give_item_to_player(item, sender)
+                    await ctx.game_interface.give_item_to_player(item_to_send, sender)
                 await asyncio.sleep(0.02)
 
             if item.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
