@@ -25,8 +25,19 @@ Once you have located your `AppOptions.txt`, do a search for `Enable FireTuner`.
 
 ## Mod Installation
 
-1. After downloading each of the required items, follow these [instructions](https://github.com/hesto2/civilization_archipelago_mod/blob/main/README.md) for where to place the Civ VI AP Mod
-2. After the host generates a game using your yaml (covered in the next section) you will be given a zip file containing a file you need to copy into the mod folder you just installed. This is covered in the last step of the mod [instructions](https://github.com/hesto2/civilization_archipelago_mod/blob/main/README.md) .
+1. Download and unzip the latest release of the mod from [github](https://github.com/hesto2/civilization_archipelago_mod/releases).
+
+2. Copy the folder containing the mod files to your Civ VI mods folder. On Windows, this is usually located at `C:\Users\YOUR_USER\Documents\My Games\Sid Meier's Civilization VI\Mods`
+
+3. After the Archipelago host generates a game, you should be given another zip file titled `AP-{playername}....zip`. Unzip this and copy all of its contents into your mod folder.
+
+4. Your finished mod folder should look something like this:
+- Civ VI Mods Directory
+  - civilization_archipelago_mod
+    - NewItems.xml
+    - InitOptions.lua
+    - Archipelago.modinfo
+    - All the other mod files, etc.
 
 ## AP World Installation
 
