@@ -8,6 +8,11 @@ Civilization VI:
   # none: No progressive items will be included. This means you can get district upgrades that won't be usable until the relevant district is unlocked.
   progression_style: "districts_only"
 
+  # Shuffles the goody hut rewards. Goody huts will only contain junk items and location checks are received sequentially (GOODY_HUT_1, GOODY_HUT_2, etc).
+  # true: goody hut rewards are shuffled in
+  # false: goody hut rewards are not shuffled in and will behave as normal
+  shuffle_goody_hut_rewards: true
+
   # Controls if/what items in the tech/civics trees are pre hinted for the multiworld.
   # all: All items in the tech & civics trees are pre hinted.
   # progression: Only locations in the trees containing progression items are pre hinted.

@@ -16,6 +16,11 @@ class ProgressionStyle(Choice):
     option_none = "None"
     default = "districts_only"
 
+class ShuffleGoodyHuts(DefaultOnToggle):
+    """Shuffles the goody hut rewards. Goody huts will only contain junk items and location checks are received sequentially (GOODY_HUT_1, GOODY_HUT_2, etc)."""
+    display_name = "Shuffle Goody Hut Rewards"
+    default = True
+
 
 class ResearchCostMultiplier(Choice):
     """Multiplier for research cost of techs and civics, higher values make research more expensive. Cheap = 0.5x, Expensive = 1.5x. Default is 1. """
@@ -66,6 +71,7 @@ class DeathLinkEffectPercent(Range):
 @dataclass
 class CivVIOptions(PerGameCommonOptions):
     progression_style: ProgressionStyle
+    shuffle_goody_hut_rewards: ShuffleGoodyHuts
     research_cost_multiplier: ResearchCostMultiplier
     pre_hint_items: PreHintItems
     death_link_effect: DeathLinkEffect
