@@ -114,6 +114,7 @@ def create_regions(world: World, options: CivVIOptions, player: int):
 
     has_progressive_items = options.progression_style.current_key != "none"
     has_progressive_eras = options.progression_style.current_key == "eras_and_districts"
+    has_goody_huts = options.shuffle_goody_hut_rewards.value
 
     regions: typing.List[Region] = []
     for era in EraType:
@@ -124,6 +125,8 @@ def create_regions(world: World, options: CivVIOptions, player: int):
         # If progressive_eras is not enabled, then era check types from the era_locations
         if not has_progressive_eras:
             era_locations = {key: value for key, value in era_locations.items() if key.split("_")[0] != "ERA"}
+        if not has_goody_huts:
+            era_locations = {key: value for key, value in era_locations.items() if key.split("_")[0] != "GOODY"}
 
         era_region.add_locations(era_locations, CivVILocation)
 
@@ -173,3 +176,8 @@ def create_regions(world: World, options: CivVIOptions, player: int):
 
     world.multiworld.completion_condition[player] = lambda state: state.can_reach(
         EraType.ERA_FUTURE.value, "Region", player)
+
+
+    if options.shuffle_goody_hut_rewards.value:
+
+      world.get_region(EraType.ERA_ANCIENT.value).add_locations()

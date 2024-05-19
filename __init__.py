@@ -121,7 +121,7 @@ class CivVIWorld(World):
 
         start_location_hints: typing.Set[str] = self.options.start_location_hints.value
         for location_name, location_data in self.location_table.items():
-            if location_data.location_type == CivVICheckType.ERA:
+            if location_data.location_type != CivVICheckType.CIVIC or location_data.location_type != CivVICheckType.TECH:
                 continue
 
             location: CivVILocation = self.multiworld.get_location(location_name, self.player)

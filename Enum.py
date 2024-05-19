@@ -15,3 +15,4 @@ class CivVICheckType(Enum):
     CIVIC = "CIVIC"
     PROGRESSIVE_DISTRICT = "PROGRESSIVE_DISTRICT"
     ERA = "ERA"
+    GOODY = "GOODY"
