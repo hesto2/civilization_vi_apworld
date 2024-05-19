@@ -15,10 +15,10 @@ class TestStartingHints(CivVITestBase):
         self.test_fill()
         start_location_hints = self.world.options.start_location_hints.value
         for location_name, location_data in self.world.location_table.items():
-            if location_data.location_type != CivVICheckType.ERA:
-                self.assertTrue(location_name in start_location_hints)
+            if location_data.location_type == CivVICheckType.CIVIC or location_data.location_type == CivVICheckType.TECH:
+              self.assertIn(location_name, start_location_hints)
             else:
-                self.assertFalse(location_name in start_location_hints)
+              self.assertNotIn(location_name, start_location_hints)
 
 class TestOnlyProgressionItemsHinted(CivVITestBase):
   options = {
@@ -32,6 +32,7 @@ class TestOnlyProgressionItemsHinted(CivVITestBase):
   def test_only_progression_items_are_hinted(self) -> None:
       self.test_fill()
       start_location_hints = self.world.options.start_location_hints.value
+      self.assertTrue(len(start_location_hints) > 0)
       for hint in start_location_hints:
           location_data = self.world.get_location(hint)
           self.assertTrue(location_data.item.classification == ItemClassification.progression)
@@ -48,6 +49,7 @@ class TestNoJunkItemsHinted(CivVITestBase):
   def test_no_junk_items_are_hinted(self) -> None:
       self.test_fill()
       start_location_hints = self.world.options.start_location_hints.value
+      self.assertTrue(len(start_location_hints) > 0)
       for hint in start_location_hints:
           location_data = self.world.get_location(hint)
           self.assertTrue(location_data.item.classification == ItemClassification.progression or location_data.item.classification == ItemClassification.useful)

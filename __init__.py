@@ -1,4 +1,5 @@
 import os
+import random
 from typing import Dict
 import typing
 
@@ -80,6 +81,7 @@ class CivVIWorld(World):
 
     def create_items(self):
         progressive_era_item = None
+        goody_items = []
         for item_name, data in self.item_table.items():
           # Don't add progressive items to the itempool here
             if data.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
@@ -87,6 +89,9 @@ class CivVIWorld(World):
             if data.item_type == CivVICheckType.ERA:
                 # Don't add era items in this way
                 progressive_era_item = data
+                continue
+            if data.item_type == CivVICheckType.GOODY:
+                goody_items.append(data)
                 continue
 
           # If we're using progressive districts, we need to check if we need to create a different item instead
@@ -108,6 +113,13 @@ class CivVIWorld(World):
                 self.multiworld.itempool += [self.create_item(
                     progressive_era_item.name)]
 
+        # Goody items, create 10 by default if options are enabled
+        if self.options.shuffle_goody_hut_rewards.value:
+            num_goody_huts = 10
+            for _ in range(num_goody_huts):
+                self.multiworld.itempool += [self.create_item(
+                    goody_items.pop(random.randint(0, len(goody_items) - 1)).name)]
+
     def post_fill(self):
         if self.options.pre_hint_items.current_key == "none":
             return
@@ -120,7 +132,7 @@ class CivVIWorld(World):
 
         start_location_hints: typing.Set[str] = self.options.start_location_hints.value
         for location_name, location_data in self.location_table.items():
-            if location_data.location_type != CivVICheckType.CIVIC or location_data.location_type != CivVICheckType.TECH:
+            if location_data.location_type != CivVICheckType.CIVIC and location_data.location_type != CivVICheckType.TECH:
                 continue
 
             location: CivVILocation = self.multiworld.get_location(location_name, self.player)

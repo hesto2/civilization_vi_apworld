@@ -159,9 +159,7 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     progressive_id_base += 1
     item_table["GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
     progressive_id_base += 1
-    item_table["GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_ENVOY"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_ENVOY", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    item_table["GOODY_DIPLOMACY_GRANT_ENVOY"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_ENVOY", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
     progressive_id_base += 1
 
     item_table["GOODY_CULTURE_GRANT_ONE_RELIC"] = CivVIItemData("GOODY_CULTURE_GRANT_ONE_RELIC", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
