@@ -52,7 +52,12 @@ class CivVIInterface:
             self.logger.info(error)
 
     async def give_item_to_player(self, item: CivVIItemData, sender: str = "", amount: int = 1) -> None:
-        command = f"HandleReceiveItem({item.civ_vi_id}, \"{item.name}\", \"{item.item_type.value}\", \"{sender}\", {amount})"
+        if isinstance(item.civ_vi_id, str):
+            item_id = f'"{item.civ_vi_id}"'
+        else:
+          item_id = item.civ_vi_id
+
+        command = f"HandleReceiveItem({item_id}, \"{item.name}\", \"{item.item_type.value}\", \"{sender}\", {amount})"
         await self.tuner.send_game_command(command)
 
     async def resync(self) -> None:

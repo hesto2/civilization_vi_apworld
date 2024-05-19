@@ -224,6 +224,10 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                 if item.item_type == CivVICheckType.ERA:
                     count = len(progressive_eras) + 1
                     await ctx.game_interface.give_item_to_player(item_to_send, sender, count)
+                elif item.item_type == CivVICheckType.GOODY:
+                    # TODO: Figure a better way to have civ id not necessarily determine the code for an item so I can put the modifier id in there (string not an int)
+                    item_to_send.civ_vi_id = item_to_send.name
+                    await ctx.game_interface.give_item_to_player(item_to_send, sender)
                 else:
                     await ctx.game_interface.give_item_to_player(item_to_send, sender)
                 await asyncio.sleep(0.02)
