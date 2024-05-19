@@ -116,3 +116,39 @@ def generate_setup_file(world) -> str:
     return f"""
     -- No setup needed for Progressive Eras
       """
+
+
+def generate_goody_hut_sql(world) -> str:
+    """
+    Generates the SQL for the goody huts or an empty string if they are disabled since the mod expects the file to be
+    """
+
+    if world.options.shuffle_goody_hut_rewards.value:
+        return f"""
+        UPDATE GoodyHutSubTypes SET Description = NULL WHERE GoodyHut NOT IN ('METEOR_GOODIES', 'GOODYHUT_SAILOR_WONDROUS', 'DUMMY_GOODY_BUILDIER') AND Weight > 0;
+
+INSERT INTO Modifiers
+                (ModifierId, ModifierType, RunOnce, Permanent, SubjectRequirementSetId)
+SELECT ModifierID||'_AI', ModifierType, RunOnce, Permanent, 'PLAYER_IS_AI'
+FROM Modifiers
+WHERE EXISTS (
+        SELECT ModifierId
+        FROM GoodyHutSubTypes
+        WHERE Modifiers.ModifierId = GoodyHutSubTypes.ModifierId AND GoodyHutSubTypes.GoodyHut NOT IN ('METEOR_GOODIES', 'GOODYHUT_SAILOR_WONDROUS', 'DUMMY_GOODY_BUILDIER') AND GoodyHutSubTypes.Weight > 0);
+
+INSERT INTO ModifierArguments
+                (ModifierId, Name, Type, Value)
+SELECT ModifierID||'_AI', Name, Type, Value
+FROM ModifierArguments
+WHERE EXISTS (
+        SELECT ModifierId
+        FROM GoodyHutSubTypes
+        WHERE ModifierArguments.ModifierId = GoodyHutSubTypes.ModifierId AND GoodyHutSubTypes.GoodyHut NOT IN ('METEOR_GOODIES', 'GOODYHUT_SAILOR_WONDROUS', 'DUMMY_GOODY_BUILDIER') AND GoodyHutSubTypes.Weight > 0);
+
+UPDATE GoodyHutSubTypes
+SET ModifierID = ModifierID||'_AI'
+WHERE GoodyHut NOT IN ('METEOR_GOODIES', 'GOODYHUT_SAILOR_WONDROUS', 'DUMMY_GOODY_BUILDIER') AND Weight > 0;
+
+      """
+    else:
+        return "-- Goody Huts are disabled, no changes needed"
