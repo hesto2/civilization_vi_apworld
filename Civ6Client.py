@@ -22,11 +22,12 @@ class CivVICommandProcessor(ClientCommandProcessor):
     def _cmd_deathlink(self):
         """Toggle deathlink from client. Overrides default setting."""
         if isinstance(self.ctx, CivVIContext):
-            new_value = True
-            if (self.tags["DeathLink"]):
-                new_value = False
+            self.ctx.death_link_enabled = not self.ctx.death_link_enabled
+            self.ctx.death_link_just_changed = True
             Utils.async_start(self.ctx.update_death_link(
-                new_value), name="Update Deathlink")
+                self.ctx.death_link_enabled), name="Update Deathlink")
+            self.ctx.logger.info(
+                f"Deathlink is now {'enabled' if self.ctx.death_link_enabled else 'disabled'}")
 
     def _cmd_resync(self):
         """Resends all items to client, and has client resend all locations to server. This can take up to a minute if the player has received a lot of items"""
@@ -56,6 +57,11 @@ class CivVIContext(CommonContext):
     processing_multiple_items = False
     received_death_link = False
     death_link_message = ""
+    death_link_enabled = False
+
+    death_link_just_changed = False
+    # Used to prevent the deathlink from triggering when someone re enables it
+
     logger = logger
     progressive_items_by_type = get_progressive_districts()
     item_name_to_id = {
@@ -118,6 +124,7 @@ class CivVIContext(CommonContext):
         if cmd == "Connected":
             self.slot_data = args["slot_data"]
             if "death_link" in args["slot_data"]:
+                self.death_link_enabled = bool(args["slot_data"]["death_link"])
                 Utils.async_start(self.update_death_link(
                     bool(args["slot_data"]["death_link"])))
 
@@ -263,7 +270,7 @@ async def _handle_game_ready(ctx: CivVIContext):
         await handle_checked_location(ctx)
         await handle_check_goal_complete(ctx)
 
-        if "DeathLink" in ctx.tags:
+        if ctx.death_link_enabled:
             await handle_check_deathlink(ctx)
 
         # process pending commands

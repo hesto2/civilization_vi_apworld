@@ -41,6 +41,9 @@ async def handle_check_deathlink(ctx: CommonContext):
 
     # Check if we should send out a death link
     result = await ctx.game_interface.get_deathlink()
+    if ctx.death_link_just_changed:
+        ctx.death_link_just_changed = False
+        return
     if result != "false":
         messages = [f"lost a unit to a {result}",
                     f"offered a sacrifice to the great {result}",
