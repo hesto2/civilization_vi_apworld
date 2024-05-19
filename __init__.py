@@ -109,7 +109,6 @@ class CivVIWorld(World):
                     progressive_era_item.name)]
 
     def post_fill(self):
-        """Handles pre hinting items based on player configuration"""
         if self.options.pre_hint_items.current_key == "none":
             return
 

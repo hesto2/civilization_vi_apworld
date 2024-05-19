@@ -41,7 +41,16 @@ PRIORITY_LOCATIONS = [
 # Locs that should not have progression items (future techs/civics)
 # Disabled for now since we don't have junk/filler items to put here in single world games
 EXCLUDED_LOCATIONS = [
-
+    "GOODY_HUT_1",
+    "GOODY_HUT_2",
+    "GOODY_HUT_3",
+    "GOODY_HUT_4",
+    "GOODY_HUT_5",
+    "GOODY_HUT_6",
+    "GOODY_HUT_7",
+    "GOODY_HUT_8",
+    "GOODY_HUT_9",
+    "GOODY_HUT_10",
     # "TECH_FUTURE_69",
     # "TECH_FUTURE_70",
     # "TECH_FUTURE_71",
@@ -94,6 +103,8 @@ class CivVILocation(Location):
             self.location_type = CivVICheckType.CIVIC
         elif name.split("_")[0] == "ERA":
             self.location_type = CivVICheckType.ERA
+        elif name.split("_")[0] == "GOODY":
+            self.location_type = CivVICheckType.GOODY
 
         if self.name in PRIORITY_LOCATIONS:
             self.progress_type = LocationProgressType.PRIORITY

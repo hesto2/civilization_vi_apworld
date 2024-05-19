@@ -9,16 +9,18 @@ from .ProgressiveDistricts import get_flat_progressive_districts, get_progressiv
 CIV_VI_AP_ITEM_ID_BASE = 5041000
 
 FILLER_ITEMS = [
-  "TECH_CYBERNETICS",
-  "TECH_ADVANCED_AI",
-  "TECH_FUTURE_TECH",
-  "CIVIC_FUTURE_CIVIC",
+    # These get dumped in as goody hut rewards which isn't great
+    # "TECH_CYBERNETICS",
+    # "TECH_ADVANCED_AI",
+    # "TECH_FUTURE_TECH",
+    # "CIVIC_FUTURE_CIVIC",
 ]
 
 NON_PROGRESSION_DISTRICTS = [
-  "PROGRESSIVE_PRESERVE",
-  "PROGRESSIVE_NEIGHBORHOOD"
+    "PROGRESSIVE_PRESERVE",
+    "PROGRESSIVE_NEIGHBORHOOD"
 ]
+
 
 class CivVIItemData:
     civ_vi_id: int
@@ -129,12 +131,53 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     for item_name in progresive_items.keys():
         progression = ItemClassification.progression
         if item_name in NON_PROGRESSION_DISTRICTS:
-          progression = ItemClassification.useful
+            progression = ItemClassification.useful
         item_table[item_name] = CivVIItemData(
             item_name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, civic_id_base + tech_id_base, progression, None)
         progressive_id_base += 1
 
     # Generate progressive eras
     item_table["PROGRESSIVE_ERA"] = CivVIItemData("PROGRESSIVE_ERA", progressive_id_base, 0, CivVICheckType.ERA, civic_id_base + tech_id_base, ItemClassification.progression, None)
+    progressive_id_base += 1
+
+    # Generate goody hut items
+    item_table["GOODY_GOLD_SMALL_MODIFIER"] = CivVIItemData("GOODY_GOLD_SMALL_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_GOLD_MEDIUM_MODIFIER"] = CivVIItemData("GOODY_GOLD_MEDIUM_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_GOLD_LARGE_MODIFIER"] = CivVIItemData("GOODY_GOLD_LARGE_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+
+    item_table["GOODY_FAITH_SMALL_MODIFIER"] = CivVIItemData("GOODY_FAITH_SMALL_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_FAITH_MEDIUM_MODIFIER"] = CivVIItemData("GOODY_FAITH_MEDIUM_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_FAITH_LARGE_MODIFIER"] = CivVIItemData("GOODY_FAITH_LARGE_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+
+    item_table["GOODY_DIPLOMACY_GRANT_FAVOR"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_FAVOR", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_ENVOY"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_ENVOY", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_GOVERNOR_GRANT_", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+
+    item_table["GOODY_CULTURE_GRANT_ONE_RELIC"] = CivVIItemData("GOODY_CULTURE_GRANT_ONE_RELIC", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+
+    item_table["GOODY_MILITARY_GRANT_SCOUT"] = CivVIItemData("GOODY_MILITARY_GRANT_SCOUT", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+
+    item_table["GOODY_SURVIVORS_ADD_POPULATION"] = CivVIItemData("GOODY_SURVIVORS_ADD_POPULATION", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_SURVIVORS_GRANT_BUILDER"] = CivVIItemData("GOODY_SURVIVORS_GRANT_BUILDER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_SURVIVORS_GRANT_TRADER"] = CivVIItemData("GOODY_SURVIVORS_GRANT_TRADER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+    item_table["GOODY_SURVIVORS_GRANT_SETTLER"] = CivVIItemData("GOODY_SURVIVORS_GRANT_SETTLER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    progressive_id_base += 1
+
     progressive_id_base += 1
     return item_table

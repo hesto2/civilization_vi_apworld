@@ -176,8 +176,3 @@ def create_regions(world: World, options: CivVIOptions, player: int):
 
     world.multiworld.completion_condition[player] = lambda state: state.can_reach(
         EraType.ERA_FUTURE.value, "Region", player)
-
-
-    if options.shuffle_goody_hut_rewards.value:
-
-      world.get_region(EraType.ERA_ANCIENT.value).add_locations()
