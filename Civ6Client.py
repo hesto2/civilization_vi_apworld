@@ -1,6 +1,5 @@
 import asyncio
 import logging
-import random
 import traceback
 from typing import Dict, List
 
@@ -8,7 +7,7 @@ from CommonClient import ClientCommandProcessor, CommonContext, get_base_parser,
 from .DeathLink import handle_check_deathlink
 from NetUtils import ClientStatus
 import Utils
-from .CivVIInterface import CivVIInterface
+from .CivVIInterface import CivVIInterface, ConnectionState
 from .Enum import CivVICheckType
 from .Items import CivVIItemData, generate_item_table
 from .Locations import generate_era_location_table
@@ -55,13 +54,13 @@ class CivVIContext(CommonContext):
     item_id_to_civ_item: Dict[int, CivVIItemData] = {}
     item_table: Dict[str, CivVIItemData] = {}
     processing_multiple_items = False
-    disconnected = True
     received_death_link = False
     death_link_message = ""
     logger = logger
     progressive_items_by_type = get_progressive_districts()
     item_name_to_id = {
         item.name: item.code for item in generate_item_table().values()}
+    connection_state = ConnectionState.DISCONNECTED
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
@@ -123,6 +122,19 @@ class CivVIContext(CommonContext):
                     bool(args["slot_data"]["death_link"])))
 
 
+def update_connection_status(ctx: CivVIContext, status):
+    if ctx.connection_state == status:
+        return
+    elif status == ConnectionState.IN_GAME:
+        ctx.logger.info("Connected to Civ VI")
+    elif status == ConnectionState.IN_MENU:
+        ctx.logger.info("Connected to Civ VI, waiting for game to start")
+    elif status == ConnectionState.DISCONNECTED:
+        ctx.logger.info("Disconnected from Civ VI, attempting to reconnect...")
+
+    ctx.connection_state = status
+
+
 async def tuner_sync_task(ctx: CivVIContext):
     logger.info("Starting CivVI connector")
     while not ctx.exit_event.is_set():
@@ -134,12 +146,15 @@ async def tuner_sync_task(ctx: CivVIContext):
                 if ctx.processing_multiple_items == True:
                     logger.debug("Waiting for items to finish processing")
                     await asyncio.sleep(3)
-                elif await ctx.game_interface.is_in_game():
-                    await _handle_game_ready(ctx)
                 else:
-                    await asyncio.sleep(3)
+                    state = await ctx.game_interface.is_in_game()
+                    update_connection_status(ctx, state)
+                    if state == ConnectionState.IN_GAME:
+                        await _handle_game_ready(ctx)
+                    else:
+                        await asyncio.sleep(3)
             except TunerTimeoutException:
-                logger.info(
+                logger.error(
                     "Timeout occurred while receiving data from Civ VI, this usually isn't a problem unless you see it repeatedly")
                 await asyncio.sleep(3)
             except Exception as e:
@@ -148,8 +163,6 @@ async def tuner_sync_task(ctx: CivVIContext):
                 else:
                     logger.error(traceback.format_exc())
 
-                logger.info("Attempting to connect to Civ VI...")
-                ctx.disconnected = True
                 await asyncio.sleep(3)
                 continue
 
@@ -241,9 +254,6 @@ async def _handle_game_ready(ctx: CivVIContext):
         if not ctx.slot:
             await asyncio.sleep(3)
             return
-        if ctx.disconnected == True:
-            ctx.disconnected = False
-            logger.info("Connected to Civ VI")
 
         await handle_receive_items(ctx)
         await handle_checked_location(ctx)

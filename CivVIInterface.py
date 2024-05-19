@@ -1,41 +1,55 @@
+from enum import Enum
 from logging import Logger
 from typing import List
 
 from .Items import CivVIItemData
 from .TunerClient import TunerClient, TunerConnectionException, TunerTimeoutException
 
+class ConnectionState(Enum):
+    DISCONNECTED = 0
+    IN_GAME = 1
+    IN_MENU = 2
+
+
 
 class CivVIInterface:
     logger: Logger
     tuner: TunerClient
+    last_error: str = None
 
     def __init__(self, logger: Logger):
         self.logger = logger
         self.tuner = TunerClient(logger)
 
-    async def is_in_game(self) -> bool:
+    async def is_in_game(self) -> ConnectionState:
         command = "IsInGame()"
         try:
             result = await self.tuner.send_game_command(command)
-            return result == "true"
+            if result == "false":
+                return ConnectionState.IN_MENU
+            self.last_error = None
+            return  ConnectionState.IN_GAME
         except TunerTimeoutException:
-            self.logger.info(
+            self.print_connection_error(
                 "Not connected to game, waiting for connection to be available")
-            return False
+            return ConnectionState.DISCONNECTED
         except TunerConnectionException as e:
             if "The remote computer refused the network connection" in str(e):
-                self.logger.info(
-                    "Unable to connect to game. Verify that the tuner is enabled")
+                self.print_connection_error(
+                    "Unable to connect to game. Verify that the tuner is enabled. Attempting to reconnect")
             else:
-                self.logger.info(
+                self.print_connection_error(
                     "Not connected to game, waiting for connection to be available")
-            return False
+            return ConnectionState.DISCONNECTED
         except Exception as e:
             if "attempt to index a nil valuestack traceback" in str(e) \
                     or ".. is not supported for string .. nilstack traceback" in str(e):
-                self.logger.info(
-                    "Connected to game,  waiting for game to start")
-                return False
+                return ConnectionState.IN_MENU
+
+    def print_connection_error(self, error: str) -> None:
+        if error != self.last_error:
+            self.last_error = error
+            self.logger.info(error)
 
     async def give_item_to_player(self, item: CivVIItemData, sender: str = "", amount: int = 1) -> None:
         command = f"HandleReceiveItem({item.civ_vi_id}, \"{item.name}\", \"{item.item_type.value}\", \"{sender}\", {amount})"
