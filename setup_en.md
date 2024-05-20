@@ -1,2 +1,0 @@
-# Civilization VI Setup Guide
-

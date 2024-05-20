@@ -1,7 +1,7 @@
-# Civlization 6
+# Civlization 6 Archipelago
 
 ## Setup Guide
-For setup instructions go [here](https://github.com/hesto2/civilization_vi_apworld/blob/main/docs/setup_en.md).
+For setup instructions go [here](./docs/setup_en.md).
 
 ## What does randomization do to this game?
 
@@ -44,7 +44,7 @@ A short period after receiving an item, you will get a notification indicating y
   1. `TECH_WRITING`
   2. `TECH_EDUCATION`
   3. `TECH_CHEMISTRY`
-  - If you want to see the details around each item, you can review [this file](https://github.com/hesto2/civilization_vi_apworld/blob/main/data/progressive_districts.json)
+  - If you want to see the details around each item, you can review [this file](./data/progressive_districts.json)
 
 - "How does DeathLink work? Am I going to have to start a new game every time one of my friends dies??"
   - Heavens no, my fellow Archipelago appreciator. When configuring your Archipelago options for Civilization on the options page, there are several choices available for you to fine tune the way you'd like to be punished for the follies of your friends. These include: Having a random unit destroyed, losing a percentage of gold or faith, or even losing a point on your era score. If you can't make up your mind, you can elect to have any of them be selected every time a death link is sent your way.
