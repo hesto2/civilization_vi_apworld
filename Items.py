@@ -64,19 +64,16 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     }
     """
     # Generate Techs
-    current_file_path = os.path.abspath(__file__)
-    current_directory = os.path.dirname(current_file_path)
-    existing_tech_path = os.path.join(
-        current_directory, 'data', 'existing_tech.json')
+    existing_tech_path = os.path.join('data', 'existing_tech.json')
 
     existing_techs = json.loads(pkgutil.get_data(
         __name__, existing_tech_path).decode())
 
-    file_path = os.path.join(os.path.dirname(
-        __file__), 'data/era_required_items.json')
+    file_path = os.path.join('data', 'era_required_items.json')
     required_items: List[str] = []
     era_required_items = json.loads(
         pkgutil.get_data(__name__, file_path).decode())
+
     for key, value in era_required_items.items():
         required_items += value
 
@@ -104,8 +101,7 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
         tech_id_base += 1
 
     # Generate Civics
-    existing_civics_path = os.path.join(
-        current_directory, 'data', 'existing_civics.json')
+    existing_civics_path = os.path.join('data', 'existing_civics.json')
     civic_id_base = 0
 
     existing_civics = json.loads(

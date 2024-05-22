@@ -4,6 +4,15 @@ import pkgutil
 from typing import Dict, List
 
 
+def get_progressive_districts() -> Dict[str, List[str]]:
+    """Returns a dict of all progressive items as the key and a list of the associated
+     item names as the value"""
+    file_path = os.path.join('data', 'progressive_districts.json')
+    progressive_districts = json.loads(
+        pkgutil.get_data(__name__, file_path).decode())
+    return progressive_districts
+
+
 def get_flat_progressive_districts() -> Dict[str, str]:
     """Returns a dictionary of all items that are associated with a progressive item.
     Key is the item name ("TECH_WRITING") and the value is the associated progressive
@@ -14,16 +23,6 @@ def get_flat_progressive_districts() -> Dict[str, str]:
         for item in value:
             flat_progressive_techs[item] = key
     return flat_progressive_techs
-
-
-def get_progressive_districts() -> Dict[str, List[str]]:
-    """Returns a dict of all progressive items as the key and a list of the associated
-     item names as the value"""
-    file_path = os.path.join(os.path.dirname(
-        __file__), 'data/progressive_districts.json')
-    progressive_districts = json.loads(
-        pkgutil.get_data(__name__, file_path).decode())
-    return progressive_districts
 
 
 def convert_items_to_have_progression(items: List[str]):

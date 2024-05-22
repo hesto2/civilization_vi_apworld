@@ -8,16 +8,14 @@ from . import CivVITestBase
 
 
 def collect_items_for_era(test, era: EraType) -> None:
-    file_path = os.path.join(os.path.dirname(
-        __file__), '../data/era_required_items.json')
+    file_path = os.path.join('..', 'data', 'era_required_items.json')
     era_required_items = json.loads(
         pkgutil.get_data(__name__, file_path).decode())
     test.collect_by_name(era_required_items[era.value])
 
 
 def collect_items_for_era_progressive(test, era: EraType) -> None:
-    file_path = os.path.join(os.path.dirname(
-        __file__), '../data/era_required_items.json')
+    file_path = os.path.join('..', 'data', 'era_required_items.json')
     era_progression_items = json.loads(
         pkgutil.get_data(__name__, file_path).decode())
     progressive_items = convert_items_to_have_progression(
@@ -184,4 +182,3 @@ class TestProgressiveEraRequirements(CivVITestBase):
         accessible_eras += [EraType.ERA_INFORMATION]
         accessible_eras += [EraType.ERA_FUTURE]
         check_eras_accessible(accessible_eras)
-

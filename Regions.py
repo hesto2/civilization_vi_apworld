@@ -13,8 +13,7 @@ import os
 def get_required_items_for_era(era: EraType):
     """Gets the specific techs/civics that are required for the specified era"""
     era_required_items = {}
-    file_path = os.path.join(os.path.dirname(
-        __file__), 'data/era_required_items.json')
+    file_path = os.path.join('data', 'era_required_items.json')
     era_required_items = json.loads(
         pkgutil.get_data(__name__, file_path).decode())
     return era_required_items[era.value]
@@ -24,8 +23,7 @@ def get_cumulative_prereqs_for_era(end_era: EraType, exclude_progressive_items: 
     """Gets the specific techs/civics that are required for the specified era as well as all previous eras"""
     cumulative_prereqs = []
     era_required_items = {}
-    file_path = os.path.join(os.path.dirname(
-        __file__), 'data/era_required_items.json')
+    file_path = os.path.join('data', 'era_required_items.json')
     era_required_items = json.loads(
         pkgutil.get_data(__name__, file_path).decode())
 
@@ -49,8 +47,7 @@ def get_cumulative_prereqs_for_era(end_era: EraType, exclude_progressive_items: 
 
 def has_required_progressive_districts(state: CollectionState, era: EraType, player: int):
     """ If player has progressive items enabled, it will count how many progressive techs it should have, otherwise return the default array"""
-    file_path = os.path.join(os.path.dirname(
-        __file__), 'data/progressive_districts.json')
+    file_path = os.path.join('data', 'progressive_districts.json')
     progressive_districts = json.loads(
         pkgutil.get_data(__name__, file_path).decode())
 
@@ -94,8 +91,7 @@ def has_required_items(state: CollectionState, era: EraType, player: int, has_pr
     if has_progressive_districts:
         required_items = has_required_progressive_districts(state, era, player)
     else:
-        file_path = os.path.join(os.path.dirname(
-            __file__), 'data/era_required_items.json')
+        file_path = os.path.join('data', 'era_required_items.json')
         era_required_items = json.loads(
             pkgutil.get_data(__name__, file_path).decode())
         required_items = state.has_all(era_required_items[era.value], player)

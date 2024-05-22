@@ -144,15 +144,11 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
       ...
     }
     """
-    current_file_path = os.path.abspath(__file__)
-    current_directory = os.path.dirname(current_file_path)
-    new_tech_prereq_path = os.path.join(
-        current_directory, 'data', 'new_tech_prereqs.json')
+    new_tech_prereq_path = os.path.join('data', 'new_tech_prereqs.json')
     new_tech_prereqs = json.loads(
         pkgutil.get_data(__name__, new_tech_prereq_path).decode())
 
-    new_tech_path = os.path.join(
-        current_directory, 'data', 'new_tech.json')
+    new_tech_path = os.path.join('data', 'new_tech.json')
 
     new_techs = json.loads(pkgutil.get_data(
         __name__, new_tech_path).decode())
@@ -172,13 +168,11 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
             data["Type"], data['Cost'], data['UITreeRow'], id_base, era_type, CivVICheckType.TECH, prereq_data)
         id_base += 1
 # Civics
-    new_civic_prereq_path = os.path.join(
-        current_directory, 'data', 'new_civic_prereqs.json')
+    new_civic_prereq_path = os.path.join('data', 'new_civic_prereqs.json')
     new_civic_prereqs = json.loads(
         pkgutil.get_data(__name__, new_civic_prereq_path).decode())
 
-    new_civic_path = os.path.join(
-        current_directory, 'data', 'new_civics.json')
+    new_civic_path = os.path.join('data', 'new_civics.json')
 
     new_civics = json.loads(pkgutil.get_data(
         __name__, new_civic_path).decode())
