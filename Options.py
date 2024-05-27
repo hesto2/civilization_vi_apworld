@@ -39,7 +39,7 @@ class PreHintItems(Choice):
     """
     display_name = "Tech/Civic Tree Pre Hinted Items"
     option_all = "All Tree Locations"
-    option_progression = "Progression Tree Locations"
+    option_progression_items = "Progression Tree Locations"
     option_no_junk = "No Junk"
     option_none = "None"
     default = "progression"

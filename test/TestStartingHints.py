@@ -26,7 +26,7 @@ class TestOnlyProgressionItemsHinted(CivVITestBase):
     "death_link": "true",
     "death_link_effect": "unit_killed",
     "progressive_districts": "true",
-    "pre_hint_items": "progression",
+    "pre_hint_items": "progression_items",
   }
 
   def test_only_progression_items_are_hinted(self) -> None:
