@@ -18,7 +18,7 @@ Civilization VI:
   # progression: Only locations in the trees containing progression items are pre hinted.
   # no_junk: Pre hint the progression and useful items.
   # none: No items are pre hinted.
-  prehint_items: "progression"
+  pre_hint_items: "progression"
 
   # Controls the cost of techs and civics.
   # cheap: Techs and civics cost 50% of the normal cost.
