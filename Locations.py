@@ -1,6 +1,7 @@
+from dataclasses import dataclass
 import os
 import pkgutil
-from typing import List, Optional, Dict
+from typing import Any, List, Optional, Dict
 from BaseClasses import Location, LocationProgressType, Region
 import json
 
@@ -117,6 +118,38 @@ class CivVILocation(Location):
         else:
             self.progress_type = LocationProgressType.DEFAULT
 
+        if self.location_type == CivVICheckType.BOOST:
+            boost_data_list = get_boost_data()
+            boost_data = next((boost for boost in boost_data_list if boost.Type == name), None)
+            if boost_data and boost_data.Classification == "EXCLUDED":
+                self.progress_type = LocationProgressType.EXCLUDED
+
+
+@dataclass
+class CivVIBoostData():
+    Type: str
+    EraType: str
+    Prereq: List[str]
+    PrereqRequiredCount: int
+    Classification: str
+
+
+def get_boost_data() -> List[CivVIBoostData]:
+    boosts_path = os.path.join('data', 'boosts.json')
+    boosts_json = json.loads(pkgutil.get_data(
+        __name__, boosts_path).decode())
+    boosts = []
+    for boost in boosts_json:
+        boosts.append(CivVIBoostData(
+            Type=boost['Type'],
+            EraType=boost['EraType'],
+            Prereq=boost['Prereq'],
+            PrereqRequiredCount=boost['PrereqRequiredCount'],
+            Classification=boost['Classification']
+        ))
+
+    return boosts
+
 
 def generate_flat_location_table() -> Dict[str, CivVILocationData]:
     """
@@ -208,12 +241,11 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
             "GOODY_HUT_" + str(i+1), 0, 0, id_base, EraType.ERA_ANCIENT, CivVICheckType.GOODY)
         id_base += 1
 # Boosts
-    boosts_path = os.path.join('data', 'boosts.json')
-    boosts = json.loads(pkgutil.get_data(
-        __name__, boosts_path).decode())
+    boosts = get_boost_data()
     for boost in boosts:
-        era_locations[boost["EraType"]][boost["Type"]] = CivVILocationData(
-            boost["Type"], 0, 0, id_base, boost["EraType"], CivVICheckType.BOOST)
+        location = CivVILocationData(
+            boost.Type, 0, 0, id_base, boost.EraType, CivVICheckType.BOOST, pre_reqs=boost.Prereq)
+        era_locations[boost.EraType][boost.Type] = location
         id_base += 1
 
     return era_locations

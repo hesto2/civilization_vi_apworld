@@ -1,13 +1,15 @@
 import pkgutil
 import typing
 from BaseClasses import CollectionState, Region
-from worlds.AutoWorld import World
 from .Enum import EraType
 from .Locations import CivVILocation
 from .ProgressiveDistricts import get_flat_progressive_districts
 from .Options import CivVIOptions
 import json
 import os
+
+if typing.TYPE_CHECKING:
+    from . import CivVIWorld
 
 
 def get_required_items_for_era(era: EraType):
@@ -104,13 +106,14 @@ def has_required_items(state: CollectionState, era: EraType, player: int, has_pr
     return required_items and required_eras
 
 
-def create_regions(world: World, options: CivVIOptions, player: int):
+def create_regions(world: 'CivVIWorld', options: CivVIOptions, player: int):
     menu = Region("Menu", player, world.multiworld)
     world.multiworld.regions.append(menu)
 
     has_progressive_items = options.progression_style.current_key != "none"
     has_progressive_eras = options.progression_style.current_key == "eras_and_districts"
     has_goody_huts = options.shuffle_goody_hut_rewards.value
+    has_boosts = options.boostsanity.value
 
     regions: typing.List[Region] = []
     for era in EraType:
@@ -123,6 +126,8 @@ def create_regions(world: World, options: CivVIOptions, player: int):
             era_locations = {key: value for key, value in era_locations.items() if key.split("_")[0] != "ERA"}
         if not has_goody_huts:
             era_locations = {key: value for key, value in era_locations.items() if key.split("_")[0] != "GOODY"}
+        if not has_boosts:
+            era_locations = {key: value for key, value in era_locations.items() if key.split("_")[0] != "BOOST"}
 
         era_region.add_locations(era_locations, CivVILocation)
 

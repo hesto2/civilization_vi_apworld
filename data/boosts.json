@@ -3,14 +3,14 @@
     "Type": "BOOST_TECH_SAILING",
     "EraType": "ERA_ANCIENT",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_TECH_ASTROLOGY",
     "EraType": "ERA_ANCIENT",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   },
   {
@@ -24,28 +24,28 @@
     "Type": "BOOST_TECH_ARCHERY",
     "EraType": "ERA_ANCIENT",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_TECH_WRITING",
     "EraType": "ERA_ANCIENT",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "PRIORITY"
   },
   {
     "Type": "BOOST_TECH_MASONRY",
     "EraType": "ERA_ANCIENT",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "TECH_MINING"
   },
   {
     "Type": "BOOST_TECH_BRONZE_WORKING",
     "EraType": "ERA_ANCIENT",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "EXCLUDED"
   },
   {
@@ -109,7 +109,7 @@
   {
     "Type": "BOOST_TECH_CONSTRUCTION",
     "EraType": "ERA_CLASSICAL",
-    "Prereq": ["TECH_WHEEL"],
+    "Prereq": ["TECH_THE_WHEEL"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
@@ -252,7 +252,7 @@
   {
     "Type": "BOOST_TECH_SCIENTIFIC_THEORY",
     "EraType": "ERA_INDUSTRIAL",
-    "Prereq": ["CIVIC_ENLIGHTENMENT"],
+    "Prereq": ["CIVIC_THE_ENLIGHTENMENT"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
@@ -302,13 +302,13 @@
     "Type": "BOOST_TECH_FLIGHT",
     "EraType": "ERA_MODERN",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "EXCLUDED"
   },
   {
     "Type": "BOOST_TECH_REPLACEABLE_PARTS",
     "EraType": "ERA_MODERN",
-    "Prereq": ["TECH_MILIATRY_SCIENCE"],
+    "Prereq": ["TECH_MILITARY_SCIENCE"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
@@ -387,8 +387,8 @@
   {
     "Type": "BOOST_TECH_PLASTICS",
     "EraType": "ERA_ATOMIC",
-    "Prereq": ["TECH_REFNINIG"],
-    "PrereqRequiredCount": 2,
+    "Prereq": ["TECH_REFINING"],
+    "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
@@ -429,8 +429,8 @@
   {
     "Type": "BOOST_TECH_SATELLITES",
     "EraType": "ERA_INFORMATION",
-    "Prereq": ["CIVIC_DRAMA_POETRY", "CIVIC_HUMANISM", "CIVIC_RADIO"],
-    "PrereqRequiredCount": 2,
+    "Prereq": ["CIVIC_DRAMA_POETRY", "CIVIC_HUMANISM", "TECH_RADIO"],
+    "PrereqRequiredCount": 3,
     "Classification": "DEFAULT"
   },
   {
@@ -574,7 +574,7 @@
     "Type": "BOOST_CIVIC_MILITARY_TRADITION",
     "EraType": "ERA_ANCIENT",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "EXCLUDED"
   },
   {
@@ -774,7 +774,7 @@
     "Type": "BOOST_CIVIC_NATIONALISM",
     "EraType": "ERA_INDUSTRIAL",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "EXCLUDED"
   },
   {
@@ -802,7 +802,7 @@
     "Type": "BOOST_CIVIC_URBANIZATION",
     "EraType": "ERA_INDUSTRIAL",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   },
   {
@@ -843,7 +843,7 @@
   {
     "Type": "BOOST_CIVIC_SUFFRAGE",
     "EraType": "ERA_MODERN",
-    "Prereq": ["TECH_URBANIZATION", "TECH_SANITATION"],
+    "Prereq": ["CIVIC_URBANIZATION", "TECH_SANITATION"],
     "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
@@ -957,7 +957,7 @@
     "Type": "BOOST_CIVIC_GLOBAL_WARMING_MITIGATION",
     "EraType": "ERA_FUTURE",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   }
 ]

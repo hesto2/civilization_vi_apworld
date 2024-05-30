@@ -3,11 +3,13 @@ import random
 from typing import Dict
 import typing
 
+from .Rules import create_boost_rules
 import Utils
+from worlds.generic.Rules import set_rule
 from .Container import CivVIContainer, generate_goody_hut_sql, generate_new_items, generate_setup_file
 from .Enum import CivVICheckType
 from .Items import CivVIItemData, generate_item_table, CivVIItem
-from .Locations import CivVILocation, CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table
+from .Locations import CivVILocation, CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table, get_boost_data
 from .Options import CivVIOptions
 from .Regions import create_regions
 from BaseClasses import Item, ItemClassification, MultiWorld, Tutorial
@@ -74,6 +76,10 @@ class CivVIWorld(World):
     def create_regions(self):
         create_regions(self, self.options, self.player)
 
+    def set_rules(self) -> None:
+        if self.options.boostsanity.value:
+            create_boost_rules(self)
+
     def create_item(self, name: str) -> Item:
         item: CivVIItemData = self.item_table[name]
 
@@ -83,7 +89,7 @@ class CivVIWorld(World):
         progressive_era_item = None
         goody_items = []
         for item_name, data in self.item_table.items():
-          # Don't add progressive items to the itempool here
+            # Don't add progressive items to the itempool here
             if data.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                 continue
             if data.item_type == CivVICheckType.ERA:
@@ -94,7 +100,7 @@ class CivVIWorld(World):
                 goody_items.append(data)
                 continue
 
-          # If we're using progressive districts, we need to check if we need to create a different item instead
+                # If we're using progressive districts, we need to check if we need to create a different item instead
             item_to_create = item_name
             if self.options.progression_style.current_key != "none":
                 item: CivVIItemData = self.item_table[item_name]
@@ -106,19 +112,25 @@ class CivVIWorld(World):
 
         # Era items
         if self.options.progression_style.current_key == "eras_and_districts":
-          # Add one less than the total number of eras (start in ancient, don't need to find it)
+            # Add one less than the total number of eras (start in ancient, don't need to find it)
             for era in EraType:
                 if era.value == "ERA_ANCIENT":
                     continue
                 self.multiworld.itempool += [self.create_item(
                     progressive_era_item.name)]
 
+        num_filler_items = 0
         # Goody items, create 10 by default if options are enabled
         if self.options.shuffle_goody_hut_rewards.value:
-            num_goody_huts = 10
-            for _ in range(num_goody_huts):
-                self.multiworld.itempool += [self.create_item(
-                    goody_items.pop(random.randint(0, len(goody_items) - 1)).name)]
+            num_filler_items += 10
+
+        if self.options.boostsanity.value:
+            boost_data = get_boost_data()
+            num_filler_items += len(boost_data)
+
+        for _ in range(num_filler_items):
+            self.multiworld.itempool += [self.create_item(
+                goody_items[random.randint(0, len(goody_items) - 1)].name)]
 
     def post_fill(self):
         if self.options.pre_hint_items.current_key == "none":
@@ -137,7 +149,7 @@ class CivVIWorld(World):
 
             location: CivVILocation = self.multiworld.get_location(location_name, self.player)
 
-            if not show_flags.get(location.item.classification, False):
+            if not location.item or not show_flags.get(location.item.classification, False):
                 continue
 
             start_location_hints.add(location_name)

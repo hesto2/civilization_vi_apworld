@@ -1,4 +1,3 @@
-from BaseClasses import ItemClassification
 from . import CivVITestBase
 
 

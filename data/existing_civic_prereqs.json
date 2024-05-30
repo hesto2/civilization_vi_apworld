@@ -296,27 +296,27 @@
     "PrereqCivic": "CIVIC_SOCIAL_MEDIA"
   },
   {
-    "Civic": "CIVIC_DIGITAL_DEMOCRACY",
+    "Civic": "CIVIC_DISTRIBUTED_SOVEREIGNTY",
     "PrereqCivic": "CIVIC_GLOBALIZATION"
   },
   {
-    "Civic": "CIVIC_DIGITAL_DEMOCRACY",
+    "Civic": "CIVIC_DISTRIBUTED_SOVEREIGNTY",
     "PrereqCivic": "CIVIC_SOCIAL_MEDIA"
   },
   {
-    "Civic": "CIVIC_SYNTHETIC_TECHNOCRACY",
+    "Civic": "CIVIC_OPTIMIZATION_IMPERATIVE",
     "PrereqCivic": "CIVIC_GLOBALIZATION"
   },
   {
-    "Civic": "CIVIC_SYNTHETIC_TECHNOCRACY",
+    "Civic": "CIVIC_OPTIMIZATION_IMPERATIVE",
     "PrereqCivic": "CIVIC_SOCIAL_MEDIA"
   },
   {
-    "Civic": "CIVIC_NEAR_FUTURE_GOVERNANCE",
+    "Civic": "CIVIC_VENTURE_POLITICS",
     "PrereqCivic": "CIVIC_ENVIRONMENTALISM"
   },
   {
-    "Civic": "CIVIC_NEAR_FUTURE_GOVERNANCE",
+    "Civic": "CIVIC_VENTURE_POLITICS",
     "PrereqCivic": "CIVIC_GLOBALIZATION"
   }
 ]
