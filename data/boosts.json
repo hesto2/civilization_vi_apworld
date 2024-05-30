@@ -16,8 +16,8 @@
   {
     "Type": "BOOST_TECH_IRRIGATION",
     "EraType": "ERA_ANCIENT",
-    "Prereq": ["TECH_POTTERY"],
-    "PrereqRequiredCount": 1,
+    "Prereq": [],
+    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   },
   {
