@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range
+from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle
 
 
 class ProgressionStyle(Choice):
@@ -16,10 +16,16 @@ class ProgressionStyle(Choice):
     option_none = "None"
     default = "districts_only"
 
+
 class ShuffleGoodyHuts(DefaultOnToggle):
     """Shuffles the goody hut rewards. Goody huts will only contain junk items and location checks are received sequentially (GOODY_HUT_1, GOODY_HUT_2, etc)."""
     display_name = "Shuffle Goody Hut Rewards"
     default = True
+
+
+class BoostSanity(Toggle):
+    """Boosts for Civics/Techs are location checks. Boosts can now be triggered even if the item has already been researched. If it is dependent upon a unit that is now obsolete, you can click toggle on/off the relevant tech in the tech tree."""
+    default = False
 
 
 class ResearchCostMultiplier(Choice):
@@ -29,6 +35,7 @@ class ResearchCostMultiplier(Choice):
     option_default = 1
     option_expensive = 1.5
     default = 1
+
 
 class PreHintItems(Choice):
     """Controls if/what items in the tech/civics trees are pre hinted for the multiworld.\n
@@ -72,6 +79,7 @@ class DeathLinkEffectPercent(Range):
 class CivVIOptions(PerGameCommonOptions):
     progression_style: ProgressionStyle
     shuffle_goody_hut_rewards: ShuffleGoodyHuts
+    boostsanity: BoostSanity
     research_cost_multiplier: ResearchCostMultiplier
     pre_hint_items: PreHintItems
     death_link_effect: DeathLinkEffect

@@ -13,6 +13,11 @@ Civilization VI:
   # false: goody hut rewards are not shuffled in and will behave as normal
   shuffle_goody_hut_rewards: true
 
+  # Boosts for Civics/Techs are location checks. Boosts can now be triggered even if
+  # the item has already been researched. If it is dependent upon a unit that is now
+  # obsolete, you can click toggle on/off the relevant tech in the tech tree.
+  boostsanity: false
+
   # Controls if/what items in the tech/civics trees are pre hinted for the multiworld.
   # all: All items in the tech & civics trees are pre hinted.
   # progression: Only locations in the trees containing progression items are pre hinted.

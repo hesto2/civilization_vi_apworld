@@ -4,6 +4,8 @@ from typing import List, Optional, Dict
 from BaseClasses import Location, LocationProgressType, Region
 import json
 
+from .Items import generate_item_table
+
 from .Enum import CivVICheckType, EraType
 
 CIV_VI_AP_LOCATION_ID_BASE = 5041000
@@ -105,6 +107,8 @@ class CivVILocation(Location):
             self.location_type = CivVICheckType.ERA
         elif name.split("_")[0] == "GOODY":
             self.location_type = CivVICheckType.GOODY
+        elif name.split("_")[0] == "BOOST":
+            self.location_type = CivVICheckType.BOOST
 
         if self.name in PRIORITY_LOCATIONS:
             self.progress_type = LocationProgressType.PRIORITY
@@ -203,5 +207,13 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
         era_locations[EraType.ERA_ANCIENT.value]["GOODY_HUT_" + str(i+1)] = CivVILocationData(
             "GOODY_HUT_" + str(i+1), 0, 0, id_base, EraType.ERA_ANCIENT, CivVICheckType.GOODY)
         id_base += 1
+# Boosts
+    boosts_path = os.path.join('data', 'boosts.json')
+    boosts = json.loads(pkgutil.get_data(
+        __name__, boosts_path).decode())
+    for boost in boosts:
+        era_locations[boost["EraType"]][boost["Type"]] = CivVILocationData(
+            boost["Type"], 0, 0, id_base, boost["EraType"], CivVICheckType.BOOST)
+    id_base += 1
 
     return era_locations
