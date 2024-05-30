@@ -203,15 +203,15 @@
   {
     "Type": "BOOST_TECH_GUNPOWDER",
     "EraType": "ERA_RENAISSANCE",
-    "Prereq": ["TECH_MILITARY_SCIENCE"],
-    "PrereqRequiredCount": 1,
+    "Prereq": ["TECH_BRONZE_WORKING", "TECH_MILITARY_ENGINEERING"],
+    "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_TECH_PRINTING",
     "EraType": "ERA_RENAISSANCE",
-    "Prereq": ["TECH_EDUCATION"],
-    "PrereqRequiredCount": 1,
+    "Prereq": ["TECH_WRITING", "TECH_EDUCATION"],
+    "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
   {
@@ -287,8 +287,8 @@
   {
     "Type": "BOOST_TECH_ECONOMICS",
     "EraType": "ERA_INDUSTRIAL",
-    "Prereq": ["TECH_BANKING"],
-    "PrereqRequiredCount": 1,
+    "Prereq": ["TECH_CURRENCY", "TECH_BANKING"],
+    "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
   {
@@ -315,8 +315,8 @@
   {
     "Type": "BOOST_TECH_STEEL",
     "EraType": "ERA_MODERN",
-    "Prereq": ["TECH_MINING", "TECH_STEAM_POWER"],
-    "PrereqRequiredCount": 2,
+    "Prereq": ["TECH_MINING", "TECH_STEAM_POWER", "TECH_INDUSTRIALIZATION"],
+    "PrereqRequiredCount": 3,
     "Classification": "DEFAULT"
   },
   {
@@ -364,8 +364,13 @@
   {
     "Type": "BOOST_TECH_ADVANCED_BALLISTICS",
     "EraType": "ERA_ATOMIC",
-    "Prereq": ["TECH_ELECTRICITY", "TECH_REFINING"],
-    "PrereqRequiredCount": 3,
+    "Prereq": [
+      "TECH_ELECTRICITY",
+      "TECH_REFINING",
+      "TECH_APPRENTICESHIP",
+      "TECH_INDUSTRIALIZATION"
+    ],
+    "PrereqRequiredCount": 4,
     "Classification": "DEFAULT"
   },
   {
@@ -424,7 +429,7 @@
   {
     "Type": "BOOST_TECH_SATELLITES",
     "EraType": "ERA_INFORMATION",
-    "Prereq": ["CIVIC_DRAMA_POETRY", "CIVIC_RADIO"],
+    "Prereq": ["CIVIC_DRAMA_POETRY", "CIVIC_HUMANISM", "CIVIC_RADIO"],
     "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
@@ -473,7 +478,12 @@
   {
     "Type": "BOOST_TECH_NUCLEAR_FUSION",
     "EraType": "ERA_INFORMATION",
-    "Prereq": ["TECH_NUCLEAR_FISSION"],
+    "Prereq": [
+      "TECH_APPRENTICESHIP",
+      "TECH_INDUSTRIALIZATION",
+      "TECH_ELECTRICITY",
+      "TECH_NUCLEAR_FISSION"
+    ],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
@@ -487,8 +497,8 @@
   {
     "Type": "BOOST_TECH_REFINING",
     "EraType": "ERA_MODERN",
-    "Prereq": ["TECH_INDUSTRIALIZATION", "TECH_MINING"],
-    "PrereqRequiredCount": 2,
+    "Prereq": ["TECH_INDUSTRIALIZATION", "TECH_MINING", "TECH_APPRENTICESHIP"],
+    "PrereqRequiredCount": 3,
     "Classification": "DEFAULT"
   },
   {

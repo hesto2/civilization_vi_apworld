@@ -214,6 +214,6 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
     for boost in boosts:
         era_locations[boost["EraType"]][boost["Type"]] = CivVILocationData(
             boost["Type"], 0, 0, id_base, boost["EraType"], CivVICheckType.BOOST)
-    id_base += 1
+        id_base += 1
 
     return era_locations
