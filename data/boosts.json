@@ -833,35 +833,39 @@
   {
     "Type": "BOOST_CIVIC_SUFFRAGE",
     "EraType": "ERA_MODERN",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "Prereq": ["TECH_URBANIZATION", "TECH_SANITATION"],
+    "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_TOTALITARIANISM",
     "EraType": "ERA_MODERN",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "Prereq": [
+      "TECH_BRONZE_WORKING",
+      "TECH_MILITARY_ENGINEERING",
+      "TECH_MILITARY_SCIENCE"
+    ],
+    "PrereqRequiredCount": 3,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_CLASS_STRUGGLE",
     "EraType": "ERA_MODERN",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "Prereq": ["TECH_APPRENTICESHIP", "TECH_INDUSTRIALIZATION"],
+    "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_COLD_WAR",
     "EraType": "ERA_ATOMIC",
-    "Prereq": [],
+    "Prereq": ["TECH_NUCLEAR_FISSION"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_PROFESSIONAL_SPORTS",
     "EraType": "ERA_ATOMIC",
-    "Prereq": [],
+    "Prereq": ["CIVIC_GAMES_RECREATION"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
@@ -869,109 +873,78 @@
     "Type": "BOOST_CIVIC_CULTURAL_HERITAGE",
     "EraType": "ERA_ATOMIC",
     "Prereq": [],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
+    "PrereqRequiredCount": 0,
+    "Classification": "EXCLUDED"
   },
   {
     "Type": "BOOST_CIVIC_RAPID_DEPLOYMENT",
     "EraType": "ERA_ATOMIC",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "Prereq": ["TECH_FLIGHT", "TECH_CARTOGRAPHY", "TECH_SHIPBUILDING"],
+    "PrereqRequiredCount": 3,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_SPACE_RACE",
     "EraType": "ERA_ATOMIC",
-    "Prereq": [],
+    "Prereq": ["TECH_ROCKETRY"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_GLOBALIZATION",
     "EraType": "ERA_INFORMATION",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
+    "Prereq": ["TECH_FLIGHT", "TECH_ADVANCED_FLIGHT"],
+    "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_SOCIAL_MEDIA",
     "EraType": "ERA_INFORMATION",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_FUTURE_CIVIC",
-    "EraType": "ERA_FUTURE",
-    "Prereq": [],
+    "Prereq": ["TECH_TELECOMMUNICATIONS"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_ENVIRONMENTALISM",
     "EraType": "ERA_INFORMATION",
-    "Prereq": [],
+    "Prereq": ["TECH_SATELLITES"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
-    "Type": "BOOST_CIVIC_CORPORATE_LIBERTARIANISM",
+    "Type": "BOOST_CIVIC_VENTURE_POLITICS",
     "EraType": "ERA_INFORMATION",
-    "Prereq": [],
+    "Prereq": ["TECH_MINING", "TECH_COMBINED_ARMS"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
-    "Type": "BOOST_CIVIC_DIGITAL_DEMOCRACY",
+    "Type": "BOOST_CIVIC_DISTRIBUTED_SOVEREIGNTY",
     "EraType": "ERA_INFORMATION",
-    "Prereq": [],
+    "Prereq": ["CIVIC_COLD_WAR"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
-    "Type": "BOOST_CIVIC_SYNTHETIC_TECHNOCRACY",
+    "Type": "BOOST_CIVIC_OPTIMIZATION_IMPERATIVE",
     "EraType": "ERA_INFORMATION",
-    "Prereq": [],
+    "Prereq": ["TECH_ROBOTICS"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_NEAR_FUTURE_GOVERNANCE",
     "EraType": "ERA_INFORMATION",
-    "Prereq": [],
+    "Prereq": [
+      "CIVIC_OPTIMIZATION_IMPERATIVE",
+      "CIVIC_VENTURE_POLITICS",
+      "CIVIC_DISTRIBUTED_SOVEREIGNTY"
+    ],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_GLOBAL_WARMING_MITIGATION",
-    "EraType": "ERA_FUTURE",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_SMART_POWER_DOCTRINE",
-    "EraType": "ERA_FUTURE",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_INFORMATION_WARFARE",
-    "EraType": "ERA_FUTURE",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_EXODUS_IMPERATIVE",
-    "EraType": "ERA_FUTURE",
-    "Prereq": [],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_CULTURAL_HEGEMONY",
     "EraType": "ERA_FUTURE",
     "Prereq": [],
     "PrereqRequiredCount": 1,
