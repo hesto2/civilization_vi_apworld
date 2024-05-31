@@ -172,9 +172,9 @@
       "CIVIC_SUFFRAGE",
       "CIVIC_TOTALITARIANISM",
       "CIVIC_CLASS_STRUGGLE",
-      "CIVIC_DISTRIBUTED_SOVEREIGNTY",
-      "CIVIC_VENTURE_POLITICS",
-      "CIVIC_OPTIMIZATION_IMPERATIVE"
+      "CIVIC_DIGITAL_DEMOCRACY",
+      "CIVIC_CORPORATE_LIBERTARIANISM",
+      "CIVIC_SYNTHETIC_TECHNOCRACY"
     ],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
@@ -398,9 +398,9 @@
       "CIVIC_SUFFRAGE",
       "CIVIC_TOTALITARIANISM",
       "CIVIC_CLASS_STRUGGLE",
-      "CIVIC_DISTRIBUTED_SOVEREIGNTY",
-      "CIVIC_VENTURE_POLITICS",
-      "CIVIC_OPTIMIZATION_IMPERATIVE"
+      "CIVIC_DIGITAL_DEMOCRACY",
+      "CIVIC_CORPORATE_LIBERTARIANISM",
+      "CIVIC_SYNTHETIC_TECHNOCRACY"
     ],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
@@ -922,21 +922,21 @@
     "Classification": "DEFAULT"
   },
   {
-    "Type": "BOOST_CIVIC_VENTURE_POLITICS",
+    "Type": "BOOST_CIVIC_CORPORATE_LIBERTARIANISM",
     "EraType": "ERA_INFORMATION",
     "Prereq": ["TECH_MINING", "TECH_COMBINED_ARMS"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
-    "Type": "BOOST_CIVIC_DISTRIBUTED_SOVEREIGNTY",
+    "Type": "BOOST_CIVIC_DIGITAL_DEMOCRACY",
     "EraType": "ERA_INFORMATION",
     "Prereq": ["CIVIC_COLD_WAR"],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
   },
   {
-    "Type": "BOOST_CIVIC_OPTIMIZATION_IMPERATIVE",
+    "Type": "BOOST_CIVIC_SYNTHETIC_TECHNOCRACY",
     "EraType": "ERA_INFORMATION",
     "Prereq": ["TECH_ROBOTICS"],
     "PrereqRequiredCount": 1,
@@ -946,9 +946,9 @@
     "Type": "BOOST_CIVIC_NEAR_FUTURE_GOVERNANCE",
     "EraType": "ERA_INFORMATION",
     "Prereq": [
-      "CIVIC_OPTIMIZATION_IMPERATIVE",
-      "CIVIC_VENTURE_POLITICS",
-      "CIVIC_DISTRIBUTED_SOVEREIGNTY"
+      "CIVIC_SYNTHETIC_TECHNOCRACY",
+      "CIVIC_CORPORATE_LIBERTARIANISM",
+      "CIVIC_DIGITAL_DEMOCRACY"
     ],
     "PrereqRequiredCount": 1,
     "Classification": "DEFAULT"
