@@ -2,6 +2,7 @@ from enum import Enum
 import json
 import os
 import pkgutil
+import random
 from typing import Dict, List, Optional
 from BaseClasses import Item, ItemClassification
 from .Enum import CivVICheckType, EraType
@@ -45,6 +46,37 @@ BOOSTSANITY_PROGRESSION_ITEMS = [
     "PROGRESSIVE_NEIGHBORHOOD",
     "PROGRESSIVE_PRESERVE"
 ]
+
+
+class FillerItemRarity(Enum):
+    COMMON = 1
+    UNCOMMON = 2
+    RARE = 3
+
+
+FILLER_DISTRIBUTION: Dict[FillerItemRarity, float] = {
+    FillerItemRarity.RARE: 0.1,
+    FillerItemRarity.UNCOMMON: .3,
+    FillerItemRarity.COMMON: 0.6,
+}
+
+FILLER_ITEMS = {
+    "GOODY_GOLD_SMALL_MODIFIER": FillerItemRarity.COMMON,
+    "GOODY_GOLD_SMALL_MODIFIER": FillerItemRarity.COMMON,
+    "GOODY_GOLD_SMALL_MODIFIER": FillerItemRarity.UNCOMMON,
+    "GOODY_FAITH_SMALL_MODIFIER": FillerItemRarity.COMMON,
+    "GOODY_FAITH_MEDIUM_MODIFIER": FillerItemRarity.COMMON,
+    "GOODY_FAITH_LARGE_MODIFIER": FillerItemRarity.UNCOMMON,
+    "GOODY_DIPLOMACY_GRANT_FAVOR": FillerItemRarity.COMMON,
+    "GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE": FillerItemRarity.RARE,
+    "GOODY_DIPLOMACY_GRANT_ENVOY": FillerItemRarity.UNCOMMON,
+    "GOODY_CULTURE_GRANT_ONE_RELIC": FillerItemRarity.RARE,
+    "GOODY_MILITARY_GRANT_SCOUT": FillerItemRarity.COMMON,
+    "GOODY_SURVIVORS_ADD_POPULATION": FillerItemRarity.UNCOMMON,
+    "GOODY_SURVIVORS_GRANT_BUILDER": FillerItemRarity.UNCOMMON,
+    "GOODY_SURVIVORS_GRANT_TRADER": FillerItemRarity.UNCOMMON,
+    "GOODY_SURVIVORS_GRANT_SETTLER": FillerItemRarity.UNCOMMON,
+}
 
 
 class CivVIItemData:
@@ -164,40 +196,16 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
 
     # Generate goody hut items
     item_table["GOODY_GOLD_SMALL_MODIFIER"] = CivVIItemData("GOODY_GOLD_SMALL_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_GOLD_MEDIUM_MODIFIER"] = CivVIItemData("GOODY_GOLD_MEDIUM_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_GOLD_LARGE_MODIFIER"] = CivVIItemData("GOODY_GOLD_LARGE_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
+    for key, value in FILLER_ITEMS.items():
+        item_table[key] = CivVIItemData(key, progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+        progressive_id_base += 1
 
-    item_table["GOODY_FAITH_SMALL_MODIFIER"] = CivVIItemData("GOODY_FAITH_SMALL_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_FAITH_MEDIUM_MODIFIER"] = CivVIItemData("GOODY_FAITH_MEDIUM_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_FAITH_LARGE_MODIFIER"] = CivVIItemData("GOODY_FAITH_LARGE_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-
-    item_table["GOODY_DIPLOMACY_GRANT_FAVOR"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_FAVOR", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_DIPLOMACY_GRANT_ENVOY"] = CivVIItemData("GOODY_DIPLOMACY_GRANT_ENVOY", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-
-    item_table["GOODY_CULTURE_GRANT_ONE_RELIC"] = CivVIItemData("GOODY_CULTURE_GRANT_ONE_RELIC", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-
-    item_table["GOODY_MILITARY_GRANT_SCOUT"] = CivVIItemData("GOODY_MILITARY_GRANT_SCOUT", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-
-    item_table["GOODY_SURVIVORS_ADD_POPULATION"] = CivVIItemData("GOODY_SURVIVORS_ADD_POPULATION", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_SURVIVORS_GRANT_BUILDER"] = CivVIItemData("GOODY_SURVIVORS_GRANT_BUILDER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_SURVIVORS_GRANT_TRADER"] = CivVIItemData("GOODY_SURVIVORS_GRANT_TRADER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-    item_table["GOODY_SURVIVORS_GRANT_SETTLER"] = CivVIItemData("GOODY_SURVIVORS_GRANT_SETTLER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    progressive_id_base += 1
-
-    progressive_id_base += 1
     return item_table
+
+
+def get_random_filler_by_rarity(rarity: FillerItemRarity) -> CivVIItemData:
+    """
+    Returns a random filler item by rarity
+    """
+    items = [item for item, item_rarity in FILLER_ITEMS.items() if item_rarity == rarity]
+    return items[random.randint(0, len(items) - 1)]

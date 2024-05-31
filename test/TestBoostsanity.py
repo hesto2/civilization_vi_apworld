@@ -1,3 +1,4 @@
+from ..Locations import get_boost_data
 from . import CivVITestBase
 
 
@@ -19,7 +20,8 @@ class TestBoostsanityIncluded(CivVITestBase):
         for location in locations:
             if "BOOST" in location.name != -1:
                 found_locations += 1
-        self.assertGreater(found_locations, 100)
+        num_boost_locations = len(get_boost_data())
+        self.assertEqual(found_locations, num_boost_locations)
 
 
 class TestBoostsanityExcluded(CivVITestBase):

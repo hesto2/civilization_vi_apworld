@@ -8,7 +8,7 @@ import Utils
 from worlds.generic.Rules import set_rule
 from .Container import CivVIContainer, generate_goody_hut_sql, generate_new_items, generate_setup_file, generate_update_boosts_sql
 from .Enum import CivVICheckType
-from .Items import BOOSTSANITY_PROGRESSION_ITEMS, CivVIItemData, generate_item_table, CivVIItem
+from .Items import BOOSTSANITY_PROGRESSION_ITEMS, FILLER_DISTRIBUTION, CivVIItemData, FillerItemRarity, generate_item_table, CivVIItem, get_random_filler_by_rarity
 from .Locations import CivVILocation, CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table, get_boost_data
 from .Options import CivVIOptions
 from .Regions import create_regions
@@ -91,7 +91,6 @@ class CivVIWorld(World):
 
     def create_items(self):
         progressive_era_item = None
-        goody_items = []
         for item_name, data in self.item_table.items():
             # Don't add progressive items to the itempool here
             if data.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
@@ -101,7 +100,6 @@ class CivVIWorld(World):
                 progressive_era_item = data
                 continue
             if data.item_type == CivVICheckType.GOODY:
-                goody_items.append(data)
                 continue
 
                 # If we're using progressive districts, we need to check if we need to create a different item instead
@@ -132,9 +130,17 @@ class CivVIWorld(World):
             boost_data = get_boost_data()
             num_filler_items += len(boost_data)
 
-        for _ in range(num_filler_items):
-            self.multiworld.itempool += [self.create_item(
-                goody_items[random.randint(0, len(goody_items) - 1)].name)]
+        filler_count = {rarity: FILLER_DISTRIBUTION[rarity] * num_filler_items for rarity in FillerItemRarity}
+
+        # Add filler items by rarity
+        total_created = 0
+        for rarity, count in filler_count.items():
+            for _ in range(round(count)):
+                if total_created >= num_filler_items:
+                    break
+                self.multiworld.itempool += [self.create_item(
+                    get_random_filler_by_rarity(rarity))]
+                total_created += 1
 
     def post_fill(self):
         if self.options.pre_hint_items.current_key == "none":
