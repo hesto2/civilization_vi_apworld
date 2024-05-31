@@ -51,6 +51,16 @@ def get_cost(world, location: CivVILocationData) -> int:
     return int(world.location_table[location.name].cost * multiplier)
 
 
+def get_formatted_player_name(world, player) -> str:
+    """
+    Returns the name of the player in the world
+    """
+    if player != world.player:
+        return f"{world.multiworld.player_name[player]}{apo}s"
+    else:
+        return "Your"
+
+
 def generate_new_items(world) -> str:
     """
     Generates the XML for the new techs/civics as well as the blockers used to prevent players from researching their own items
@@ -61,6 +71,15 @@ def generate_new_items(world) -> str:
              CivVICheckType.TECH]
     civics = [location for location in locations if location.location_type ==
               CivVICheckType.CIVIC]
+
+    boost_techs = []
+    boost_civics = []
+    if world.options.boostsanity.value:
+        boost_techs = [location for location in locations if location.location_type == CivVICheckType.BOOST and location.name.split("_")[1] == "TECH"]
+        boost_civics = [location for location in locations if location.location_type == CivVICheckType.BOOST and location.name.split("_")[1] == "CIVIC"]
+        techs += boost_techs
+        civics += boost_civics
+
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <GameInfo>
   <Types>
@@ -74,7 +93,7 @@ def generate_new_items(world) -> str:
   <Technologies>
       <Row TechnologyType="TECH_BLOCKER" Name="TECH_BLOCKER" EraType="ERA_ANCIENT" UITreeRow="0" Cost="99999" AdvisorType="ADVISOR_GENERIC" Description="Archipelago Tech created to prevent players from researching their own tech. If you can read this, then congrats you have reached the end of your tree before beating the game!"/>
 {"".join([f'{tab}<Row TechnologyType="{location.name}" '
-                f'Name="{world.multiworld.player_name[location.item.player]}{apo}s '
+                f'Name="{get_formatted_player_name(world, location.item.player)} '
                 f'{location.item.name}" '
                 f'EraType="{world.location_table[location.name].era_type}" '
                 f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
@@ -84,10 +103,13 @@ def generate_new_items(world) -> str:
                 f'/>{nl}'
                 for location in techs])}
   </Technologies>
+  <TechnologyPrereqs>
+  {"".join([f'{tab}<Row Technology="{location.name}" PrereqTech="TECH_BLOCKER" />{nl}' for location in boost_techs])}
+  </TechnologyPrereqs>
   <Civics>
       <Row CivicType="CIVIC_BLOCKER" Name="CIVIC_BLOCKER" EraType="ERA_ANCIENT" UITreeRow="0" Cost="99999" AdvisorType="ADVISOR_GENERIC" Description="Archipelago Civic created to prevent players from researching their own civics. If you can read this, then congrats you have reached the end of your tree before beating the game!"/>
 {"".join([f'{tab}<Row CivicType="{location.name}" '
-                    f'Name="{world.multiworld.player_name[location.item.player]}{apo}s '
+                    f'Name="{get_formatted_player_name(world, location.item.player)} '
                     f'{location.item.name}" '
                     f'EraType="{world.location_table[location.name].era_type}" '
                     f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
@@ -97,6 +119,9 @@ def generate_new_items(world) -> str:
                     f'/>{nl}'
                     for location in civics])}
   </Civics>
+  <CivicPrereqs>
+  {"".join([f'{tab}<Row Civic="{location.name}" PrereqCivic="CIVIC_BLOCKER" />{nl}' for location in boost_civics])}
+  </CivicPrereqs>
 </GameInfo>
     """
 
@@ -105,22 +130,30 @@ def generate_setup_file(world) -> str:
     """
     Generates the Lua for the setup file. This sets initial variables and state that affect gameplay around Progressive Eras
     """
+    setup = "-- Setup"
     if world.options.progression_style.current_key == "eras_and_districts":
-        return f"""
+        setup += f"""
     -- Init Progressive Era Value if it hasn't been set already
     if Game.GetProperty("MaxAllowedEra") == nil then
       print("Setting MaxAllowedEra to 0")
       Game.SetProperty("MaxAllowedEra", 0)
     end
     """
-    return f"""
-    -- No setup needed for Progressive Eras
-      """
+
+    if world.options.boostsanity.value:
+        setup += f"""
+    -- Init Boosts
+    if Game.GetProperty("BoostsAsChecks") == nil then
+      print("Setting Boosts As Checks to True")
+      Game.SetProperty("BoostsAsChecks", true)
+    end
+    """
+    return setup
 
 
 def generate_goody_hut_sql(world) -> str:
     """
-    Generates the SQL for the goody huts or an empty string if they are disabled since the mod expects the file to be
+    Generates the SQL for the goody huts or an empty string if they are disabled since the mod expects the file to be there
     """
 
     if world.options.shuffle_goody_hut_rewards.value:
@@ -152,3 +185,21 @@ WHERE GoodyHut NOT IN ('METEOR_GOODIES', 'GOODYHUT_SAILOR_WONDROUS', 'DUMMY_GOOD
       """
     else:
         return "-- Goody Huts are disabled, no changes needed"
+
+
+def generate_update_boosts_sql(world) -> str:
+    """
+    Generates the SQL for existing boosts in boostsanity or an empty string if they are disabled since the mod expects the file to be there
+    """
+
+    if world.options.boostsanity.value:
+        return f"""
+UPDATE Boosts
+SET TechnologyType = 'BOOST_' || TechnologyType
+WHERE TechnologyType IS NOT NULL;
+UPDATE Boosts
+SET CivicType = 'BOOST_' || CivicType
+WHERE CivicType IS NOT NULL;
+        """
+    else:
+        return "-- Boostsanity is disabled, no changes needed"

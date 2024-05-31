@@ -6,9 +6,9 @@ import typing
 from .Rules import create_boost_rules
 import Utils
 from worlds.generic.Rules import set_rule
-from .Container import CivVIContainer, generate_goody_hut_sql, generate_new_items, generate_setup_file
+from .Container import CivVIContainer, generate_goody_hut_sql, generate_new_items, generate_setup_file, generate_update_boosts_sql
 from .Enum import CivVICheckType
-from .Items import CivVIItemData, generate_item_table, CivVIItem
+from .Items import BOOSTSANITY_PROGRESSION_ITEMS, CivVIItemData, generate_item_table, CivVIItem
 from .Locations import CivVILocation, CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table, get_boost_data
 from .Options import CivVIOptions
 from .Regions import create_regions
@@ -82,8 +82,12 @@ class CivVIWorld(World):
 
     def create_item(self, name: str) -> Item:
         item: CivVIItemData = self.item_table[name]
+        classification = item.classification
+        if self.options.boostsanity.value:
+            if name in BOOSTSANITY_PROGRESSION_ITEMS:
+                classification = ItemClassification.progression
 
-        return CivVIItem(item, self.player)
+        return CivVIItem(item, self.player, classification)
 
     def create_items(self):
         progressive_era_item = None
@@ -171,7 +175,8 @@ class CivVIWorld(World):
         mod_files = {
             f"NewItems.xml": generate_new_items(self),
             f"InitOptions.lua": generate_setup_file(self),
-            f"GoodyHutOverride.sql": generate_goody_hut_sql(self)
+            f"GoodyHutOverride.sql": generate_goody_hut_sql(self),
+            f"UpdateExistingBoosts.sql": generate_update_boosts_sql(self),
         }
         mod = CivVIContainer(mod_files, mod_dir, output_directory, self.player,
                              self.multiworld.get_file_safe_player_name(self.player))

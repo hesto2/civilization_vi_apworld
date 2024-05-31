@@ -8,17 +8,42 @@ from .Enum import CivVICheckType, EraType
 from .ProgressiveDistricts import get_flat_progressive_districts, get_progressive_districts
 CIV_VI_AP_ITEM_ID_BASE = 5041000
 
-FILLER_ITEMS = [
-    # These get dumped in as goody hut rewards which isn't great
-    # "TECH_CYBERNETICS",
-    # "TECH_ADVANCED_AI",
-    # "TECH_FUTURE_TECH",
-    # "CIVIC_FUTURE_CIVIC",
-]
-
 NON_PROGRESSION_DISTRICTS = [
     "PROGRESSIVE_PRESERVE",
     "PROGRESSIVE_NEIGHBORHOOD"
+]
+
+
+# Items required as progression for boostsanity mode
+BOOSTSANITY_PROGRESSION_ITEMS = [
+    "TECH_THE_WHEEL",
+    "TECH_MASONRY",
+    "TECH_ARCHERY",
+    "TECH_ENGINEERING",
+    "TECH_CONSTRUCTION",
+    "TECH_GUNPOWDER",
+    "TECH_MACHINERY",
+    "TECH_SIEGE_TACTICS",
+    "TECH_STIRRUPS",
+    "TECH_ASTRONOMY",
+    "TECH_BALLISTICS",
+    "TECH_STEAM_POWER",
+    "TECH_SANITATION",
+    "TECH_COMPUTERS",
+    "TECH_COMBUSTION",
+    "TECH_TELECOMMUNICATIONS",
+    "TECH_ROBOTICS",
+    "CIVIC_FEUDALISM",
+    "CIVIC_GUILDS",
+    "CIVIC_THE_ENLIGHTENMENT",
+    "CIVIC_MERCANTILISM",
+    "CIVIC_CONSERVATION",
+    "CIVIC_CIVIL_SERVICE",
+    "CIVIC_GLOBALIZATION",
+    "CIVIC_COLD_WAR",
+    "CIVIC_URBANIZATION",
+    "PROGRESSIVE_NEIGHBORHOOD",
+    "PROGRESSIVE_PRESERVE"
 ]
 
 
@@ -46,8 +71,8 @@ class CivVIItem(Item):
     civ_vi_id: int
     item_type: CivVICheckType
 
-    def __init__(self, item: CivVIItemData, player: int):
-        super().__init__(item.name, item.classification, item.code, player)
+    def __init__(self, item: CivVIItemData, player: int, classification: ItemClassification = None):
+        super().__init__(item.name, classification or item.classification, item.code, player)
         self.civ_vi_id = item.civ_vi_id
         self.item_type = item.item_type
 
@@ -85,17 +110,15 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     tech_id_base = 0
     for tech in existing_techs:
         classification = ItemClassification.useful
-        if tech["Type"] in FILLER_ITEMS:
-            classification = ItemClassification.filler
-        if tech["Type"] in required_items:
-            classification = ItemClassification.progression
         name = tech["Type"]
+        if name in required_items:
+            classification = ItemClassification.progression
         progression_name = None
         check_type = CivVICheckType.TECH
-        if tech["Type"] in progresive_items.keys():
+        if name in progresive_items.keys():
             progression_name = progresive_items[name]
 
-        item_table[tech["Type"]] = CivVIItemData(
+        item_table[name] = CivVIItemData(
             name, tech_id_base, tech["Cost"], check_type, 0, classification, progression_name)
 
         tech_id_base += 1
@@ -111,13 +134,16 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
         name = civic["Type"]
         progression_name = None
         check_type = CivVICheckType.CIVIC
-        if civic["Type"] in progresive_items.keys():
+
+        if name in progresive_items.keys():
             progression_name = progresive_items[name]
 
-        classification = ItemClassification.progression if civic[
-            "Type"] in required_items else ItemClassification.useful
-        item_table[civic["Type"]] = CivVIItemData(
-            civic["Type"], civic_id_base, civic["Cost"], check_type, tech_id_base, classification, progression_name)
+        classification = ItemClassification.useful
+        if name in required_items:
+            classification = ItemClassification.progression
+
+        item_table[name] = CivVIItemData(
+            name, civic_id_base, civic["Cost"], check_type, tech_id_base, classification, progression_name)
 
         civic_id_base += 1
 

@@ -2,6 +2,8 @@ import json
 import os
 import pkgutil
 from typing import List
+
+from BaseClasses import CollectionState
 from ..Enum import EraType
 from ..ProgressiveDistricts import convert_items_to_have_progression
 from . import CivVITestBase
@@ -23,6 +25,48 @@ def collect_items_for_era_progressive(test, era: EraType) -> None:
     test.collect_by_name(progressive_items)
 
 
+def verify_eras_accessible(test: CivVITestBase, state: CollectionState, collect_func):
+    for era in EraType:
+        if era == EraType.ERA_ANCIENT:
+            test.assertTrue(state.can_reach(
+                era.value, "Region", test.player))
+        else:
+            test.assertFalse(state.can_reach(
+                era.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_ANCIENT)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_CLASSICAL.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_CLASSICAL)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_MEDIEVAL.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_MEDIEVAL)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_RENAISSANCE.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_RENAISSANCE)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_INDUSTRIAL.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_INDUSTRIAL)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_MODERN.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_MODERN)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_ATOMIC.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_ATOMIC)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_INFORMATION.value, "Region", test.player))
+
+    collect_func(test, EraType.ERA_INFORMATION)
+    test.assertTrue(state.can_reach(
+        EraType.ERA_FUTURE.value, "Region", test.player))
+
+
 class TestNonProgressiveRegionRequirements(CivVITestBase):
     options = {
         "pre_hint_items": "all",
@@ -34,45 +78,7 @@ class TestNonProgressiveRegionRequirements(CivVITestBase):
 
     def test_eras_are_accessible_without_progressive_districts(self) -> None:
         state = self.multiworld.state
-        for era in EraType:
-            if era == EraType.ERA_ANCIENT:
-                self.assertTrue(state.can_reach(
-                    era.value, "Region", self.player))
-            else:
-                self.assertFalse(state.can_reach(
-                    era.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_ANCIENT)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_CLASSICAL.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_CLASSICAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MEDIEVAL.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_MEDIEVAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_RENAISSANCE.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_RENAISSANCE)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INDUSTRIAL.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_INDUSTRIAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MODERN.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_MODERN)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_ATOMIC.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_ATOMIC)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INFORMATION.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_INFORMATION)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_FUTURE.value, "Region", self.player))
+        verify_eras_accessible(self, state, collect_items_for_era)
 
 
 class TestNonProgressiveRegionRequirementsWithBoostsanity(CivVITestBase):
@@ -86,45 +92,7 @@ class TestNonProgressiveRegionRequirementsWithBoostsanity(CivVITestBase):
 
     def test_eras_are_accessible_without_progressive_districts(self) -> None:
         state = self.multiworld.state
-        for era in EraType:
-            if era == EraType.ERA_ANCIENT:
-                self.assertTrue(state.can_reach(
-                    era.value, "Region", self.player))
-            else:
-                self.assertFalse(state.can_reach(
-                    era.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_ANCIENT)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_CLASSICAL.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_CLASSICAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MEDIEVAL.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_MEDIEVAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_RENAISSANCE.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_RENAISSANCE)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INDUSTRIAL.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_INDUSTRIAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MODERN.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_MODERN)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_ATOMIC.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_ATOMIC)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INFORMATION.value, "Region", self.player))
-
-        collect_items_for_era(self, EraType.ERA_INFORMATION)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_FUTURE.value, "Region", self.player))
+        verify_eras_accessible(self, state, collect_items_for_era)
 
 
 class TestProgressiveDistrictRequirementsWithBoostsanity(CivVITestBase):
@@ -138,46 +106,8 @@ class TestProgressiveDistrictRequirementsWithBoostsanity(CivVITestBase):
 
     def test_eras_are_accessible_with_progressive_districts(self) -> None:
         state = self.multiworld.state
-        for era in EraType:
-            if era == EraType.ERA_ANCIENT:
-                self.assertTrue(state.can_reach(
-                    era.value, "Region", self.player))
-            else:
-                self.assertFalse(state.can_reach(
-                    era.value, "Region", self.player))
+        verify_eras_accessible(self, state, collect_items_for_era_progressive)
 
-        collect_items_for_era_progressive(self, EraType.ERA_ANCIENT)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_CLASSICAL.value, "Region", self.player))
-        collect_items_for_era_progressive(self, EraType.ERA_ANCIENT)
-
-        collect_items_for_era_progressive(self, EraType.ERA_CLASSICAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MEDIEVAL.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_MEDIEVAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_RENAISSANCE.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_RENAISSANCE)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INDUSTRIAL.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_INDUSTRIAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MODERN.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_MODERN)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_ATOMIC.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_ATOMIC)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INFORMATION.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_INFORMATION)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_FUTURE.value, "Region", self.player))
 
 class TestProgressiveDistrictRequirements(CivVITestBase):
     options = {
@@ -190,47 +120,7 @@ class TestProgressiveDistrictRequirements(CivVITestBase):
 
     def test_eras_are_accessible_with_progressive_districts(self) -> None:
         state = self.multiworld.state
-        for era in EraType:
-            if era == EraType.ERA_ANCIENT:
-                self.assertTrue(state.can_reach(
-                    era.value, "Region", self.player))
-            else:
-                self.assertFalse(state.can_reach(
-                    era.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_ANCIENT)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_CLASSICAL.value, "Region", self.player))
-        collect_items_for_era_progressive(self, EraType.ERA_ANCIENT)
-
-        collect_items_for_era_progressive(self, EraType.ERA_CLASSICAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MEDIEVAL.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_MEDIEVAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_RENAISSANCE.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_RENAISSANCE)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INDUSTRIAL.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_INDUSTRIAL)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_MODERN.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_MODERN)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_ATOMIC.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_ATOMIC)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_INFORMATION.value, "Region", self.player))
-
-        collect_items_for_era_progressive(self, EraType.ERA_INFORMATION)
-        self.assertTrue(state.can_reach(
-            EraType.ERA_FUTURE.value, "Region", self.player))
-
+        verify_eras_accessible(self, state, collect_items_for_era_progressive)
 
 class TestProgressiveEraRequirements(CivVITestBase):
     options = {
