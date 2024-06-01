@@ -166,7 +166,7 @@ async def tuner_sync_task(ctx: CivVIContext):
                 await asyncio.sleep(3)
             except Exception as e:
                 if isinstance(e, TunerErrorException):
-                    logger.error(str(e))
+                    logger.debug(str(e))
                 else:
                     logger.error(traceback.format_exc())
 
