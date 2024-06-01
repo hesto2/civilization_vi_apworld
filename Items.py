@@ -88,7 +88,7 @@ class CivVIItemData:
     item_type: CivVICheckType
     progression_name: Optional[str]
 
-    def __init__(self, name, civ_vi_id: int, cost: int,  item_type: CivVICheckType, id_offset: int, classification: ItemClassification, progression_name: str | None):
+    def __init__(self, name, civ_vi_id: int, cost: int,  item_type: CivVICheckType, id_offset: int, classification: ItemClassification, progression_name: Optional[str]):
         self.classification = classification
         self.civ_vi_id = civ_vi_id
         self.name = name
