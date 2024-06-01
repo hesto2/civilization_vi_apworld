@@ -5,7 +5,7 @@ For setup instructions go [here](./docs/setup_en.md).
 
 ## What does randomization do to this game?
 
-In Civilization VI, the tech and civic trees are both shuffled. This presents some interesting ways to play the game in a non-standard way.
+In Civilization VI, the tech and civic trees are both shuffled. This presents some interesting ways to play the game in a non-standard way. If you are feeling adventurous, you can enable the `boostsanity` option in order to really change up the way you normally would play a Civ game. Details on the option can be found [here](./docs/boostsanity.md)
 
 There are a few changes that the Archipelago mod introduces in order to make this playable/fun. These are detailed in the __FAQ__ section below.
 
