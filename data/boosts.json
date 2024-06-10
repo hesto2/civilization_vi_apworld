@@ -118,7 +118,7 @@
     "EraType": "ERA_CLASSICAL",
     "Prereq": ["TECH_MASONRY"],
     "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
+    "Classification": "EXCLUDED"
   },
   {
     "Type": "BOOST_TECH_MILITARY_TACTICS",
