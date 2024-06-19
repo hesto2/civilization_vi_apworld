@@ -48,6 +48,7 @@ class CivVIWorld(World):
     game: str = "Civilization VI"
     topology_present = False
     options_dataclass = CivVIOptions
+    options: CivVIOptions
 
     web = CivVIWeb()
 

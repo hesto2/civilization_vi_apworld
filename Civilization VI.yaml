@@ -31,6 +31,9 @@ Civilization VI:
   # expensive: Techs and civics cost 150% of the normal cost.
   research_cost_multiplier: cheap
 
+  # If boostsanity is enabled, this will prevent any boosts that are 'missable' from having progression items. Disabling this will potentially require multiple playthroughs to complete the seed.
+  exlcude_missable_boosts: "true"
+
   # 'true' or 'false'
   death_link: "false"
 
