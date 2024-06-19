@@ -37,9 +37,9 @@
   {
     "Type": "BOOST_TECH_MASONRY",
     "EraType": "ERA_ANCIENT",
-    "Prereq": [],
-    "PrereqRequiredCount": 0,
-    "Classification": "TECH_MINING"
+    "Prereq": ["TECH_MINING"],
+    "PrereqRequiredCount": 1,
+    "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_TECH_BRONZE_WORKING",
