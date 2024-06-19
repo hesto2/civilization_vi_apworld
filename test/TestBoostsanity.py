@@ -13,7 +13,7 @@ class TestBoostsanityIncluded(CivVITestBase):
         "pre_hint_items": "all",
     }
 
-    def test_goody_huts_get_included(self) -> None:
+    def test_boosts_get_included(self) -> None:
         self.test_fill()
         locations = self.multiworld.get_locations(self.player)
         found_locations = 0
@@ -35,7 +35,7 @@ class TestBoostsanityExcluded(CivVITestBase):
         "pre_hint_items": "all",
     }
 
-    def test_goody_huts_are_not_included(self) -> None:
+    def test_boosts_are_not_included(self) -> None:
         self.test_fill()
         locations = self.multiworld.get_locations(self.player)
         found_locations = 0

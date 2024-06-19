@@ -20,10 +20,10 @@ Civilization VI:
 
   # Controls if/what items in the tech/civics trees are pre hinted for the multiworld.
   # all: All items in the tech & civics trees are pre hinted.
-  # progression: Only locations in the trees containing progression items are pre hinted.
+  # progression_items: Only locations in the trees containing progression items are pre hinted.
   # no_junk: Pre hint the progression and useful items.
   # none: No items are pre hinted.
-  pre_hint_items: "progression"
+  pre_hint_items: "progression_items"
 
   # Controls the cost of techs and civics.
   # cheap: Techs and civics cost 50% of the normal cost.

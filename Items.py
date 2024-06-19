@@ -55,9 +55,9 @@ class FillerItemRarity(Enum):
 
 
 FILLER_DISTRIBUTION: Dict[FillerItemRarity, float] = {
-    FillerItemRarity.RARE: 0.1,
-    FillerItemRarity.UNCOMMON: .3,
-    FillerItemRarity.COMMON: 0.6,
+    FillerItemRarity.RARE: 0.05,
+    FillerItemRarity.UNCOMMON: .2,
+    FillerItemRarity.COMMON: 0.75,
 }
 
 FILLER_ITEMS = {
@@ -71,7 +71,7 @@ FILLER_ITEMS = {
     "GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE": FillerItemRarity.RARE,
     "GOODY_DIPLOMACY_GRANT_ENVOY": FillerItemRarity.UNCOMMON,
     "GOODY_CULTURE_GRANT_ONE_RELIC": FillerItemRarity.RARE,
-    "GOODY_MILITARY_GRANT_SCOUT": FillerItemRarity.COMMON,
+    "GOODY_MILITARY_GRANT_SCOUT": FillerItemRarity.UNCOMMON,
     "GOODY_SURVIVORS_ADD_POPULATION": FillerItemRarity.UNCOMMON,
     "GOODY_SURVIVORS_GRANT_BUILDER": FillerItemRarity.UNCOMMON,
     "GOODY_SURVIVORS_GRANT_TRADER": FillerItemRarity.UNCOMMON,
