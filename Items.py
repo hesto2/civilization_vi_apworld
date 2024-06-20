@@ -49,9 +49,9 @@ BOOSTSANITY_PROGRESSION_ITEMS = [
 
 
 class FillerItemRarity(Enum):
-    COMMON = 1
-    UNCOMMON = 2
-    RARE = 3
+    COMMON = "RARE"
+    UNCOMMON = "UNCOMMON"
+    RARE = "COMMON"
 
 
 FILLER_DISTRIBUTION: Dict[FillerItemRarity, float] = {
@@ -60,23 +60,34 @@ FILLER_DISTRIBUTION: Dict[FillerItemRarity, float] = {
     FillerItemRarity.COMMON: 0.75,
 }
 
-FILLER_ITEMS = {
-    "GOODY_GOLD_SMALL_MODIFIER": FillerItemRarity.COMMON,
-    "GOODY_GOLD_MEDIUM_MODIFIER": FillerItemRarity.COMMON,
-    "GOODY_GOLD_LARGE_MODIFIER": FillerItemRarity.UNCOMMON,
-    "GOODY_FAITH_SMALL_MODIFIER": FillerItemRarity.COMMON,
-    "GOODY_FAITH_MEDIUM_MODIFIER": FillerItemRarity.COMMON,
-    "GOODY_FAITH_LARGE_MODIFIER": FillerItemRarity.UNCOMMON,
-    "GOODY_DIPLOMACY_GRANT_FAVOR": FillerItemRarity.COMMON,
-    "GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE": FillerItemRarity.RARE,
-    "GOODY_DIPLOMACY_GRANT_ENVOY": FillerItemRarity.UNCOMMON,
-    "GOODY_CULTURE_GRANT_ONE_RELIC": FillerItemRarity.RARE,
-    "GOODY_MILITARY_GRANT_SCOUT": FillerItemRarity.UNCOMMON,
-    "GOODY_SURVIVORS_ADD_POPULATION": FillerItemRarity.UNCOMMON,
-    "GOODY_SURVIVORS_GRANT_BUILDER": FillerItemRarity.UNCOMMON,
-    "GOODY_SURVIVORS_GRANT_TRADER": FillerItemRarity.UNCOMMON,
-    "GOODY_SURVIVORS_GRANT_SETTLER": FillerItemRarity.UNCOMMON,
-}
+
+class FillerItemData:
+    name: str
+    type: str
+    rarity: FillerItemRarity
+
+    def __init__(self, data: Dict[str, str]):
+        self.name = data["Name"]
+        self.rarity = FillerItemRarity(data["Rarity"])
+
+
+cached_filler_items: Optional[List[FillerItemData]] = None
+
+
+def get_filler_item_data() -> Dict[str, FillerItemData]:
+    """
+    Returns a dictionary of filler items with their data
+    """
+    global cached_filler_items
+    if not cached_filler_items:
+        goody_hut_rewards_path = os.path.join('data', 'goody_hut_rewards.json')
+        goody_huts: List[Dict[str, str]] = json.loads(
+            pkgutil.get_data(__name__, goody_hut_rewards_path).decode())
+
+        # Create a FillerItemData object for each item
+        cached_filler_items = {item["Name"]: FillerItemData(item) for item in goody_huts}
+
+    return cached_filler_items
 
 
 class CivVIItemData:
@@ -195,17 +206,24 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     progressive_id_base += 1
 
     # Generate goody hut items
-    item_table["GOODY_GOLD_SMALL_MODIFIER"] = CivVIItemData("GOODY_GOLD_SMALL_MODIFIER", progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
-    for key, value in FILLER_ITEMS.items():
-        item_table[key] = CivVIItemData(key, progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+    goody_huts = get_filler_item_data()
+    for value in goody_huts.values():
+        item_table[value.name] = CivVIItemData(value.name, progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
         progressive_id_base += 1
 
     return item_table
 
 
-def get_random_filler_by_rarity(rarity: FillerItemRarity) -> CivVIItemData:
+def get_items_by_type(item_type: CivVICheckType, item_table: Dict[str, CivVIItemData]) -> List[CivVIItemData]:
+    """
+    Returns a list of items that match the given item type
+    """
+    return [item for item in item_table.values() if item.item_type == item_type]
+
+
+def get_random_filler_by_rarity(rarity: FillerItemRarity, item_table: Dict[str, CivVIItemData]) -> CivVIItemData:
     """
     Returns a random filler item by rarity
     """
-    items = [item for item, item_rarity in FILLER_ITEMS.items() if item_rarity == rarity]
+    items = [item for item in get_filler_item_data().values() if item.rarity == rarity]
     return items[random.randint(0, len(items) - 1)]

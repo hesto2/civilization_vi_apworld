@@ -140,7 +140,7 @@ class CivVIWorld(World):
                 if total_created >= num_filler_items:
                     break
                 self.multiworld.itempool += [self.create_item(
-                    get_random_filler_by_rarity(rarity))]
+                    get_random_filler_by_rarity(rarity, self.item_table).name)]
                 total_created += 1
 
     def post_fill(self):

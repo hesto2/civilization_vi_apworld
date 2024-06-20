@@ -3,14 +3,19 @@ import os
 import pkgutil
 from typing import Dict, List
 
+cached_progressive_districts = None
+
 
 def get_progressive_districts() -> Dict[str, List[str]]:
     """Returns a dict of all progressive items as the key and a list of the associated
      item names as the value"""
-    file_path = os.path.join('data', 'progressive_districts.json')
-    progressive_districts = json.loads(
-        pkgutil.get_data(__name__, file_path).decode())
-    return progressive_districts
+    global cached_progressive_districts
+    if not cached_progressive_districts:
+        file_path = os.path.join('data', 'progressive_districts.json')
+        cached_progressive_districts = json.loads(
+            pkgutil.get_data(__name__, file_path).decode())
+
+    return cached_progressive_districts
 
 
 def get_flat_progressive_districts() -> Dict[str, str]:
