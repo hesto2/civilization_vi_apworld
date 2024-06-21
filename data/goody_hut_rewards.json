@@ -32,46 +32,46 @@
     {
         "Type": "GOODY_DIPLOMACY_GRANT_FAVOR",
         "Rarity": "COMMON",
-        "Name": "Diplomacy Grant Favor"
+        "Name": "Diplomatic Favor"
     },
     {
         "Type": "GOODY_DIPLOMACY_GRANT_GOVERNOR_TITLE",
         "Rarity": "RARE",
-        "Name": "Diplomacy Grant Governor Title"
+        "Name": "Governor Title"
     },
     {
         "Type": "GOODY_DIPLOMACY_GRANT_ENVOY",
         "Rarity": "UNCOMMON",
-        "Name": "Diplomacy Grant Envoy"
+        "Name": "Envoy"
     },
     {
         "Type": "GOODY_CULTURE_GRANT_ONE_RELIC",
         "Rarity": "RARE",
-        "Name": "Culture Grant One Relic"
+        "Name": "Relic"
     },
     {
         "Type": "GOODY_MILITARY_GRANT_SCOUT",
         "Rarity": "UNCOMMON",
-        "Name": "Military Grant Scout"
+        "Name": "Scout"
     },
     {
         "Type": "GOODY_SURVIVORS_ADD_POPULATION",
         "Rarity": "UNCOMMON",
-        "Name": "Survivors Add Population"
+        "Name": "Additional Population"
     },
     {
         "Type": "GOODY_SURVIVORS_GRANT_BUILDER",
         "Rarity": "UNCOMMON",
-        "Name": "Survivors Grant Builder"
+        "Name": "Builder"
     },
     {
         "Type": "GOODY_SURVIVORS_GRANT_TRADER",
         "Rarity": "UNCOMMON",
-        "Name": "Survivors Grant Trader"
+        "Name": "Trader"
     },
     {
         "Type": "GOODY_SURVIVORS_GRANT_SETTLER",
         "Rarity": "UNCOMMON",
-        "Name": "Survivors Grant Settler"
+        "Name": "Settler"
     }
 ]

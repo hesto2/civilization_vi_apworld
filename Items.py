@@ -98,8 +98,9 @@ class CivVIItemData:
     cost: int
     item_type: CivVICheckType
     progression_name: Optional[str]
+    civ_name: Optional[str]
 
-    def __init__(self, name, civ_vi_id: int, cost: int,  item_type: CivVICheckType, id_offset: int, classification: ItemClassification, progression_name: Optional[str]):
+    def __init__(self, name, civ_vi_id: int, cost: int,  item_type: CivVICheckType, id_offset: int, classification: ItemClassification, progression_name: Optional[str], civ_name: Optional[str] = None):
         self.classification = classification
         self.civ_vi_id = civ_vi_id
         self.name = name
@@ -107,6 +108,7 @@ class CivVIItemData:
         self.cost = cost
         self.item_type = item_type
         self.progression_name = progression_name
+        self.civ_name = civ_name
 
 
 class CivVIItem(Item):
@@ -119,18 +121,12 @@ class CivVIItem(Item):
         self.civ_vi_id = item.civ_vi_id
         self.item_type = item.item_type
 
+def format_item_name(name: str) -> str:
+    name_parts = name.split("_")
+    return " ".join([part.capitalize() for part in name_parts])
 
 def generate_item_table() -> Dict[str, CivVIItemData]:
-    """
-    Uses the data from existing_tech.json to generate a location table in the following format:
-    {
-      "TECH_POTTERY": ItemData,
-      "TECH_ANIMAL_HUSBANDRY": ItemData,
-      "CIVIC_CODE_OF_LAWS": ItemData,
-      "CIVIC_CRAFTSMANSHIP": ItemData
-      ...
-    }
-    """
+
     # Generate Techs
     existing_tech_path = os.path.join('data', 'existing_tech.json')
 
@@ -153,16 +149,17 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     tech_id_base = 0
     for tech in existing_techs:
         classification = ItemClassification.useful
-        name = tech["Type"]
-        if name in required_items:
+        name = tech["Name"]
+        civ_name = tech["Type"]
+        if civ_name in required_items:
             classification = ItemClassification.progression
         progression_name = None
         check_type = CivVICheckType.TECH
-        if name in progresive_items.keys():
-            progression_name = progresive_items[name]
+        if civ_name in progresive_items.keys():
+            progression_name = format_item_name(progresive_items[civ_name])
 
         item_table[name] = CivVIItemData(
-            name, tech_id_base, tech["Cost"], check_type, 0, classification, progression_name)
+            name, tech_id_base, tech["Cost"], check_type, 0, classification, progression_name, civ_name=civ_name)
 
         tech_id_base += 1
 
@@ -174,19 +171,20 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
         pkgutil.get_data(__name__, existing_civics_path).decode())
 
     for civic in existing_civics:
-        name = civic["Type"]
+        name = civic["Name"]
+        civ_name = civic["Type"]
         progression_name = None
         check_type = CivVICheckType.CIVIC
 
-        if name in progresive_items.keys():
-            progression_name = progresive_items[name]
+        if civ_name in progresive_items.keys():
+            progression_name = format_item_name(progresive_items[civ_name])
 
         classification = ItemClassification.useful
-        if name in required_items:
+        if civ_name in required_items:
             classification = ItemClassification.progression
 
         item_table[name] = CivVIItemData(
-            name, civic_id_base, civic["Cost"], check_type, tech_id_base, classification, progression_name)
+            name, civic_id_base, civic["Cost"], check_type, tech_id_base, classification, progression_name, civ_name=civ_name)
 
         civic_id_base += 1
 
@@ -197,12 +195,14 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
         progression = ItemClassification.progression
         if item_name in NON_PROGRESSION_DISTRICTS:
             progression = ItemClassification.useful
-        item_table[item_name] = CivVIItemData(
-            item_name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, civic_id_base + tech_id_base, progression, None)
+        name = format_item_name(item_name)
+        item_table[name] = CivVIItemData(
+            name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, civic_id_base + tech_id_base, progression, None, civ_name=item_name)
         progressive_id_base += 1
 
     # Generate progressive eras
-    item_table["PROGRESSIVE_ERA"] = CivVIItemData("PROGRESSIVE_ERA", progressive_id_base, 0, CivVICheckType.ERA, civic_id_base + tech_id_base, ItemClassification.progression, None)
+    progressive_era_name = format_item_name("PROGRESSIVE_ERA")
+    item_table[progressive_era_name] = CivVIItemData(progressive_era_name, progressive_id_base, 0, CivVICheckType.ERA, civic_id_base + tech_id_base, ItemClassification.progression, None, civ_name="PROGRESSIVE_ERA")
     progressive_id_base += 1
 
     # Generate goody hut items
