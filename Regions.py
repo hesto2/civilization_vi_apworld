@@ -1,7 +1,7 @@
 import pkgutil
 import typing
 from BaseClasses import CollectionState, LocationProgressType, Region
-from .Items import format_item_name
+from .Items import format_item_name, get_item_by_civ_name
 from .Enum import CivVICheckType, EraType
 from .Locations import CivVILocation
 from .ProgressiveDistricts import get_flat_progressive_districts
@@ -21,15 +21,6 @@ def get_required_items_for_era(era: EraType):
     era_required_items = json.loads(
         pkgutil.get_data(__name__, file_path).decode())
     return era_required_items[era.value]
-
-
-def get_item_by_civ_name(item_name: typing.List[str], item_table: typing.Dict[str, 'CivVIItemData']) -> 'CivVIItemData':
-    """Gets the names of the items in the item_table"""
-    for item in item_table.values():
-        if item_name == item.civ_name:
-            return item
-
-    raise Exception(f"Item {item_name} not found in item_table")
 
 
 def get_cumulative_prereqs_for_era(end_era: EraType, exclude_progressive_items: bool = True, item_table: typing.Dict[str, 'CivVIItemData'] = None) -> typing.List['CivVIItemData']:

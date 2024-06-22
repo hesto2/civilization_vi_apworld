@@ -9,7 +9,7 @@ from NetUtils import ClientStatus
 import Utils
 from .CivVIInterface import CivVIInterface, ConnectionState
 from .Enum import CivVICheckType
-from .Items import CivVIItemData, generate_item_table
+from .Items import CivVIItemData, generate_item_table, get_item_by_civ_name
 from .Locations import generate_era_location_table
 from .ProgressiveDistricts import get_progressive_districts
 from .TunerClient import TunerErrorException, TunerTimeoutException
@@ -217,14 +217,15 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                 if item.item_type == CivVICheckType.PROGRESSIVE_DISTRICT:
                     # if the item is progressive, then check how far in that progression type we are and send the appropriate item
                     count = sum(
-                        1 for count_item in progressive_districts if count_item.name == item.name)
+                        1 for count_item in progressive_districts if count_item.civ_name == item.civ_name)
 
-                    if count >= len(ctx.progressive_items_by_type[item.name]):
+                    if count >= len(ctx.progressive_items_by_type[item.civ_name]):
                         logger.error(
-                            f"Received more progressive items than expected for {item.name}")
+                            f"Received more progressive items than expected for {item.civ_name}")
                         continue
 
-                    actual_item_name = ctx.progressive_items_by_type[item.name][count]
+                    item_civ_name = ctx.progressive_items_by_type[item.civ_name][count]
+                    actual_item_name = get_item_by_civ_name(item_civ_name, ctx.item_table).name
                     item_to_send = ctx.item_table[actual_item_name]
 
                 sender = ctx.player_names[network_item.player]
@@ -233,7 +234,7 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                     await ctx.game_interface.give_item_to_player(item_to_send, sender, count)
                 elif item.item_type == CivVICheckType.GOODY:
                     # TODO: Figure a better way to have civ id not necessarily determine the code for an item so I can put the modifier id in there (string not an int)
-                    item_to_send.civ_vi_id = item_to_send.name
+                    item_to_send.civ_vi_id = item_to_send.civ_name
                     await ctx.game_interface.give_item_to_player(item_to_send, sender)
                 else:
                     await ctx.game_interface.give_item_to_player(item_to_send, sender)

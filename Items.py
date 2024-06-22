@@ -4,6 +4,7 @@ import os
 import pkgutil
 import random
 from typing import Dict, List, Optional
+import typing
 from BaseClasses import Item, ItemClassification
 from .Enum import CivVICheckType, EraType
 from .ProgressiveDistricts import get_flat_progressive_districts, get_progressive_districts
@@ -65,10 +66,12 @@ class FillerItemData:
     name: str
     type: str
     rarity: FillerItemRarity
+    civ_name: str
 
     def __init__(self, data: Dict[str, str]):
         self.name = data["Name"]
         self.rarity = FillerItemRarity(data["Rarity"])
+        self.civ_name = data["Type"]
 
 
 cached_filler_items: Optional[List[FillerItemData]] = None
@@ -124,6 +127,14 @@ class CivVIItem(Item):
 def format_item_name(name: str) -> str:
     name_parts = name.split("_")
     return " ".join([part.capitalize() for part in name_parts])
+
+def get_item_by_civ_name(item_name: typing.List[str], item_table: typing.Dict[str, 'CivVIItemData']) -> 'CivVIItemData':
+    """Gets the names of the items in the item_table"""
+    for item in item_table.values():
+        if item_name == item.civ_name:
+            return item
+
+    raise Exception(f"Item {item_name} not found in item_table")
 
 def generate_item_table() -> Dict[str, CivVIItemData]:
 
@@ -208,7 +219,7 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
     # Generate goody hut items
     goody_huts = get_filler_item_data()
     for value in goody_huts.values():
-        item_table[value.name] = CivVIItemData(value.name, progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None)
+        item_table[value.name] = CivVIItemData(value.name, progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None, civ_name=value.civ_name)
         progressive_id_base += 1
 
     return item_table
