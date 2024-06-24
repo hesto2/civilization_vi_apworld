@@ -2,11 +2,11 @@
 
 This guide is meant to help you get up and running with Civlization VI in your Archipelago run. Note that this requires you to have both Rise & Fall as well as Gathering Storm installed. This will not work unless both of those DLCs are enabled.
 
-Windows is the only OS this has been tested on but feel free to let me know if it works on macOS as well. The setup steps should be the same with the exception of where files are located.
-
 ## Requirements
 
 The following are required in order to play Civ VI in Archipelago
+
+- Windows OS (Firaxis does not support the necessary tooling for Mac, Linux is yet to bet verified)
 
 - Installed [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases) v0.4.5 or higher.\
    **Make sure to install the Generator if you intend to generate multiworlds.**
