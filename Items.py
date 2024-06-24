@@ -6,8 +6,9 @@ import random
 from typing import Dict, List, Optional
 import typing
 from BaseClasses import Item, ItemClassification
+from .Data import get_progressive_districts_data
 from .Enum import CivVICheckType, EraType
-from .ProgressiveDistricts import get_flat_progressive_districts, get_progressive_districts
+from .ProgressiveDistricts import get_flat_progressive_districts
 CIV_VI_AP_ITEM_ID_BASE = 5041000
 
 NON_PROGRESSION_DISTRICTS = [
@@ -201,7 +202,7 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
 
     # Generate Progressive Districts
     progressive_id_base = 0
-    progresive_items = get_progressive_districts()
+    progresive_items = get_progressive_districts_data()
     for item_name in progresive_items.keys():
         progression = ItemClassification.progression
         if item_name in NON_PROGRESSION_DISTRICTS:

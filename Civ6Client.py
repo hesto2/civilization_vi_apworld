@@ -4,6 +4,7 @@ import traceback
 from typing import Dict, List
 
 from CommonClient import ClientCommandProcessor, CommonContext, get_base_parser, logger, server_loop, gui_enabled
+from .Data import get_progressive_districts_data
 from .DeathLink import handle_check_deathlink
 from NetUtils import ClientStatus
 import Utils
@@ -11,7 +12,6 @@ from .CivVIInterface import CivVIInterface, ConnectionState
 from .Enum import CivVICheckType
 from .Items import CivVIItemData, generate_item_table, get_item_by_civ_name
 from .Locations import generate_era_location_table
-from .ProgressiveDistricts import get_progressive_districts
 from .TunerClient import TunerErrorException, TunerTimeoutException
 
 
@@ -63,7 +63,7 @@ class CivVIContext(CommonContext):
     # Used to prevent the deathlink from triggering when someone re enables it
 
     logger = logger
-    progressive_items_by_type = get_progressive_districts()
+    progressive_items_by_type = get_progressive_districts_data()
     item_name_to_id = {
         item.name: item.code for item in generate_item_table().values()}
     connection_state = ConnectionState.DISCONNECTED
@@ -233,7 +233,6 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
                     count = len(progressive_eras) + 1
                     await ctx.game_interface.give_item_to_player(item_to_send, sender, count)
                 elif item.item_type == CivVICheckType.GOODY:
-                    # TODO: Figure a better way to have civ id not necessarily determine the code for an item so I can put the modifier id in there (string not an int)
                     item_to_send.civ_vi_id = item_to_send.civ_name
                     await ctx.game_interface.give_item_to_player(item_to_send, sender)
                 else:

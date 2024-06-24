@@ -1,28 +1,12 @@
-import json
-import os
-import pkgutil
 from typing import Dict, List
 
-cached_progressive_districts = None
-
-
-def get_progressive_districts() -> Dict[str, List[str]]:
-    """Returns a dict of all progressive items as the key and a list of the associated
-     item names as the value"""
-    global cached_progressive_districts
-    if not cached_progressive_districts:
-        file_path = os.path.join('data', 'progressive_districts.json')
-        cached_progressive_districts = json.loads(
-            pkgutil.get_data(__name__, file_path).decode())
-
-    return cached_progressive_districts
-
+from .Data import get_progressive_districts_data
 
 def get_flat_progressive_districts() -> Dict[str, str]:
     """Returns a dictionary of all items that are associated with a progressive item.
     Key is the item name ("TECH_WRITING") and the value is the associated progressive
     item ("PROGRESSIVE_CAMPUS")"""
-    progressive_districts = get_progressive_districts()
+    progressive_districts = get_progressive_districts_data()
     flat_progressive_techs = {}
     for key, value in progressive_districts.items():
         for item in value:
