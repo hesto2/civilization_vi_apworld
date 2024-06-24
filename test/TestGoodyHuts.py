@@ -1,10 +1,12 @@
 from typing import Dict
 from BaseClasses import ItemClassification
-from ..Items import FILLER_DISTRIBUTION, FILLER_ITEMS, FillerItemRarity
+from Fill import distribute_items_restrictive
+from ..Items import FILLER_DISTRIBUTION, FillerItemRarity, get_filler_item_data
 from . import CivVITestBase
 
 
 class TestGoodyHutsIncluded(CivVITestBase):
+    auto_construct = False
     options = {
         "progressive_eras": "true",
         "death_link": "true",
@@ -15,7 +17,9 @@ class TestGoodyHutsIncluded(CivVITestBase):
     }
 
     def test_goody_huts_get_included(self) -> None:
-        self.test_fill()
+        self.world_setup()
+        distribute_items_restrictive
+        distribute_items_restrictive(self.multiworld)
         expected_goody_huts = 10
         found = 0
         for i in range(expected_goody_huts):
@@ -26,6 +30,7 @@ class TestGoodyHutsIncluded(CivVITestBase):
 
 
 class TestGoodyHutsExcluded(CivVITestBase):
+    auto_construct = False
     options = {
         "progressive_eras": "true",
         "death_link": "true",
@@ -36,7 +41,8 @@ class TestGoodyHutsExcluded(CivVITestBase):
     }
 
     def test_goody_huts_are_not_included(self) -> None:
-        self.test_fill()
+        self.world_setup()
+        distribute_items_restrictive
         found_goody_huts = 0
         for location in self.multiworld.get_locations(self.player):
             if location.name.startswith("GOODY_HUT_"):
@@ -45,6 +51,7 @@ class TestGoodyHutsExcluded(CivVITestBase):
 
 
 class TestFillerItemsIncludedByRarity(CivVITestBase):
+    auto_construct = False
     options = {
         "progressive_eras": "true",
         "death_link": "true",
@@ -56,7 +63,8 @@ class TestFillerItemsIncludedByRarity(CivVITestBase):
     }
 
     def test_filler_items_are_included_by_rarity(self) -> None:
-        self.test_fill()
+        self.world_setup()
+        distribute_items_restrictive
         rarity_counts: Dict[FillerItemRarity, int] = {
             FillerItemRarity.COMMON: 0,
             FillerItemRarity.UNCOMMON: 0,
@@ -65,7 +73,7 @@ class TestFillerItemsIncludedByRarity(CivVITestBase):
         total_filler_items = 0
         for item in self.multiworld.itempool:
             if item.classification == ItemClassification.filler:
-                rarity = FILLER_ITEMS[item.name]
+                rarity = get_filler_item_data()[item.name].rarity
                 rarity_counts[rarity] += 1
                 total_filler_items += 1
 
@@ -75,6 +83,7 @@ class TestFillerItemsIncludedByRarity(CivVITestBase):
 
 
 class TestFillerItemsIncludedByRarityWithoutBoostsanity(CivVITestBase):
+    auto_construct = False
     options = {
         "progressive_eras": "true",
         "death_link": "true",
@@ -86,7 +95,8 @@ class TestFillerItemsIncludedByRarityWithoutBoostsanity(CivVITestBase):
     }
 
     def test_filler_items_are_included_by_rarity_without_boostsanity(self) -> None:
-        self.test_fill()
+        self.world_setup()
+        distribute_items_restrictive
         rarity_counts: Dict[FillerItemRarity, int] = {
             FillerItemRarity.COMMON: 0,
             FillerItemRarity.UNCOMMON: 0,
@@ -95,7 +105,7 @@ class TestFillerItemsIncludedByRarityWithoutBoostsanity(CivVITestBase):
         total_filler_items = 0
         for item in self.multiworld.itempool:
             if item.classification == ItemClassification.filler:
-                rarity = FILLER_ITEMS[item.name]
+                rarity = get_filler_item_data()[item.name].rarity
                 rarity_counts[rarity] += 1
                 total_filler_items += 1
 

@@ -6,7 +6,7 @@ import random
 from typing import Dict, List, Optional
 import typing
 from BaseClasses import Item, ItemClassification
-from .Data import get_progressive_districts_data
+from .Data import get_era_required_items_data, get_existing_civics_data, get_existing_techs_data, get_goody_hut_rewards_data, get_progressive_districts_data
 from .Enum import CivVICheckType, EraType
 from .ProgressiveDistricts import get_flat_progressive_districts
 CIV_VI_AP_ITEM_ID_BASE = 5041000
@@ -57,9 +57,9 @@ class FillerItemRarity(Enum):
 
 
 FILLER_DISTRIBUTION: Dict[FillerItemRarity, float] = {
-    FillerItemRarity.RARE: 0.05,
+    FillerItemRarity.RARE: 0.1,
     FillerItemRarity.UNCOMMON: .2,
-    FillerItemRarity.COMMON: 0.75,
+    FillerItemRarity.COMMON: 0.7,
 }
 
 
@@ -75,21 +75,13 @@ class FillerItemData:
         self.civ_name = data["Type"]
 
 
-cached_filler_items: Optional[List[FillerItemData]] = None
-
-
 def get_filler_item_data() -> Dict[str, FillerItemData]:
     """
     Returns a dictionary of filler items with their data
     """
-    global cached_filler_items
-    if not cached_filler_items:
-        goody_hut_rewards_path = os.path.join('data', 'goody_hut_rewards.json')
-        goody_huts: List[Dict[str, str]] = json.loads(
-            pkgutil.get_data(__name__, goody_hut_rewards_path).decode())
-
-        # Create a FillerItemData object for each item
-        cached_filler_items = {item["Name"]: FillerItemData(item) for item in goody_huts}
+    goody_huts: List[Dict[str, str]] = get_goody_hut_rewards_data()
+    # Create a FillerItemData object for each item
+    cached_filler_items = {item["Name"]: FillerItemData(item) for item in goody_huts}
 
     return cached_filler_items
 
@@ -125,9 +117,11 @@ class CivVIItem(Item):
         self.civ_vi_id = item.civ_vi_id
         self.item_type = item.item_type
 
+
 def format_item_name(name: str) -> str:
     name_parts = name.split("_")
     return " ".join([part.capitalize() for part in name_parts])
+
 
 def get_item_by_civ_name(item_name: typing.List[str], item_table: typing.Dict[str, 'CivVIItemData']) -> 'CivVIItemData':
     """Gets the names of the items in the item_table"""
@@ -137,18 +131,14 @@ def get_item_by_civ_name(item_name: typing.List[str], item_table: typing.Dict[st
 
     raise Exception(f"Item {item_name} not found in item_table")
 
+
 def generate_item_table() -> Dict[str, CivVIItemData]:
 
     # Generate Techs
-    existing_tech_path = os.path.join('data', 'existing_tech.json')
+    existing_techs = get_existing_techs_data()
 
-    existing_techs = json.loads(pkgutil.get_data(
-        __name__, existing_tech_path).decode())
-
-    file_path = os.path.join('data', 'era_required_items.json')
     required_items: List[str] = []
-    era_required_items = json.loads(
-        pkgutil.get_data(__name__, file_path).decode())
+    era_required_items = get_era_required_items_data()
 
     for key, value in era_required_items.items():
         required_items += value
@@ -176,11 +166,9 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
         tech_id_base += 1
 
     # Generate Civics
-    existing_civics_path = os.path.join('data', 'existing_civics.json')
     civic_id_base = 0
 
-    existing_civics = json.loads(
-        pkgutil.get_data(__name__, existing_civics_path).decode())
+    existing_civics = get_existing_civics_data()
 
     for civic in existing_civics:
         name = civic["Name"]

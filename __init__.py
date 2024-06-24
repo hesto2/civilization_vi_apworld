@@ -3,13 +3,14 @@ import random
 from typing import Dict
 import typing
 
+from .Data import get_boosts_data
+
 from .Rules import create_boost_rules
 import Utils
-from worlds.generic.Rules import set_rule
 from .Container import CivVIContainer, generate_goody_hut_sql, generate_new_items, generate_setup_file, generate_update_boosts_sql
 from .Enum import CivVICheckType
 from .Items import BOOSTSANITY_PROGRESSION_ITEMS, FILLER_DISTRIBUTION, CivVIItemData, FillerItemRarity, generate_item_table, CivVIItem, get_random_filler_by_rarity
-from .Locations import CivVILocation, CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table, get_boost_data
+from .Locations import CivVILocation, CivVILocationData, EraType, generate_era_location_table, generate_flat_location_table
 from .Options import CivVIOptions
 from .Regions import create_regions
 from BaseClasses import Item, ItemClassification, MultiWorld, Tutorial
@@ -74,6 +75,9 @@ class CivVIWorld(World):
             for _item_name, location in locations.items():
                 self.location_table[location.name] = location
 
+    def get_filler_item_name(self):
+      return get_random_filler_by_rarity(FillerItemRarity.COMMON, self.item_table).name
+
     def create_regions(self):
         create_regions(self, self.options, self.player)
 
@@ -85,7 +89,7 @@ class CivVIWorld(World):
         item: CivVIItemData = self.item_table[name]
         classification = item.classification
         if self.options.boostsanity.value:
-            if name in BOOSTSANITY_PROGRESSION_ITEMS:
+            if item.civ_name in BOOSTSANITY_PROGRESSION_ITEMS:
                 classification = ItemClassification.progression
 
         return CivVIItem(item, self.player, classification)
@@ -128,7 +132,7 @@ class CivVIWorld(World):
             num_filler_items += 10
 
         if self.options.boostsanity.value:
-            boost_data = get_boost_data()
+            boost_data = get_boosts_data()
             num_filler_items += len(boost_data)
 
         filler_count = {rarity: FILLER_DISTRIBUTION[rarity] * num_filler_items for rarity in FillerItemRarity}

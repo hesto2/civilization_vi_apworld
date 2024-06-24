@@ -1,4 +1,8 @@
+from dataclasses import dataclass
 import json
+import os
+import pkgutil
+from typing import List
 
 
 _cache = {}
@@ -7,13 +11,36 @@ _cache = {}
 def _get_data(key: str):
     global _cache
     if key not in _cache:
-        with open(f"worlds/civ_6/data/{key}.json") as f:
-            _cache[key] = json.load(f)
+        path = os.path.join("data", f"{key}.json")
+        _cache[key] = json.loads(
+            pkgutil.get_data(__name__, path).decode())
     return _cache[key]
 
 
 def get_boosts_data():
     return _get_data("boosts")
+@dataclass
+class CivVIBoostData():
+    Type: str
+    EraType: str
+    Prereq: List[str]
+    PrereqRequiredCount: int
+    Classification: str
+
+
+def get_boosts_data() -> List[CivVIBoostData]:
+    boosts_json = _get_data("boosts")
+    boosts = []
+    for boost in boosts_json:
+        boosts.append(CivVIBoostData(
+            Type=boost['Type'],
+            EraType=boost['EraType'],
+            Prereq=boost['Prereq'],
+            PrereqRequiredCount=boost['PrereqRequiredCount'],
+            Classification=boost['Classification']
+        ))
+
+    return boosts
 
 
 def get_era_required_items_data():

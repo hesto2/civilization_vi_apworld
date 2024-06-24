@@ -166,7 +166,7 @@
     "Type": "BOOST_TECH_CASTLES",
     "EraType": "ERA_MEDIEVAL",
     "Prereq": [
-      "CIVIC_DIVINE",
+      "CIVIC_DIVINE_RIGHT",
       "CIVIC_EXPLORATION",
       "CIVIC_REFORMED_CHURCH",
       "CIVIC_SUFFRAGE",

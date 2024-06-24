@@ -54,7 +54,7 @@ class PreHintItems(Choice):
     option_progression_items = "Progression Tree Locations"
     option_no_junk = "No Junk"
     option_none = "None"
-    default = "progression"
+    default = "progression_items"
 
 
 class DeathLinkEffect(Choice):

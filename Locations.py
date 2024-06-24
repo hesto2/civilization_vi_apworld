@@ -1,11 +1,8 @@
 from dataclasses import dataclass
-import os
-import pkgutil
 from typing import Any, List, Optional, Dict
 from BaseClasses import Location, LocationProgressType, Region
-import json
 
-from .Items import generate_item_table
+from .Data import get_boosts_data, get_new_civic_prereqs_data, get_new_civics_data, get_new_tech_prereqs_data, get_new_techs_data
 
 from .Enum import CivVICheckType, EraType
 
@@ -119,36 +116,12 @@ class CivVILocation(Location):
             self.progress_type = LocationProgressType.DEFAULT
 
         if self.location_type == CivVICheckType.BOOST:
-            boost_data_list = get_boost_data()
+            boost_data_list = get_boosts_data()
             boost_data = next((boost for boost in boost_data_list if boost.Type == name), None)
             if boost_data and boost_data.Classification == "EXCLUDED":
                 self.progress_type = LocationProgressType.EXCLUDED
 
 
-@dataclass
-class CivVIBoostData():
-    Type: str
-    EraType: str
-    Prereq: List[str]
-    PrereqRequiredCount: int
-    Classification: str
-
-
-def get_boost_data() -> List[CivVIBoostData]:
-    boosts_path = os.path.join('data', 'boosts.json')
-    boosts_json = json.loads(pkgutil.get_data(
-        __name__, boosts_path).decode())
-    boosts = []
-    for boost in boosts_json:
-        boosts.append(CivVIBoostData(
-            Type=boost['Type'],
-            EraType=boost['EraType'],
-            Prereq=boost['Prereq'],
-            PrereqRequiredCount=boost['PrereqRequiredCount'],
-            Classification=boost['Classification']
-        ))
-
-    return boosts
 
 
 def generate_flat_location_table() -> Dict[str, CivVILocationData]:
@@ -181,15 +154,9 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
       ...
     }
     """
-    new_tech_prereq_path = os.path.join('data', 'new_tech_prereqs.json')
-    new_tech_prereqs = json.loads(
-        pkgutil.get_data(__name__, new_tech_prereq_path).decode())
+    new_tech_prereqs = get_new_tech_prereqs_data()
 
-    new_tech_path = os.path.join('data', 'new_tech.json')
-
-    new_techs = json.loads(pkgutil.get_data(
-        __name__, new_tech_path).decode())
-
+    new_techs = get_new_techs_data()
     era_locations = {}
     id_base = 0
 # Techs
@@ -205,14 +172,8 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
             data["Type"], data['Cost'], data['UITreeRow'], id_base, era_type, CivVICheckType.TECH, prereq_data)
         id_base += 1
 # Civics
-    new_civic_prereq_path = os.path.join('data', 'new_civic_prereqs.json')
-    new_civic_prereqs = json.loads(
-        pkgutil.get_data(__name__, new_civic_prereq_path).decode())
-
-    new_civic_path = os.path.join('data', 'new_civics.json')
-
-    new_civics = json.loads(pkgutil.get_data(
-        __name__, new_civic_path).decode())
+    new_civic_prereqs = get_new_civic_prereqs_data()
+    new_civics = get_new_civics_data()
 
     for data in new_civics:
         era_type = data['EraType']
@@ -241,7 +202,7 @@ def generate_era_location_table() -> Dict[EraType, Dict[str, CivVILocationData]]
             "GOODY_HUT_" + str(i+1), 0, 0, id_base, EraType.ERA_ANCIENT, CivVICheckType.GOODY)
         id_base += 1
 # Boosts
-    boosts = get_boost_data()
+    boosts = get_boosts_data()
     for boost in boosts:
         location = CivVILocationData(
             boost.Type, 0, 0, id_base, boost.EraType, CivVICheckType.BOOST, pre_reqs=boost.Prereq)

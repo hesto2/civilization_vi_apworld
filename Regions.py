@@ -1,13 +1,11 @@
-import pkgutil
 import typing
 from BaseClasses import CollectionState, LocationProgressType, Region
+from .Data import get_era_required_items_data, get_progressive_districts_data
 from .Items import format_item_name, get_item_by_civ_name
 from .Enum import CivVICheckType, EraType
 from .Locations import CivVILocation
 from .ProgressiveDistricts import get_flat_progressive_districts
 from .Options import CivVIOptions
-import json
-import os
 
 if typing.TYPE_CHECKING:
     from . import CivVIWorld
@@ -17,9 +15,7 @@ if typing.TYPE_CHECKING:
 def get_required_items_for_era(era: EraType):
     """Gets the specific techs/civics that are required for the specified era"""
     era_required_items = {}
-    file_path = os.path.join('data', 'era_required_items.json')
-    era_required_items = json.loads(
-        pkgutil.get_data(__name__, file_path).decode())
+    era_required_items = get_era_required_items_data()
     return era_required_items[era.value]
 
 
@@ -27,9 +23,7 @@ def get_cumulative_prereqs_for_era(end_era: EraType, exclude_progressive_items: 
     """Gets the specific techs/civics that are required for the specified era as well as all previous eras"""
     cumulative_prereqs = []
     era_required_items = {}
-    file_path = os.path.join('data', 'era_required_items.json')
-    era_required_items = json.loads(
-        pkgutil.get_data(__name__, file_path).decode())
+    era_required_items = get_era_required_items_data()
 
     for era in EraType:
         cumulative_prereqs += era_required_items[era.value]
@@ -52,9 +46,7 @@ def get_cumulative_prereqs_for_era(end_era: EraType, exclude_progressive_items: 
 
 def has_required_progressive_districts(state: CollectionState, era: EraType, player: int):
     """ If player has progressive items enabled, it will count how many progressive techs it should have, otherwise return the default array"""
-    file_path = os.path.join('data', 'progressive_districts.json')
-    progressive_districts = json.loads(
-        pkgutil.get_data(__name__, file_path).decode())
+    progressive_districts = get_progressive_districts_data()
 
     item_table = state.multiworld.worlds[player].item_table
     # Verify we can still reach non progressive items
@@ -97,10 +89,8 @@ def has_required_items(state: CollectionState, era: EraType, player: int, has_pr
     if has_progressive_districts:
         required_items = has_required_progressive_districts(state, era, player)
     else:
-        file_path = os.path.join('data', 'era_required_items.json')
-        era_required_items = json.loads(
-            pkgutil.get_data(__name__, file_path).decode())
-        required_items = state.has_all(era_required_items[era.value], player)
+        era_required_items = [get_item_by_civ_name(item, state.multiworld.worlds[player].item_table).name for item in get_era_required_items_data()[era.value]]
+        required_items = state.has_all(era_required_items, player)
 
     if has_progressive_eras:
         required_eras = has_required_progressive_eras(state, era, player)

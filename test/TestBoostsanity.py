@@ -1,8 +1,10 @@
-from ..Locations import get_boost_data
+from Fill import distribute_items_restrictive
+from ..Data import get_boosts_data
 from . import CivVITestBase
 
 
 class TestBoostsanityIncluded(CivVITestBase):
+    auto_construct = False
     options = {
         "progressive_eras": "true",
         "death_link": "true",
@@ -14,17 +16,19 @@ class TestBoostsanityIncluded(CivVITestBase):
     }
 
     def test_boosts_get_included(self) -> None:
-        self.test_fill()
+        self.world_setup()
+        distribute_items_restrictive(self.multiworld)
         locations = self.multiworld.get_locations(self.player)
         found_locations = 0
         for location in locations:
             if "BOOST" in location.name != -1:
                 found_locations += 1
-        num_boost_locations = len(get_boost_data())
+        num_boost_locations = len(get_boosts_data())
         self.assertEqual(found_locations, num_boost_locations)
 
 
 class TestBoostsanityExcluded(CivVITestBase):
+    auto_construct = False
     options = {
         "progressive_eras": "true",
         "death_link": "true",
@@ -36,7 +40,8 @@ class TestBoostsanityExcluded(CivVITestBase):
     }
 
     def test_boosts_are_not_included(self) -> None:
-        self.test_fill()
+        self.world_setup()
+        distribute_items_restrictive(self.multiworld)
         locations = self.multiworld.get_locations(self.player)
         found_locations = 0
         for location in locations:
