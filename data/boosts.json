@@ -595,8 +595,8 @@
   {
     "Type": "BOOST_CIVIC_EARLY_EMPIRE",
     "EraType": "ERA_ANCIENT",
-    "Prereq": ["TECH_EDUCATION"],
-    "PrereqRequiredCount": 1,
+    "Prereq": [],
+    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   },
   {
