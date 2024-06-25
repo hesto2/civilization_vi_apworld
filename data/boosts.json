@@ -377,9 +377,8 @@
     "Type": "BOOST_TECH_COMBINED_ARMS",
     "EraType": "ERA_ATOMIC",
     "Prereq": [
-      "TECH_BRONZE_WORKING",
-      "TECH_MILITARY_SCIENCE",
-      "CIVIC_MOBILIZATION"
+      "CIVIC_MOBILIZATION",
+      "CIVIC_NATIONALISM"
     ],
     "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
