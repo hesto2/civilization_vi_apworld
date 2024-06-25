@@ -842,7 +842,7 @@
   {
     "Type": "BOOST_CIVIC_SUFFRAGE",
     "EraType": "ERA_MODERN",
-    "Prereq": ["CIVIC_URBANIZATION", "TECH_SANITATION"],
+    "Prereq": ["TECH_SANITATION"],
     "PrereqRequiredCount": 2,
     "Classification": "DEFAULT"
   },
@@ -918,45 +918,6 @@
     "EraType": "ERA_INFORMATION",
     "Prereq": ["TECH_SATELLITES"],
     "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_CORPORATE_LIBERTARIANISM",
-    "EraType": "ERA_INFORMATION",
-    "Prereq": ["TECH_MINING", "TECH_COMBINED_ARMS"],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_DIGITAL_DEMOCRACY",
-    "EraType": "ERA_INFORMATION",
-    "Prereq": ["CIVIC_COLD_WAR"],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_SYNTHETIC_TECHNOCRACY",
-    "EraType": "ERA_INFORMATION",
-    "Prereq": ["TECH_ROBOTICS"],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_NEAR_FUTURE_GOVERNANCE",
-    "EraType": "ERA_INFORMATION",
-    "Prereq": [
-      "CIVIC_SYNTHETIC_TECHNOCRACY",
-      "CIVIC_CORPORATE_LIBERTARIANISM",
-      "CIVIC_DIGITAL_DEMOCRACY"
-    ],
-    "PrereqRequiredCount": 1,
-    "Classification": "DEFAULT"
-  },
-  {
-    "Type": "BOOST_CIVIC_GLOBAL_WARMING_MITIGATION",
-    "EraType": "ERA_FUTURE",
-    "Prereq": [],
-    "PrereqRequiredCount": 0,
     "Classification": "DEFAULT"
   }
 ]
