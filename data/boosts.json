@@ -781,7 +781,7 @@
     "EraType": "ERA_INDUSTRIAL",
     "Prereq": ["CIVIC_HUMANISM", "CIVIC_DRAMA_POETRY"],
     "PrereqRequiredCount": 2,
-    "Classification": ""
+    "Classification": "DEFAULT"
   },
   {
     "Type": "BOOST_CIVIC_NATURAL_HISTORY",
