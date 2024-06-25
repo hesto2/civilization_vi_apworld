@@ -51,15 +51,15 @@ BOOSTSANITY_PROGRESSION_ITEMS = [
 
 
 class FillerItemRarity(Enum):
-    COMMON = "RARE"
+    COMMON = "COMMON"
     UNCOMMON = "UNCOMMON"
-    RARE = "COMMON"
+    RARE = "RARE"
 
 
 FILLER_DISTRIBUTION: Dict[FillerItemRarity, float] = {
-    FillerItemRarity.RARE: 0.1,
+    FillerItemRarity.RARE: 0.025,
     FillerItemRarity.UNCOMMON: .2,
-    FillerItemRarity.COMMON: 0.7,
+    FillerItemRarity.COMMON: 0.775,
 }
 
 

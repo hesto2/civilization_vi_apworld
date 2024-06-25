@@ -76,7 +76,7 @@ class CivVIWorld(World):
                 self.location_table[location.name] = location
 
     def get_filler_item_name(self):
-      return get_random_filler_by_rarity(FillerItemRarity.COMMON, self.item_table).name
+        return get_random_filler_by_rarity(FillerItemRarity.COMMON, self.item_table).name
 
     def create_regions(self):
         create_regions(self, self.options, self.player)
@@ -135,12 +135,12 @@ class CivVIWorld(World):
             boost_data = get_boosts_data()
             num_filler_items += len(boost_data)
 
-        filler_count = {rarity: FILLER_DISTRIBUTION[rarity] * num_filler_items for rarity in FillerItemRarity}
-
+        filler_count = {rarity: FILLER_DISTRIBUTION[rarity] * num_filler_items for rarity in FillerItemRarity.__reversed__()}
+        min_count = 1
         # Add filler items by rarity
         total_created = 0
         for rarity, count in filler_count.items():
-            for _ in range(round(count)):
+            for _ in range(max(min_count, round(count))):
                 if total_created >= num_filler_items:
                     break
                 self.multiworld.itempool += [self.create_item(
