@@ -39,7 +39,6 @@ PRIORITY_LOCATIONS = [
 ]
 
 # Locs that should not have progression items (future techs/civics)
-# Disabled for now since we don't have junk/filler items to put here in single world games
 EXCLUDED_LOCATIONS = [
     "GOODY_HUT_1",
     "GOODY_HUT_2",
@@ -51,21 +50,6 @@ EXCLUDED_LOCATIONS = [
     "GOODY_HUT_8",
     "GOODY_HUT_9",
     "GOODY_HUT_10",
-    # "TECH_FUTURE_69",
-    # "TECH_FUTURE_70",
-    # "TECH_FUTURE_71",
-    # "TECH_FUTURE_72",
-    # "TECH_FUTURE_73",
-    # "TECH_FUTURE_74",
-    # "TECH_FUTURE_75",
-    # "TECH_FUTURE_76",
-
-    # "CIVIC_FUTURE_50",
-    # "CIVIC_FUTURE_56",
-    # "CIVIC_FUTURE_57",
-    # "CIVIC_FUTURE_58",
-    # "CIVIC_FUTURE_59",
-    # "CIVIC_FUTURE_60",
 ]
 
 

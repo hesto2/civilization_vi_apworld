@@ -137,7 +137,7 @@ def _generate_tech_items(id_base: int, required_items: List[str], progressive_it
     existing_techs = get_existing_techs_data()
     tech_table = {}
 
-    tech_id_base = 0
+    tech_id = 0
     for tech in existing_techs:
         classification = ItemClassification.useful
         name = tech["Name"]
@@ -150,15 +150,23 @@ def _generate_tech_items(id_base: int, required_items: List[str], progressive_it
             progression_name = format_item_name(progressive_items[civ_name])
 
         tech_table[name] = CivVIItemData(
-            name, tech_id_base, tech["Cost"], check_type, id_base, classification, progression_name, civ_name=civ_name)
+            name=name,
+            civ_vi_id=tech_id,
+            cost=tech["Cost"],
+            item_type=check_type,
+            id_offset=id_base,
+            classification=classification,
+            progression_name=progression_name,
+            civ_name=civ_name
+        )
 
-        tech_id_base += 1
+        tech_id += 1
 
     return tech_table
 
 
 def _generate_civics_items(id_base: int, required_items: List[str], progressive_items: Dict[str, str]) -> List[CivVIItemData]:
-    civic_id_base = 0
+    civic_id = 0
     civic_table = {}
     existing_civics = get_existing_civics_data()
 
@@ -176,9 +184,17 @@ def _generate_civics_items(id_base: int, required_items: List[str], progressive_
             classification = ItemClassification.progression
 
         civic_table[name] = CivVIItemData(
-            name, civic_id_base, civic["Cost"], check_type, id_base, classification, progression_name, civ_name=civ_name)
+            name=name,
+            civ_vi_id=civic_id,
+            cost=civic["Cost"],
+            item_type=check_type,
+            id_offset=id_base,
+            classification=classification,
+            progression_name=progression_name,
+            civ_name=civ_name
+        )
 
-        civic_id_base += 1
+        civic_id += 1
 
     return civic_table
 
@@ -193,7 +209,15 @@ def _generate_progressive_district_items(id_base: int) -> List[CivVIItemData]:
             progression = ItemClassification.useful
         name = format_item_name(item_name)
         progressive_table[name] = CivVIItemData(
-            name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, id_base, progression, None, civ_name=item_name)
+            name=name,
+            civ_vi_id=progressive_id_base,
+            cost=0,
+            item_type=CivVICheckType.PROGRESSIVE_DISTRICT,
+            id_offset=id_base,
+            classification=progression,
+            progression_name=None,
+            civ_name=item_name
+        )
         progressive_id_base += 1
     return progressive_table
 
@@ -203,7 +227,16 @@ def _generate_progressive_era_items(id_base: int) -> List[CivVIItemData]:
     era_table = {}
     # Generate progressive eras
     progressive_era_name = format_item_name("PROGRESSIVE_ERA")
-    era_table[progressive_era_name] = CivVIItemData(progressive_era_name, 0, 0, CivVICheckType.ERA, id_base, ItemClassification.progression, None, civ_name="PROGRESSIVE_ERA")
+    era_table[progressive_era_name] = CivVIItemData(
+        name=progressive_era_name,
+        civ_vi_id=0,
+        cost=0,
+        item_type=CivVICheckType.ERA,
+        id_offset=id_base,
+        classification=ItemClassification.progression,
+        progression_name=None,
+        civ_name="PROGRESSIVE_ERA"
+    )
     return era_table
 
 
@@ -213,7 +246,16 @@ def _generate_goody_hut_items(id_base: int) -> List[CivVIItemData]:
     goody_table = {}
     goody_base = 0
     for value in goody_huts.values():
-        goody_table[value.name] = CivVIItemData(value.name, goody_base, 0, CivVICheckType.GOODY, id_base, ItemClassification.filler, None, civ_name=value.civ_name)
+        goody_table[value.name] = CivVIItemData(
+            name=value.name,
+            civ_vi_id=goody_base,
+            cost=0,
+            item_type=CivVICheckType.GOODY,
+            id_offset=id_base,
+            classification=ItemClassification.filler,
+            progression_name=None,
+            civ_name=value.civ_name
+        )
         goody_base += 1
     return goody_table
 
