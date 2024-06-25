@@ -77,9 +77,15 @@ class TestFillerItemsIncludedByRarity(CivVITestBase):
                 rarity_counts[rarity] += 1
                 total_filler_items += 1
 
-        for rarity, percent in FILLER_DISTRIBUTION.items():
-            expected = round(total_filler_items * percent)
+        expected_counts = {
+            FillerItemRarity.COMMON: 106,
+            FillerItemRarity.UNCOMMON: 27,
+            FillerItemRarity.RARE: 3,
+        }
+
+        for rarity, expected in expected_counts.items():
             self.assertEqual(rarity_counts[rarity], expected, f"Expected {expected} {rarity} items, found {rarity_counts[rarity]}")
+
 
 
 class TestFillerItemsIncludedByRarityWithoutBoostsanity(CivVITestBase):
@@ -109,6 +115,11 @@ class TestFillerItemsIncludedByRarityWithoutBoostsanity(CivVITestBase):
                 rarity_counts[rarity] += 1
                 total_filler_items += 1
 
-        for rarity, percent in FILLER_DISTRIBUTION.items():
-            expected = round(total_filler_items * percent)
+        expected_counts = {
+            FillerItemRarity.COMMON: 7,
+            FillerItemRarity.UNCOMMON: 2,
+            FillerItemRarity.RARE: 1,
+        }
+
+        for rarity, expected in expected_counts.items():
             self.assertEqual(rarity_counts[rarity], expected, f"Expected {expected} {rarity} items, found {rarity_counts[rarity]}")
