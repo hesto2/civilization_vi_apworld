@@ -132,22 +132,11 @@ def get_item_by_civ_name(item_name: typing.List[str], item_table: typing.Dict[st
     raise Exception(f"Item {item_name} not found in item_table")
 
 
-def generate_item_table() -> Dict[str, CivVIItemData]:
-
+def _generate_tech_items(id_base: int, required_items: List[str], progressive_items: Dict[str, str]) -> List[CivVIItemData]:
     # Generate Techs
     existing_techs = get_existing_techs_data()
+    tech_table = {}
 
-    required_items: List[str] = []
-    era_required_items = get_era_required_items_data()
-
-    for key, value in era_required_items.items():
-        required_items += value
-
-    progresive_items = get_flat_progressive_districts()
-
-    item_table = {}
-
-    # Used to offset the CivVIItemData code so tech's and civics don't overlap ids
     tech_id_base = 0
     for tech in existing_techs:
         classification = ItemClassification.useful
@@ -157,17 +146,20 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
             classification = ItemClassification.progression
         progression_name = None
         check_type = CivVICheckType.TECH
-        if civ_name in progresive_items.keys():
-            progression_name = format_item_name(progresive_items[civ_name])
+        if civ_name in progressive_items.keys():
+            progression_name = format_item_name(progressive_items[civ_name])
 
-        item_table[name] = CivVIItemData(
-            name, tech_id_base, tech["Cost"], check_type, 0, classification, progression_name, civ_name=civ_name)
+        tech_table[name] = CivVIItemData(
+            name, tech_id_base, tech["Cost"], check_type, id_base, classification, progression_name, civ_name=civ_name)
 
         tech_id_base += 1
 
-    # Generate Civics
-    civic_id_base = 0
+    return tech_table
 
+
+def _generate_civics_items(id_base: int, required_items: List[str], progressive_items: Dict[str, str]) -> List[CivVIItemData]:
+    civic_id_base = 0
+    civic_table = {}
     existing_civics = get_existing_civics_data()
 
     for civic in existing_civics:
@@ -176,40 +168,74 @@ def generate_item_table() -> Dict[str, CivVIItemData]:
         progression_name = None
         check_type = CivVICheckType.CIVIC
 
-        if civ_name in progresive_items.keys():
-            progression_name = format_item_name(progresive_items[civ_name])
+        if civ_name in progressive_items.keys():
+            progression_name = format_item_name(progressive_items[civ_name])
 
         classification = ItemClassification.useful
         if civ_name in required_items:
             classification = ItemClassification.progression
 
-        item_table[name] = CivVIItemData(
-            name, civic_id_base, civic["Cost"], check_type, tech_id_base, classification, progression_name, civ_name=civ_name)
+        civic_table[name] = CivVIItemData(
+            name, civic_id_base, civic["Cost"], check_type, id_base, classification, progression_name, civ_name=civ_name)
 
         civic_id_base += 1
 
-    # Generate Progressive Districts
+    return civic_table
+
+
+def _generate_progressive_district_items(id_base: int) -> List[CivVIItemData]:
+    progressive_table = {}
     progressive_id_base = 0
-    progresive_items = get_progressive_districts_data()
-    for item_name in progresive_items.keys():
+    progressive_items = get_progressive_districts_data()
+    for item_name in progressive_items.keys():
         progression = ItemClassification.progression
         if item_name in NON_PROGRESSION_DISTRICTS:
             progression = ItemClassification.useful
         name = format_item_name(item_name)
-        item_table[name] = CivVIItemData(
-            name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, civic_id_base + tech_id_base, progression, None, civ_name=item_name)
+        progressive_table[name] = CivVIItemData(
+            name, progressive_id_base, 0, CivVICheckType.PROGRESSIVE_DISTRICT, id_base, progression, None, civ_name=item_name)
         progressive_id_base += 1
+    return progressive_table
 
+
+def _generate_progressive_era_items(id_base: int) -> List[CivVIItemData]:
+    """Generates the single progressive district item"""
+    era_table = {}
     # Generate progressive eras
     progressive_era_name = format_item_name("PROGRESSIVE_ERA")
-    item_table[progressive_era_name] = CivVIItemData(progressive_era_name, progressive_id_base, 0, CivVICheckType.ERA, civic_id_base + tech_id_base, ItemClassification.progression, None, civ_name="PROGRESSIVE_ERA")
-    progressive_id_base += 1
+    era_table[progressive_era_name] = CivVIItemData(progressive_era_name, 0, 0, CivVICheckType.ERA, id_base, ItemClassification.progression, None, civ_name="PROGRESSIVE_ERA")
+    return era_table
 
+
+def _generate_goody_hut_items(id_base: int) -> List[CivVIItemData]:
     # Generate goody hut items
     goody_huts = get_filler_item_data()
+    goody_table = {}
+    goody_base = 0
     for value in goody_huts.values():
-        item_table[value.name] = CivVIItemData(value.name, progressive_id_base, 0, CivVICheckType.GOODY, civic_id_base + tech_id_base, ItemClassification.filler, None, civ_name=value.civ_name)
-        progressive_id_base += 1
+        goody_table[value.name] = CivVIItemData(value.name, goody_base, 0, CivVICheckType.GOODY, id_base, ItemClassification.filler, None, civ_name=value.civ_name)
+        goody_base += 1
+    return goody_table
+
+
+def generate_item_table() -> Dict[str, CivVIItemData]:
+    era_required_items = get_era_required_items_data()
+    required_items: List[str] = []
+    for key, value in era_required_items.items():
+        required_items += value
+
+    progressive_items = get_flat_progressive_districts()
+
+    item_table = {}
+
+    def get_id_base():
+        return len(item_table.keys())
+
+    item_table = {**item_table, **_generate_tech_items(get_id_base(), required_items, progressive_items)}
+    item_table = {**item_table, **_generate_civics_items(get_id_base(), required_items, progressive_items)}
+    item_table = {**item_table, **_generate_progressive_district_items(get_id_base())}
+    item_table = {**item_table, **_generate_progressive_era_items(get_id_base())}
+    item_table = {**item_table, **_generate_goody_hut_items(get_id_base())}
 
     return item_table
 
