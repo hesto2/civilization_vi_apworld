@@ -57,6 +57,16 @@ class PreHintItems(Choice):
     default = "progression_items"
 
 
+class HideLocationItems(Toggle):
+    """Each Tech and Civic Location will have a title of 'Unrevealed' until its prereqs have been researched. Note that hints will still be pre collected if that option is enabled."""
+    default = False
+
+
+class InGameFlagProgressionItems(DefaultOnToggle):
+    """If enabled, an advisor icon will be added to any location that contains a progression item"""
+    default = True
+
+
 class DeathLinkEffect(Choice):
     """What happens when a unit dies. Default is Unit Killed.\n
     Faith, and Gold will be decreased by the amount specified in 'Death Link Effect Percent'. \n
@@ -88,6 +98,8 @@ class CivVIOptions(PerGameCommonOptions):
     exlcude_missable_boosts: ExcludeMissableBoosts
     research_cost_multiplier: ResearchCostMultiplier
     pre_hint_items: PreHintItems
+    hide_location_items: HideLocationItems
+    advisor_show_progression_items: InGameFlagProgressionItems
     death_link_effect: DeathLinkEffect
     death_link_effect_percent: DeathLinkEffectPercent
     death_link: DeathLink

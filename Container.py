@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import os
-from typing import List
+from typing import TYPE_CHECKING, List
 import zipfile
 from BaseClasses import ItemClassification
 from worlds.Files import APContainer
@@ -8,6 +8,9 @@ from worlds.Files import APContainer
 from .Enum import CivVICheckType
 from .Locations import CivVILocation, CivVILocationData
 from .Options import CivVIOptions
+
+if TYPE_CHECKING:
+    from worlds.civ_6 import CivVIWorld
 
 
 # Python fstrings don't allow backslashes, so we use this workaround
@@ -61,7 +64,7 @@ def get_formatted_player_name(world, player) -> str:
         return "Your"
 
 
-def generate_new_items(world) -> str:
+def generate_new_items(world: 'CivVIWorld') -> str:
     """
     Generates the XML for the new techs/civics as well as the blockers used to prevent players from researching their own items
     """
@@ -74,11 +77,18 @@ def generate_new_items(world) -> str:
 
     boost_techs = []
     boost_civics = []
+
+    hidden_techs = []
+    hidden_civics = []
     if world.options.boostsanity.value:
         boost_techs = [location for location in locations if location.location_type == CivVICheckType.BOOST and location.name.split("_")[1] == "TECH"]
         boost_civics = [location for location in locations if location.location_type == CivVICheckType.BOOST and location.name.split("_")[1] == "CIVIC"]
         techs += boost_techs
         civics += boost_civics
+
+    if world.options.hide_location_items.value:
+        hidden_techs = [tech.name for tech in techs]
+        hidden_civics = [civic.name for civic in civics]
 
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <GameInfo>
@@ -122,6 +132,15 @@ def generate_new_items(world) -> str:
   <CivicPrereqs>
   {"".join([f'{tab}<Row Civic="{location.name}" PrereqCivic="CIVIC_BLOCKER" />{nl}' for location in boost_civics])}
   </CivicPrereqs>
+
+  <Civics_XP2>
+    {"".join([f'{tab}<Row CivicType="{location}" HiddenUntilPrereqComplete="true" RandomPrereqs="false"/>{nl}' for location in hidden_civics])}
+  </Civics_XP2>
+
+  <Technologies_XP2>
+    {"".join([f'{tab}<Row TechnologyType="{location}" HiddenUntilPrereqComplete="true" RandomPrereqs="false"/>{nl}' for location in hidden_techs])}
+  </Technologies_XP2>
+
 </GameInfo>
     """
 
