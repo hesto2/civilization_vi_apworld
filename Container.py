@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import os
 from typing import TYPE_CHECKING, List
 import zipfile
-from BaseClasses import ItemClassification
+from BaseClasses import ItemClassification, Location
 from worlds.Files import APContainer
 
 from .Enum import CivVICheckType
@@ -64,6 +64,13 @@ def get_formatted_player_name(world, player) -> str:
         return "Your"
 
 
+def get_advisor_type(world: 'CivVIWorld', location: Location) -> str:
+    if world.options.advisor_show_progression_items.value and location.item.classification == ItemClassification.progression:
+        return "ADVISOR_PROGRESSIVE"
+    else:
+        return "ADVISOR_GENERIC"
+
+
 def generate_new_items(world: 'CivVIWorld') -> str:
     """
     Generates the XML for the new techs/civics as well as the blockers used to prevent players from researching their own items
@@ -86,7 +93,7 @@ def generate_new_items(world: 'CivVIWorld') -> str:
         techs += boost_techs
         civics += boost_civics
 
-    if world.options.hide_location_items.value:
+    if world.options.hide_item_names.value:
         hidden_techs = [tech.name for tech in techs]
         hidden_civics = [civic.name for civic in civics]
 
@@ -109,7 +116,7 @@ def generate_new_items(world: 'CivVIWorld') -> str:
                 f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
                 f'Cost="{get_cost(world, world.location_table[location.name])}" '
                 f'Description="{location.name}" '
-                f'AdvisorType="{"ADVISOR_PROGRESSIVE" if location.item.classification == ItemClassification.progression else "ADVISOR_GENERIC"}"'
+                f'AdvisorType="{get_advisor_type(world, location)}"'
                 f'/>{nl}'
                 for location in techs])}
   </Technologies>
@@ -125,7 +132,7 @@ def generate_new_items(world: 'CivVIWorld') -> str:
                     f'UITreeRow="{world.location_table[location.name].uiTreeRow}" '
                     f'Cost="{get_cost(world, world.location_table[location.name])}" '
                     f'Description="{location.name}" '
-                    f'AdvisorType="{"ADVISOR_PROGRESSIVE" if location.item.classification == ItemClassification.progression else "ADVISOR_GENERIC"}"'
+                    f'AdvisorType="{get_advisor_type(world, location)}"'
                     f'/>{nl}'
                     for location in civics])}
   </Civics>

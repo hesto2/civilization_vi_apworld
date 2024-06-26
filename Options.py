@@ -57,7 +57,7 @@ class PreHintItems(Choice):
     default = "progression_items"
 
 
-class HideLocationItems(Toggle):
+class HideItemNames(Toggle):
     """Each Tech and Civic Location will have a title of 'Unrevealed' until its prereqs have been researched. Note that hints will still be pre collected if that option is enabled."""
     default = False
 
@@ -98,7 +98,7 @@ class CivVIOptions(PerGameCommonOptions):
     exlcude_missable_boosts: ExcludeMissableBoosts
     research_cost_multiplier: ResearchCostMultiplier
     pre_hint_items: PreHintItems
-    hide_location_items: HideLocationItems
+    hide_item_names: HideItemNames
     advisor_show_progression_items: InGameFlagProgressionItems
     death_link_effect: DeathLinkEffect
     death_link_effect_percent: DeathLinkEffectPercent

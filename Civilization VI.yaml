@@ -35,7 +35,7 @@ Civilization VI:
   exlcude_missable_boosts: "true"
 
   # Each Tech and Civic Location will have a title of 'Unrevealed' until its prereqs have been researched. Note that hints will still be pre collected if that option is enabled.
-  hide_location_items: "false"
+  hide_item_names: "false"
 
   # If enabled, an advisor icon will be added to any location that contains a progression item
   advisor_show_progression_items: "true"
