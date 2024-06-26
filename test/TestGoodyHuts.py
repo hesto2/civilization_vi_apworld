@@ -78,8 +78,8 @@ class TestFillerItemsIncludedByRarity(CivVITestBase):
                 total_filler_items += 1
 
         expected_counts = {
-            FillerItemRarity.COMMON: 106,
-            FillerItemRarity.UNCOMMON: 27,
+            FillerItemRarity.COMMON: 102,
+            FillerItemRarity.UNCOMMON: 26,
             FillerItemRarity.RARE: 3,
         }
 
