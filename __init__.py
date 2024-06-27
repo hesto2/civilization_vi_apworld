@@ -1,3 +1,4 @@
+import math
 import os
 import random
 from typing import Dict
@@ -133,14 +134,14 @@ class CivVIWorld(World):
 
         if self.options.boostsanity.value:
             boost_data = get_boosts_data()
-            num_filler_items += len(boost_data) + 1 #TODO: Find out why this isn't creating enough locations
+            num_filler_items += len(boost_data)
 
         filler_count = {rarity: FILLER_DISTRIBUTION[rarity] * num_filler_items for rarity in FillerItemRarity.__reversed__()}
         min_count = 1
         # Add filler items by rarity
         total_created = 0
         for rarity, count in filler_count.items():
-            for _ in range(max(min_count, round(count))):
+            for _ in range(max(min_count, math.ceil(count))):
                 if total_created >= num_filler_items:
                     break
                 self.multiworld.itempool += [self.create_item(
