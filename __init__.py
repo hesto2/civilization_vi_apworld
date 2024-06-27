@@ -133,7 +133,7 @@ class CivVIWorld(World):
 
         if self.options.boostsanity.value:
             boost_data = get_boosts_data()
-            num_filler_items += len(boost_data)
+            num_filler_items += len(boost_data) + 1 #TODO: Find out why this isn't creating enough locations
 
         filler_count = {rarity: FILLER_DISTRIBUTION[rarity] * num_filler_items for rarity in FillerItemRarity.__reversed__()}
         min_count = 1

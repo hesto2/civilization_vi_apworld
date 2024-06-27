@@ -75,7 +75,7 @@ def generate_new_items(world: 'CivVIWorld') -> str:
     """
     Generates the XML for the new techs/civics as well as the blockers used to prevent players from researching their own items
     """
-    locations: List[CivVILocation] = world.multiworld.get_filled_locations(
+    locations: List[CivVILocation] = world.multiworld.get_locations(
         world.player)
     techs = [location for location in locations if location.location_type ==
              CivVICheckType.TECH]
@@ -225,7 +225,7 @@ SET TechnologyType = 'BOOST_' || TechnologyType
 WHERE TechnologyType IS NOT NULL;
 UPDATE Boosts
 SET CivicType = 'BOOST_' || CivicType
-WHERE CivicType IS NOT NULL;
+WHERE CivicType IS NOT NULL and AND CivicType NOT IN ('CIVIC_CORPORATE_LIBERATARIANISM', 'CIVIC_DIGITAL_DEMOCRACY', 'CIVIC_SYNTHETIC_TECHNOCRACY', 'CIVIC_NEAR_FUTURE_GOVERNANCE');
         """
     else:
         return "-- Boostsanity is disabled, no changes needed"
