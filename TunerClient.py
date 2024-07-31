@@ -91,10 +91,10 @@ class TunerClient:
             self.logger.debug('Timeout occurred while receiving data')
             raise TunerTimeoutException()
         except Exception as e:
-            self.logger.debug('Error occurred while receiving data')
+            self.logger.debug(f'Error occurred while receiving data: {str(e)}')
             # check if No connection could be made is present in the error message
             connection_errors = [
-              "The remote computer refused the network connection",
+                "The remote computer refused the network connection",
             ]
             if any(error in str(e) for error in connection_errors):
               raise TunerConnectionException(e)

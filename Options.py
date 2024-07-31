@@ -95,7 +95,7 @@ class CivVIOptions(PerGameCommonOptions):
     progression_style: ProgressionStyle
     shuffle_goody_hut_rewards: ShuffleGoodyHuts
     boostsanity: BoostSanity
-    exlcude_missable_boosts: ExcludeMissableBoosts
+    exclude_missable_boosts: ExcludeMissableBoosts
     research_cost_multiplier: ResearchCostMultiplier
     pre_hint_items: PreHintItems
     hide_item_names: HideItemNames

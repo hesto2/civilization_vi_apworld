@@ -32,7 +32,7 @@ Civilization VI:
   research_cost_multiplier: cheap
 
   # If boostsanity is enabled, this will prevent any boosts that are 'missable' from having progression items. Disabling this will potentially require multiple playthroughs to complete the seed.
-  exlcude_missable_boosts: "true"
+  exclude_missable_boosts: "true"
 
   # Each Tech and Civic Location will have a title of 'Unrevealed' until its prereqs have been researched. Note that hints will still be pre collected if that option is enabled.
   hide_item_names: "false"
