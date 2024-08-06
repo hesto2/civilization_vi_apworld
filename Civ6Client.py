@@ -154,7 +154,6 @@ async def tuner_sync_task(ctx: CivVIContext):
         else:
             try:
                 if ctx.processing_multiple_items == True:
-                    logger.debug("Waiting for items to finish processing")
                     await asyncio.sleep(3)
                 else:
                     state = await ctx.game_interface.is_in_game()
@@ -206,7 +205,6 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
     try:
         last_received_index = last_received_index_override or await ctx.game_interface.get_last_received_index()
         if len(ctx.items_received) - last_received_index > 1:
-            logger.debug("Multiple items received")
             ctx.processing_multiple_items = True
 
         progressive_districts: List[CivVIItemData] = []
@@ -247,8 +245,6 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
             elif item.item_type == CivVICheckType.ERA:
                 progressive_eras.append(item)
 
-        if ctx.processing_multiple_items:
-            logger.debug("DONE")
         ctx.processing_multiple_items = False
     finally:
         # If something errors out, then unblock item processing
