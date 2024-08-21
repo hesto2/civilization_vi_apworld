@@ -88,7 +88,7 @@ name and port number from the room's host.
 
 Once you do, follow these steps to connect to the room:
 
-1. Unzip the folder given to you and copy its contents (should include `NewItems.xml` an `archipelago.json`, and more) into the installed mod folder.
+1. Unzip the folder given to you and copy all of its contents (should include `NewItems.xml` an `archipelago.json`, and more) into the installed mod folder.
 2. Start `ArchipelagoLauncher.exe` and choose `Civ6 Client`, which will open the text client.
 3. Connect to the room by entering the server name and port number at the top and pressing `Connect`. For rooms hosted
    on the website, this will be `archipelago.gg:<port>`, where `<port>` is the port number. If a game is hosted from the
