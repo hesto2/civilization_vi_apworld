@@ -252,7 +252,6 @@ async def handle_receive_items(ctx: CivVIContext, last_received_index_override: 
 
 
 async def handle_check_goal_complete(ctx: CivVIContext):
-    # logger.debug("Sending Goal Complete")
     result = await ctx.game_interface.check_victory()
     if result:
         logger.info("Sending Victory to server!")
