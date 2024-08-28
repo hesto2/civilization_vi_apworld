@@ -29,7 +29,7 @@ Once you have located your `AppOptions.txt`, do a search for `Enable FireTuner`.
 
 2. Copy the folder containing the mod files to your Civ VI mods folder. On Windows, this is usually located at `C:\Users\YOUR_USER\Documents\My Games\Sid Meier's Civilization VI\Mods`
 
-3. After the Archipelago host generates a game, you should be given a `.apcivvi` file. Associate the file with the Archipelago Launcher and double click it.
+3. After the Archipelago host generates a game, you should be given a `.apcivvi` file. Associate(Open) the file with the Archipelago Launcher and double click it. It will generate a new folder in the output folder.
 
 4. Copy the contents of the new folder it generates (it will have the same name as the `.apcivvi` file) into your Civilization VI Archipelago Mod folder.
 
